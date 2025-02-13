@@ -11,6 +11,7 @@ const char* VERSION = "v0.0.1";
 
 #include "skat_game.h"
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
