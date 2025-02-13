@@ -24,78 +24,130 @@ int number_of_ties;
 int play_first_card;
 
 int main(int argc, char** argv) {
-
-    /// Next 3 lines are for initial testing
-    cout << "Player 1: " << game.player_name[0] << endl;
-    cout << "Player 2: " << game.player_name[1] << endl;
-    cout << "Player 3: " << game.player_name[2] << endl;
+    string name;
+    char c; 
+    int d;
 
     while (state != GAME_COMPLETED) {
 
         switch (state) {
             case INIT:
                 cout << "Welcome to the Skat Scoresheet!" << endl;
-                cout << "Enter number of players:" << endl;
-                /// Input integer
-                /// Eventually add code to read from config file if it exists
-                game.number_of_players = 3;  /// update 
-                cout << "Enter Player 1 name (dealer): " << endl;
-                /// Input string
-                /// Eventually add code to read from config file if it exists
-                /// strcpy(game.player_name[0], c-string); /// Should really use strncpy
+                cout << "Enter number of players (3 or 4): " << endl;
+                cin >> game.number_of_players;
+                if (game.number_of_players > 4) game.number_of_players = 4;
+                if (game.number_of_players < 3) game.number_of_players = 3;
+                cout << "Enter Player 1 name: " << endl;
+                cin >> name;
+                strncpy(game.player_name[0], name.c_str(), MAX_NAME_SIZE);
                 cout << "Enter Player 2 name: " << endl;
-                /// Input string
-                /// Eventually add code to read from config file if it exists
-                /// strcpy(game.player_name[1], c-string); /// Should really use strncpy
+                cin >> name;
+                strncpy(game.player_name[1], name.c_str(), MAX_NAME_SIZE);
                 cout << "Enter Player 3 name: " << endl;
-                /// Input string
-                /// Eventually add code to read from config file if it exists
-                /// strcpy(game.player_name[2], c-string); /// Should really use strncpy
-                if (game.number_of_players >3) {
-                    cout << "Enter Player 2 name: " << endl;
-                    /// Input string
-                    /// Eventually add code to read from config file if it exists
-                    /// strcpy(game.player_name[3], c-string); /// Should really use strncpy
+                cin >> name;
+                strncpy(game.player_name[2], name.c_str(), MAX_NAME_SIZE);
+                if (game.number_of_players > 3) {
+                    cout << "Enter Player 4 name: " << endl;
+                    cin >> name;
+                    strncpy(game.player_name[3], name.c_str(), MAX_NAME_SIZE);
                 }
-                cout << "How many hands will you be plaiying in today's game? " << endl;
-                /// Input integer
-                game.number_of_hands = 36;  /// Update with entered value
+                cout << "How many hands will you be playing in today's game (3 to 36)?" << endl;
+                cin >> game.number_of_hands;
+                if (game.number_of_hands > 36) game.number_of_hands = 36;
+                if (game.number_of_hands <  3) game.number_of_hands =  3;
+                cout << "Game will consist of " << game.number_of_players << " players named: " << endl;
+                for (int i = 0; i < game.number_of_players; i++) cout << game.player_name[i] << endl;
+                cout << "Game will end after " << game.number_of_hands << " hands." << endl;
                 state = START_GAME;
                 break;
 
-            case START_GAME:
-                /// Set up the game data structure
-                /// For now, I think that means setting all the scores in each hand to zero:
-                ///   current_hand, hand[0..number_of_hands-1].score[0..3] all zeroed
-                /// Does C++ initialze? 
+            case START_GAME:  /// This state may not be needed. The code so far could be part of INIT.
                 for (int i = 0; i < game.number_of_players; i++ ) tie_game[i] = -1;
                 number_of_ties = 0;
-///                cout << "Hand 0 scores: " << game.hand[0].score[0] << " " << game.hand[0].score[1] << " " << game.hand[0].score[2] << endl;
                 state = NEW_HAND;
                 break;
 
             case NEW_HAND:
                 cout << "Starting hand number " << game.current_hand +1 << endl;
+                /// This may not be correct for 4 player games
                 cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer." << endl;
-                /// Add who is gaben and sagen
+                cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens." << endl;
+                cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks."  << endl;
                 cout << "Enter winning bid (enter 0 for Ramsch): " << endl; 
-                game.hand[game.current_hand].bid = 22; /// Update with input value
+                cin  >> game.hand[game.current_hand].bid;
                 /// if (bid == 0), then handle Ramsch
                 /// if Ramsch, then don't need to ask about contract
-                cout << "Enter contract (C, D, H, S, G, N)" << endl; 
-                game.hand[game.current_hand].contract = game.SPADES;  /// Update with input value 
-                /// If not Ramsch 
-                cout << "Who won the bid? " << endl; /// Need some logic to make it easy to enter bidder: print name and then the index, just ask for index?
-                game.hand[game.current_hand].bidder = (game.current_hand % game.number_of_players);
-                cout << "Will it be played Hand? " << endl; /// game.hand[current_hand].multipliers = HAND
-                /// If hand, then can play open. 
-                /// If open, the automatic announce Schneider and Schwarz
-                /// If hand but not open, then can announce Schneider or Schwarz
-                cout << "Announce Schneider? " << endl; /// logical OR the multiplier
-                cout << "Annoucne Schwarz? " << endl; /// logical OR the multipler
+                if (game.hand[game.current_hand].bid == 0) {  // RAMSCH
+                    game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
+                }
+                else {
+                    cout << "Enter contract (C, S, H, D, G, N): " << endl; 
+                    cin >> c;
+                    switch (c) {
+                        case 'c':
+                        case 'C': 
+                        case 'k': // Kreuz
+                        case 'K': 
+                          game.hand[game.current_hand].contract = Skat_Game::CLUBS;
+                          break;
+                        case 's':
+                        case 'S': 
+                        case 'p': // Pik
+                        case 'P':
+                          game.hand[game.current_hand].contract = Skat_Game::SPADES;
+                          break;
+                        case 'h': // Herz
+                        case 'H': 
+                          game.hand[game.current_hand].contract = Skat_Game::HEARTS;
+                          break;
+                        case 'd':
+                        case 'D': 
+                          game.hand[game.current_hand].contract = Skat_Game::DIAMONDS;
+                          break;
+                        case 'g':
+                        case 'G': 
+                          game.hand[game.current_hand].contract = Skat_Game::GRAND;
+                          break;
+                        case 'n':
+                        case 'N': 
+                          game.hand[game.current_hand].contract = Skat_Game::NULLL;
+                          break;
+                        default:
+                          cout << "Invalid contract. Defaulting to Clubs." << endl;
+                          game.hand[game.current_hand].contract = Skat_Game::CLUBS;
+                          break;
+                    }
+                    if (game.hand[game.current_hand].contract != Skat_Game::RAMSCH) {
+                        /// Need logic for 4-player game -- dealer should not be listed
+                        cout << "Who is the declarer? " << endl; /// Need some logic to make it easy to enter declarer: print name and then the index, just ask for index?
+                        for (int i = 0; i < game.number_of_players; i++) {
+                            cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+                        }
+                        cin >> d;
+                        if (d < 1) d = 1;
+                        if (d > game.number_of_players) d = game.number_of_players;
+                        game.hand[game.current_hand].declarer = d - 1;
+                        cout << "Will it be played Hand? " << endl; /// game.hand[current_hand].multipliers = HAND
+                        /// If hand, then can play open. 
+                        /// If open, the automatic announce Schneider and Schwarz
+                        /// If hand but not open, then can announce Schneider or Schwarz
+                        cout << "Announce Schneider? " << endl; /// logical OR the multiplier
+                        cout << "Announce Schwarz? " << endl; /// logical OR the multipler                        
+                    }
+                }
+
                 cout << "Hand summary: " << endl; /// Print out the hand summary and ask for comformation before continuing.
-                play_first_card = (game.current_hand % game.number_of_players) + 1;
-                if (play_first_card == game.number_of_players) play_first_card = 0;
+                if (game.hand[game.current_hand].contract == game.RAMSCH) {
+                    cout << "Contract is Ramsch.";
+                } else {
+                    cout << game.player_name[game.hand[game.current_hand].declarer]
+                         << " plays " << game.get_contract_name(game.hand[game.current_hand].contract);
+                    if (game.hand[game.current_hand].multipliers & game.HAND) cout << " HAND";
+                    cout << " on a bid of " << game.hand[game.current_hand].bid << endl;
+                    if (game.hand[game.current_hand].multipliers | game.SCHN_ANNC) cout << "Schneider announced." << endl;
+                    if (game.hand[game.current_hand].multipliers | game.SCHW_ANNC) cout << "Schwarz announced." << endl;
+                }
+                play_first_card = (game.current_hand + 1) % game.number_of_players;
                 cout << game.player_name[play_first_card] << " leads." << endl;
                 state = SCORE_HAND;
                 break;
@@ -114,7 +166,7 @@ int main(int argc, char** argv) {
                     cout << "Was there a Kontra? " << endl;
                     cout << " Was there a Re? " << endl;  /// Only ask if there was a Kontra
                     game.hand[game.current_hand].kontrare = game.SINGLE; /// Update per input
-                    cout << "Did " << game.player_name[game.hand[game.current_hand].bidder] << " win the hand?" << endl;
+                    cout << "Did " << game.player_name[game.hand[game.current_hand].declarer] << " win the hand?" << endl;
                     game.hand[game.current_hand].winlose = game.current_hand % 2 ? game.WIN : game.LOSE; /// Replace 
                     cout << "Was it Schneider?" << endl;
                     cout << "Was it Schwarz?" << endl;
@@ -151,15 +203,17 @@ int main(int argc, char** argv) {
                     cout << "There was a tie for first place. " << endl;
                     cout << "Players ";
                     for (int i = 0; i < game.number_of_players; i++) {
-                        if (tie_game[i] == 1) cout << game.player_name[i];
-                        if (--number_of_ties > 0) cout << " and ";
+                        if (tie_game[i] == 1) {
+                            cout << game.player_name[i];
+                            if (--number_of_ties > 0) cout << " and ";
+                        }
                     }
                     cout << " won." << endl;
                 } else {
                     cout << "Player " << game.player_name[winning_player] << " won." << endl;
                 }
                 cout << "Congratulations -- game has completed." << endl;
-                return 9;
+                state = GAME_COMPLETED;
                 break;
             
             case EDIT_GAME:

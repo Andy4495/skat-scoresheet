@@ -15,6 +15,8 @@
 
 using namespace std;
 
+const char* const Skat_Game::contract_name[]={"Clubs", "Spades", "Hearts", "Diamonds", "Null", "Grand", "Ramsch"};
+
 Skat_Game::Skat_Game( const char *  p1,  const char *  p2,  const char *  p3)
 {
    number_of_players = 3;        /// Hardcoded for initial version
@@ -28,20 +30,20 @@ Skat_Game::Skat_Game( const char *  p1,  const char *  p2,  const char *  p3)
 void Skat_Game::calculate_hand_score(int h) {
    /// Need to add a check for overbid
    if (hand[h].contract == NULLL) {
-      if (hand[h].multipliers == OPEN) hand[h].score[hand[h].bidder] = hand[h].kontrare * hand[h].winlose * 46;
-      if (hand[h].multipliers == HAND) hand[h].score[hand[h].bidder] = hand[h].kontrare * hand[h].winlose * 35;
-      if (hand[h].multipliers == (OPEN & HAND)) hand[h].score[hand[h].bidder] = hand[h].kontrare * hand[h].winlose * 59;
-      else hand[h].score[hand[h].bidder] = hand[h].kontrare * hand[h].winlose * 23;
+      if (hand[h].multipliers == OPEN) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 46;
+      if (hand[h].multipliers == HAND) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 35;
+      if (hand[h].multipliers == (OPEN | HAND)) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 59;
+      else hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 23;
+   } else {
+      if (hand[h].contract != RAMSCH) {
+         bitset<32> m(hand[h].multipliers);
+         hand[h].score[hand[h].declarer] =
+         hand[h].kontrare * hand[h].winlose * hand[h].contract * 
+         (hand[h].matadors + m.count() + 1);
+      } else { // RAMSCH
+      /// Fill in RAMSCH scoring 
+      }
    }
-   if (hand[h].contract != RAMSCH) {
-      bitset<32> m(hand[h].multipliers);
-      hand[h].score[hand[h].bidder] =
-      hand[h].kontrare * hand[h].winlose * hand[h].contract * 
-      (hand[h].matadors + m.count() + 1);
-   } else { // RAMSCH
-     /// Fill in RAMSCH scoring 
-   }
-
 }
 
 void Skat_Game::calculate_game_score() {
@@ -55,39 +57,16 @@ void Skat_Game::calculate_game_score() {
 }
 
 void Skat_Game::print_game_status() {
-   cout << "|  # | Bid | Contract | HOSAZA | " << setw(8) << player_name[0] << " | "
+   cout << "|  # | Bid | Contract | HOSAZA | KR | " << setw(8) << player_name[0] << " | "
    << setw(8) << player_name[1] << " | " << setw(8) << player_name[2]; 
    if (number_of_players == 4) cout << " | " << setw(8) << player_name[3];
    cout << " | Bock |" << endl;
-   cout << "| -- | --- | -------- | ------ | -------- | -------- | -------- | ---- |" << endl;
+   cout << "| -- | --- | -------- | ------ | -- | -------- | -------- | -------- |";
+   if (number_of_players == 4) cout << " -------- |";
+   cout << " ---- |" << endl;
    for (int i = 0; i <= current_hand; i++ ) {
       cout << "| " << setw(2) << i + 1 << " | " << setw(3) << hand[i].bid << " | ";
-      switch(hand[i].contract) {
-         case CLUBS:
-           cout << setw(8) << "Clubs"; 
-           break;
-         case SPADES:
-           cout << setw(8) << "Spades";
-           break;
-         case HEARTS: 
-           cout << setw(8) << "Hearts"; 
-           break;
-         case DIAMONDS:
-           cout << setw(8) << "Diamonds";
-           break;
-         case NULLL: 
-           cout << setw(8) << "Null";
-           break;
-         case GRAND: 
-           cout << setw(8) << "Grand";
-           break;
-         case RAMSCH:
-           cout << setw(8) << "Ramsch";
-           break;
-         default:
-           cout << "Invalid contract type.";
-           break;
-      }
+      cout << setw(8) << get_contract_name(hand[i].contract);
       cout << " | "; // Multiplers column
       if (hand[i].multipliers & HAND) cout << "H";
       else cout << " ";
@@ -99,9 +78,13 @@ void Skat_Game::print_game_status() {
       else cout << " ";
       if (hand[i].multipliers & SCHWARZ) cout << "Z";
       else cout << " ";
-      if (hand[i].multipliers & SCHWARZ_ANNC) cout << "A";
+      if (hand[i].multipliers & SCHW_ANNC) cout << "A";
       else cout << " ";
       cout << " | ";
+      // Kontra/Re column
+      if (hand[i].kontrare == RE) cout << "KR | ";
+      else if (hand[i].kontrare == KONTRA) cout << "K  | ";
+      else cout << "   | ";
       // Player score columns
       cout << setw(8) << hand[i].score[0] << " | " 
            << setw(8) << hand[i].score[1] << " | " 
@@ -112,11 +95,46 @@ void Skat_Game::print_game_status() {
       else cout << "    ";
       cout << " |" << endl;
    }
-   cout << "| -- | --- | -------- | ------ | -------- | -------- | -------- | ---- |" << endl;
-   cout << "                        Totals:  ";
+   cout << "| -- | --- | -------- | ------ | -- | -------- | -------- | -------- |";
+   if (number_of_players == 4) cout << " -------- |";
+   cout << " ---- |" << endl;
+   cout << "                              Totals: ";
    cout << setw(8) << total_score[0] << " | " 
    << setw(8) << total_score[1] << " | " 
    << setw(8) << total_score[2];
    if (number_of_players == 4) cout << " | " << setw(8) << total_score[3];
    cout << endl;
+}
+
+const char* const Skat_Game::get_contract_name(int h) {
+   int index;
+
+   switch(h) {
+      case CLUBS:
+        index = 0;
+        break;
+      case SPADES:
+        index = 1;
+        break;
+      case HEARTS: 
+        index = 2;
+        break;
+      case DIAMONDS:
+        index = 3;
+        break;
+      case NULLL: 
+        index = 4;
+        break;
+      case GRAND: 
+        index = 5;
+        break;
+      case RAMSCH:
+        index = 6;
+        break;
+      default:
+        cout << "Invalid contract type.";
+        index = 0;
+        break;
+   }
+   return(contract_name[index]);
 }

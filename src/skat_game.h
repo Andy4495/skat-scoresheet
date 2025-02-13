@@ -10,21 +10,24 @@
 #ifndef SKAT_GAME_H
 #define SKAT_GAME_H
 
+#define MAX_NAME_SIZE 8
+
 class Skat_Game {
 public:
     int     number_of_players;
-    char    player_name[4][16];
+    char    player_name[4][MAX_NAME_SIZE + 1];
     int     number_of_hands;
     int     current_hand;
     int     total_score[4];
+    static const char* const contract_name[7];
     enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1};
     enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 
-                               SCHN_ANNC = 8, SCHWARZ = 16, SCHWARZ_ANNC = 32};
+                               SCHN_ANNC = 8, SCHWARZ = 16, SCHW_ANNC = 32};
     enum    Kontra_Re {SINGLE = 1, KONTRA = 2, RE = 4};
     enum    Ramsch_Special {PLAIN, JUNGFRAU, DURCHMARSCH};
     enum    Win_Lose {LOSE = -1, WIN = 1};
     struct  {
-        int bidder;     // Index to player_names[]; -1 for Ramsch
+        int declarer;     // Index to player_names[]; -1 for Ramsch
         int bid;
         Contract_Type contract;   // Clubs, Spades, Hearts, Diamonds, Null, Grand, Ramsch
         Win_Lose winlose;
@@ -41,6 +44,7 @@ public:
     void calculate_hand_score(int hand); 
     void calculate_game_score();
     void print_game_status();
+    const char* const get_contract_name(int hand);
     
 };
 
