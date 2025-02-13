@@ -78,12 +78,15 @@ int main(int argc, char** argv) {
                 cout << "Starting hand number " << game.current_hand +1 << endl;
                 cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer." << endl;
                 /// Add who is gaben and sagen
-                cout << "Enter winning bid: " << endl; /// game.hand[current_hand].bid
+                cout << "Enter winning bid (enter 0 for Ramsch): " << endl; 
+                game.hand[game.current_hand].bid = 22; /// Update with input value
                 /// if (bid == 0), then handle Ramsch
                 /// if Ramsch, then don't need to ask about contract
-                cout << "Enter contract (C, D, H, S, G, N)" << endl; /// game.hand[current_hand].contract
+                cout << "Enter contract (C, D, H, S, G, N)" << endl; 
+                game.hand[game.current_hand].contract = game.SPADES;  /// Update with input value 
                 /// If not Ramsch 
                 cout << "Who won the bid? " << endl; /// Need some logic to make it easy to enter bidder: print name and then the index, just ask for index?
+                game.hand[game.current_hand].bidder = (game.current_hand % game.number_of_players);
                 cout << "Will it be played Hand? " << endl; /// game.hand[current_hand].multipliers = HAND
                 /// If hand, then can play open. 
                 /// If open, the automatic announce Schneider and Schwarz
@@ -106,13 +109,19 @@ int main(int argc, char** argv) {
                     /// Assume player 1 lost
                     cout << "Was there a Jungfrau?" << endl;
                 } else { // Regular hand, not Ramsch
+                    cout << "With or without how many? " << endl;
+                    game.hand[game.current_hand].matadors = game.current_hand % 5 + 1;
+                    cout << "Was there a Kontra? " << endl;
+                    cout << " Was there a Re? " << endl;  /// Only ask if there was a Kontra
+                    game.hand[game.current_hand].kontrare = game.SINGLE; /// Update per input
                     cout << "Did " << game.player_name[game.hand[game.current_hand].bidder] << " win the hand?" << endl;
-                    /// if (answer == YES) /// assume yes for now
+                    game.hand[game.current_hand].winlose = game.current_hand % 2 ? game.WIN : game.LOSE; /// Replace 
                     cout << "Was it Schneider?" << endl;
                     cout << "Was it Schwarz?" << endl;
                     /// Need a handler for player lost
                 }
 
+                game.calculate_hand_score(game.current_hand);
                 game.calculate_game_score();
                 game.print_game_status();
                 game.current_hand++;

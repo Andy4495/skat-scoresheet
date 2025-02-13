@@ -17,18 +17,20 @@ public:
     int     number_of_hands;
     int     current_hand;
     int     total_score[4];
-    enum    Contract_Type {CLUBS, SPADES, HEARTS, DIAMONDS, NULLL, GRAND, RAMSCH};
-    enum    Other_Multipliers {NO_MULTIPLIERS, HAND =1, OPEN = 2, SCHNEIDER = 4, 
+    enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1};
+    enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 
                                SCHN_ANNC = 8, SCHWARZ = 16, SCHWARZ_ANNC = 32};
-    enum    Kontra_Re {SINGLE, KONTRA, RE};
+    enum    Kontra_Re {SINGLE = 1, KONTRA = 2, RE = 4};
     enum    Ramsch_Special {PLAIN, JUNGFRAU, DURCHMARSCH};
-    struct  Hand {
+    enum    Win_Lose {LOSE = -1, WIN = 1};
+    struct  {
         int bidder;     // Index to player_names[]; -1 for Ramsch
         int bid;
         Contract_Type contract;   // Clubs, Spades, Hearts, Diamonds, Null, Grand, Ramsch
+        Win_Lose winlose;
         Other_Multipliers multipliers;  // Logical OR of Hand, Open, Schneider, Announce, Schwarz, Announce
         int matadors;   // Top trumps, use 0 for Ramsch or Null
-        int winner[3];  // Index to player_names[]; May have two or three losers in Ramsch
+        int losers[3];  // Index to player_names[]; May have two or three losers in Ramsch
         Kontra_Re kontrare; 
         Ramsch_Special ramsch;
         int bock;
