@@ -18,6 +18,10 @@ enum State {INIT, START_GAME, NEW_HAND, SCORE_HAND, END_GAME, EDIT_GAME, GAME_CO
 
 State state = INIT;
 Skat_Game game("AT", "RT", "MT");
+int winning_player;
+int tie_game[4]; 
+int number_of_ties;
+int play_first_card;
 
 int main(int argc, char** argv) {
 
@@ -64,7 +68,9 @@ int main(int argc, char** argv) {
                 /// For now, I think that means setting all the scores in each hand to zero:
                 ///   current_hand, hand[0..number_of_hands-1].score[0..3] all zeroed
                 /// Does C++ initialze? 
-                cout << "Hand 0 scores: " << game.hand[0].score[0] << " " << game.hand[0].score[1] << " " << game.hand[0].score[2] << endl;
+                for (int i = 0; i < game.number_of_players; i++ ) tie_game[i] = -1;
+                number_of_ties = 0;
+///                cout << "Hand 0 scores: " << game.hand[0].score[0] << " " << game.hand[0].score[1] << " " << game.hand[0].score[2] << endl;
                 state = NEW_HAND;
                 break;
 
@@ -77,7 +83,7 @@ int main(int argc, char** argv) {
                 /// if Ramsch, then don't need to ask about contract
                 cout << "Enter contract (C, D, H, S, G, N)" << endl; /// game.hand[current_hand].contract
                 /// If not Ramsch 
-                cout << "Who is bidding" << endl; /// Need some logic to make it easy to enter bidder: print name and then the index, just ask for index?
+                cout << "Who won the bid? " << endl; /// Need some logic to make it easy to enter bidder: print name and then the index, just ask for index?
                 cout << "Will it be played Hand? " << endl; /// game.hand[current_hand].multipliers = HAND
                 /// If hand, then can play open. 
                 /// If open, the automatic announce Schneider and Schwarz
@@ -85,21 +91,66 @@ int main(int argc, char** argv) {
                 cout << "Announce Schneider? " << endl; /// logical OR the multiplier
                 cout << "Annoucne Schwarz? " << endl; /// logical OR the multipler
                 cout << "Hand summary: " << endl; /// Print out the hand summary and ask for comformation before continuing.
-                cout << game.player_name[game.current_hand % game.number_of_players +1] << " leads." << endl;
+                play_first_card = (game.current_hand % game.number_of_players) + 1;
+                if (play_first_card == game.number_of_players) play_first_card = 0;
+                cout << game.player_name[play_first_card] << " leads." << endl;
                 state = SCORE_HAND;
                 break;
 
             case SCORE_HAND:
                 cout << "Scoring the hand..." << endl; ///
+                if (game.hand[game.current_hand].contract == game.RAMSCH) {
+                    cout << "How many players lost the Ramsch?" << endl;
+                    /// Assume 1 for now
+                    cout << "Who lost?" << endl; /// Print player names and index
+                    /// Assume player 1 lost
+                    cout << "Was there a Jungfrau?" << endl;
+                } else { // Regular hand, not Ramsch
+                    cout << "Did " << game.player_name[game.hand[game.current_hand].bidder] << " win the hand?" << endl;
+                    /// if (answer == YES) /// assume yes for now
+                    cout << "Was it Schneider?" << endl;
+                    cout << "Was it Schwarz?" << endl;
+                    /// Need a handler for player lost
+                }
 
-                return 9; /// Remove once this state is coded
-
+                game.calculate_game_score();
+                game.print_game_status();
                 game.current_hand++;
                 if (game.current_hand < game.number_of_hands) state = NEW_HAND;
                 else state = END_GAME;
                 break;
             
             case END_GAME:
+                cout << "Final Scoring..." << endl;
+                for (int i = 0; i < game.number_of_players; i++) {
+                    cout << game.player_name[i] << ": " << game.total_score[i] << endl;
+                }
+                if (game.total_score[0] > game.total_score[1]) winning_player = 0;
+                else winning_player = 1;
+                if (game.total_score[winning_player] < game.total_score[2]) winning_player = 2; 
+                if (game.number_of_players == 4) {
+                    if (game.total_score[winning_player] < game.total_score[3]) winning_player = 3;
+                }
+                // Check for ties
+                for (int i = 0; i < game.number_of_players; i++) {
+                    if (game.total_score[i] == game.total_score[winning_player]) tie_game[i] = 1;
+                }
+                for (int i = 0; i < game.number_of_players; i++) {
+                    if (tie_game[i] == 1) number_of_ties++;
+                }
+                if (number_of_ties > 1) {
+                    cout << "There was a tie for first place. " << endl;
+                    cout << "Players ";
+                    for (int i = 0; i < game.number_of_players; i++) {
+                        if (tie_game[i] == 1) cout << game.player_name[i];
+                        if (--number_of_ties > 0) cout << " and ";
+                    }
+                    cout << " won." << endl;
+                } else {
+                    cout << "Player " << game.player_name[winning_player] << " won." << endl;
+                }
+                cout << "Congratulations -- game has completed." << endl;
+                return 9;
                 break;
             
             case EDIT_GAME:

@@ -16,8 +16,10 @@ public:
     char    player_name[4][16];
     int     number_of_hands;
     int     current_hand;
-    enum    Contract_Type {CLUBS, HEARTS, SPADES, DIAMONDS, NULL, GRAND, RAMSCH};
-    enum    Other_Multipliers {NO_MULTIPLIERS, HAND, OPEN, SCHNEIDER, SCHN_ANNC, SCHWARZ, SCHWARZ_ANNC};
+    int     total_score[4];
+    enum    Contract_Type {CLUBS, SPADES, HEARTS, DIAMONDS, NULLL, GRAND, RAMSCH};
+    enum    Other_Multipliers {NO_MULTIPLIERS, HAND =1, OPEN = 2, SCHNEIDER = 4, 
+                               SCHN_ANNC = 8, SCHWARZ = 16, SCHWARZ_ANNC = 32};
     enum    Kontra_Re {SINGLE, KONTRA, RE};
     enum    Ramsch_Special {PLAIN, JUNGFRAU, DURCHMARSCH};
     struct  Hand {
