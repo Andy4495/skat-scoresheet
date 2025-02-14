@@ -31,8 +31,8 @@ void Skat_Game::calculate_hand_score(int h) {
    /// Need to add a check for overbid
    if (hand[h].contract == NULLL) {
       if (hand[h].multipliers == OPEN) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 46;
-      if (hand[h].multipliers == HAND) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 35;
-      if (hand[h].multipliers == (OPEN | HAND)) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 59;
+      else if (hand[h].multipliers == HAND) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 35;
+      else if (hand[h].multipliers == (OPEN | HAND)) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 59;
       else hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 23;
    } else {
       if (hand[h].contract != RAMSCH) {

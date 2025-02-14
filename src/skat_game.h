@@ -25,13 +25,13 @@ public:
                                SCHN_ANNC = 8, SCHWARZ = 16, SCHW_ANNC = 32};
     enum    Kontra_Re {SINGLE = 1, KONTRA = 2, RE = 4};
     enum    Ramsch_Special {PLAIN, JUNGFRAU, DURCHMARSCH};
-    enum    Win_Lose {LOSE = -1, WIN = 1};
+    enum    Win_Lose {LOSE = -2, WIN = 1};
     struct  {
         int declarer;     // Index to player_names[]; -1 for Ramsch
         int bid;
         Contract_Type contract;   // Clubs, Spades, Hearts, Diamonds, Null, Grand, Ramsch
         Win_Lose winlose;
-        Other_Multipliers multipliers;  // Logical OR of Hand, Open, Schneider, Announce, Schwarz, Announce
+        int multipliers;  // Logical OR of Hand, Open, Schneider, Announce, Schwarz, Announce
         int matadors;   // Top trumps, use 0 for Ramsch or Null
         int losers[3];  // Index to player_names[]; May have two or three losers in Ramsch
         Kontra_Re kontrare; 
