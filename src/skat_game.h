@@ -26,6 +26,7 @@ public:
     enum    Kontra_Re {SINGLE = 1, KONTRA = 2, RE = 4};
     enum    Ramsch_Special {PLAIN = -1, JUNGFRAU = -2, DURCHMARSCH = 99};
     enum    Win_Lose {LOSE = -2, WIN = 1};
+    enum    Bock_Type {NOBOCK = 1, BOCKRUND = 2};
     struct  {
         int declarer;     // Index to player_names[]; -1 for Ramsch
         int bid;
@@ -35,10 +36,10 @@ public:
         int matadors;   // Top trumps, use 0 for Ramsch or Null
         int number_of_losers; // How many loser[] entries are valid
         int loser[3];  // Index to player_names[]; May have one, two, or three losers in Ramsch
-        int ramschpoints; // Points taken by Ramsch loser
+        int cardpoints; // Declarer points taken, or Points taken by Ramsch loser, 
         Kontra_Re kontrare; 
         Ramsch_Special ramsch;
-        int bock;
+        Bock_Type bock;
         int score[4];   // Index to player_names[]; Initialize to zero, updated per hand
     } hand[36];
 

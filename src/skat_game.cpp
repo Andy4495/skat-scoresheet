@@ -24,27 +24,27 @@ Skat_Game::Skat_Game()
 
 void Skat_Game::calculate_hand_score(int h) {
    /// Need to add a check for overbid
-   /// Need to add *2 for bock
    if (hand[h].contract == NULLL) {
-      if (hand[h].multipliers == OPEN) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 46;
-      else if (hand[h].multipliers == HAND) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 35;
-      else if (hand[h].multipliers == (OPEN | HAND)) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 59;
-      else hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 23;
+      if (hand[h].multipliers == OPEN) 
+        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 46;
+      else if (hand[h].multipliers == HAND) 
+        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 35;
+      else if (hand[h].multipliers == (OPEN | HAND)) 
+        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 59;
+      else 
+        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 23;
    } else {
       if (hand[h].contract != RAMSCH) {
          bitset<32> m(hand[h].multipliers);
          hand[h].score[hand[h].declarer] =
-         hand[h].kontrare * hand[h].winlose * hand[h].contract * 
-         (hand[h].matadors + m.count() + 1);
+         hand[h].bock * hand[h].kontrare * hand[h].winlose * hand[h].contract * 
+           (hand[h].matadors + m.count() + 1);
       } else { // RAMSCH
          if (hand[h].ramsch == DURCHMARSCH) {
-            hand[h].score[hand[h].declarer] = 120;
+            hand[h].score[hand[h].declarer] = hand[h].bock * 120;
          } else {
             for (int i = 0; i < hand[h].number_of_losers; i++) {
-               hand[h].score[hand[h].loser[i]] = hand[h].ramschpoints * hand[h].ramsch;
-               cout << "Losers: " << hand[h].loser[0] << " " << hand[h].loser[1] << " " << hand[h].loser[2] << endl; ///
-               cout << "i: " << i << endl; ///
-               cout << "Scores " << hand[h].score[0] << " " << hand[h].score[1] << " " << hand[h].score[2] << endl; ///
+               hand[h].score[hand[h].loser[i]] = hand[h].bock * hand[h].cardpoints * hand[h].ramsch;
             }
          }
       }
@@ -62,18 +62,23 @@ void Skat_Game::calculate_game_score() {
 }
 
 void Skat_Game::print_game_status() {
+   // Header row
    cout << "|  # | Bid | Contract | HOSAZA | KR | " << setw(8) << player_name[0] << " | "
    << setw(8) << player_name[1] << " | " << setw(8) << player_name[2]; 
    if (number_of_players == 4) cout << " | " << setw(8) << player_name[3];
    cout << " | Bock |" << endl;
+   // Delimiter row
    cout << "| -- | --- | -------- | ------ | -- | -------- | -------- | -------- |";
    if (number_of_players == 4) cout << " -------- |";
    cout << " ---- |" << endl;
+   // Hand-by-hand rows
    for (int i = 0; i <= current_hand; i++ ) {
+      // Hand # and bid fields
       cout << "| " << setw(2) << i + 1 << " | " << setw(3) << hand[i].bid << " | ";
-      cout << setw(8) << get_contract_name(hand[i].contract);
-      cout << " | "; // Multiplers column
-      /// Need to add handler for Jungfrau and Durchmarsch
+      // Contract field
+      cout << setw(8) << left << get_contract_name(hand[i].contract) << right;
+      // Multipliers field (Hand, Open, Schneider, Schwarz, Announce)
+      cout << " | ";
       if (hand[i].contract == RAMSCH) {
          if (hand[i].ramsch == JUNGFRAU) cout << "JUNGF ";
          else if (hand[i].ramsch == DURCHMARSCH) cout << "DURCH ";
@@ -92,18 +97,19 @@ void Skat_Game::print_game_status() {
          if (hand[i].multipliers & SCHW_ANNC) cout << "A";
          else cout << " ";
       }
+      // Kontra/Re field
       cout << " | ";
-      // Kontra/Re column
       if (hand[i].kontrare == RE) cout << "KR | ";
       else if (hand[i].kontrare == KONTRA) cout << "K  | ";
       else cout << "   | ";
-      // Player score columns
+      // Player score fields
       cout << setw(8) << hand[i].score[0] << " | " 
            << setw(8) << hand[i].score[1] << " | " 
            << setw(8) << hand[i].score[2];
       if (number_of_players == 4) cout << " | " << setw(8) << hand[i].score[3];
-      cout << " | "; // Bock column
-      if (hand[i].bock == 1) cout << " B  ";
+      // Bock field
+      cout << " | ";
+      if (hand[i].bock == Skat_Game::BOCKRUND) cout << " B  ";
       else cout << "    ";
       cout << " |" << endl;
    }

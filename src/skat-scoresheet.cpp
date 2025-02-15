@@ -16,6 +16,7 @@ const char* VERSION = "v0.0.1";
 
 int yes();
 int input_and_validate(int min, int max);
+int calculate_new_bocks(int current_bocks, int current_hand);
 
 using namespace std;
 
@@ -31,6 +32,8 @@ int main(int argc, char** argv) {
     string name;
     char c; 
     int h;
+    int bock = 1;  /// Change to 0 after testing
+
     /// Add support for a Ramsch-only game
 
     while (state != GAME_COMPLETED) {
@@ -70,6 +73,10 @@ int main(int argc, char** argv) {
 
             case NEW_HAND:
                 cout << "Starting hand number " << game.current_hand +1 << endl;
+                if (bock > 0) {
+                    cout << "This hand is a Bockrund. Scores double." << endl;
+                    game.hand[game.current_hand].bock = Skat_Game::BOCKRUND;
+                } else game.hand[game.current_hand].bock = Skat_Game::NOBOCK;
                 /// This may not be correct for 4 player games
                 cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer." << endl;
                 cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens." << endl;
@@ -205,7 +212,7 @@ int main(int argc, char** argv) {
                                 }
                                 game.hand[game.current_hand].loser[0] = input_and_validate(1, game.number_of_players) - 1;
                                 cout << "How many points taken? " << endl;
-                                game.hand[game.current_hand].ramschpoints = input_and_validate(40, 120); 
+                                game.hand[game.current_hand].cardpoints = input_and_validate(40, 120); 
                                 break;
 
                             case 2: 
@@ -225,14 +232,14 @@ int main(int argc, char** argv) {
                                 }
                                 game.hand[game.current_hand].loser[1] = input_and_validate(1, game.number_of_players) - 1;
                                 cout << "How many points taken? " << endl;
-                                game.hand[game.current_hand].ramschpoints = input_and_validate(40, 120); 
+                                game.hand[game.current_hand].cardpoints = input_and_validate(40, 120); 
                                 break;
 
                             case 3: 
                                 cout << "40/40/40 Ramch." << endl;
                                 game.hand[game.current_hand].winlose = Skat_Game::LOSE;
                                 game.hand[game.current_hand].number_of_losers = 3;
-                                game.hand[game.current_hand].ramschpoints = 40;
+                                game.hand[game.current_hand].cardpoints = 40;
                                 /// Need to add a handler for 4 players
                                 for (int i = 0; i < 3; i++) {
                                     game.hand[game.current_hand].loser[i] = i;
@@ -248,6 +255,11 @@ int main(int argc, char** argv) {
                         else game.hand[game.current_hand].ramsch = Skat_Game::PLAIN;
                     }
                 } else { // not Ramsch
+                    /// cout << "How many points did " << game.player_name[game.hand[game.current_hand].declarer] << "collect? " << endl;
+                    /// game.hand[game.current_hand].cardpoints = input_and_validate(0, 120);
+                    /// Create new function to calculate win/lose/schneider; set winlose value;
+                    /// Null game still need to ask win/lose instead of card points
+                    /// For Schwarz, need to ask additional question
                     cout << "Did " << game.player_name[game.hand[game.current_hand].declarer] << " win the hand? " << endl;
                     if (yes()) game.hand[game.current_hand].winlose = Skat_Game::WIN;
                     else game.hand[game.current_hand].winlose = Skat_Game::LOSE;
@@ -269,18 +281,35 @@ int main(int argc, char** argv) {
                         cout << " Was there a Re? " << endl;  /// Only ask about Re if there was a Kontra
                         if (yes()) game.hand[game.current_hand].kontrare = Skat_Game::RE;
                     } else game.hand[game.current_hand].kontrare = game.SINGLE;
-
-                    /// Add a handler to check if player lost (e.g., called Schneider but didn't)
-                    /// Add Bock handler
                 }
+
+                /// Add a handler to check if player lost (e.g., called Schneider but didn't)
+                /// Add Bock handler
 
                 game.calculate_hand_score(game.current_hand);
                 game.calculate_game_score();
                 game.print_game_status();
+                if (bock > 0) { 
+                    cout << "This hand was a Bockrund. " << endl;
+                }
                 cout << "Was this hand scored correctly? " << endl;
                 if (yes()) {
-                    if (game.current_hand < game.number_of_hands - 1) {
+                    h = calculate_new_bocks(bock, game.current_hand);
+                    if (h > 0) {
+                        cout << "This hand created new bocks." << endl;
+                        bock += h;
+                    }
+                    /*  /// 
+                        The code below adjusts # of bocks to the # of hands remaining
+                        It may be more informative to show all bocks, even beyond end of game,
+                        in case players want to extend the game
+                        if (game.number_of_hands - game.current_hand - 1 > bock) h = bock;
+                        else h = game.number_of_hands - game.current_hand - 1;
+                        cout << "There are " << h << " Bockrunds remaining." << endl;
+                    */
+                   if (game.current_hand < game.number_of_hands - 1) {
                         state = NEW_HAND;
+                        if (bock > 0) cout << "There are " << --bock << " Bockrunds remaining." << endl;
                         game.current_hand++;
                     }
                     else state = END_GAME;
@@ -385,4 +414,41 @@ int input_and_validate(int min, int max) {
     if (i > max) i = max;
 
     return i;
+}
+
+int calculate_new_bocks(int b, int h) {
+    // Did this hand create more Bocks?
+    int new_bocks = 0;
+
+    // - Raw points > 120 (before loss/bock/Kontra/Re)
+    if ( (game.hand[h].contract != Skat_Game::RAMSCH) && (game.hand[h].contract != Skat_Game::NULLL) ) {
+        if ((game.hand[h].matadors + 1) * game.hand[h].contract >= 120)
+            new_bocks += 3;
+    }
+
+    // - 60/60 tie
+    if ( (game.hand[h].contract != Skat_Game::RAMSCH) && (game.hand[h].contract != Skat_Game::NULLL) ) {
+        if (game.hand[h].cardpoints == 60)
+            new_bocks += 3;
+    }
+
+    // - successful Kontra (opponents win)
+    if ( (game.hand[h].kontrare == Skat_Game::KONTRA) && (game.hand[h].winlose == Skat_Game::LOSE) ) {
+        new_bocks += 3; 
+    }
+
+    // - successful Re (declarer wins) --> Somebody loses in Re, so Re always creates a bock
+    if (game.hand[h].kontrare == Skat_Game::RE) {
+        new_bocks += 3;
+    }
+
+    // - Schneider (if there are currently no Bocks)
+    if ( (b == 0) && (game.hand[game.current_hand].multipliers & Skat_Game::SCHNEIDER) ) {
+                            new_bocks += 3;
+    }
+
+    // Max 3 bocks generated per hand
+    if (new_bocks > 3) new_bocks = 3;
+
+    return new_bocks;
 }

@@ -2,7 +2,9 @@
 
 [![Check Markdown Links](https://github.com/Andy4495/skat-scoresheet/actions/workflows/check-links.yml/badge.svg)](https://github.com/Andy4495/skat-scoresheet/actions/workflows/check-links.yml)
 
-Program to track scores while playing the card game [Skat][1].
+Text-based scoresheet for the card game [Skat][1].
+
+This will hopefully evolve into a graphical iOS app.
 
 ## References
 
