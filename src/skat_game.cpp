@@ -17,18 +17,14 @@ using namespace std;
 
 const char* const Skat_Game::contract_name[]={"Clubs", "Spades", "Hearts", "Diamonds", "Null", "Grand", "Ramsch"};
 
-Skat_Game::Skat_Game( const char *  p1,  const char *  p2,  const char *  p3)
+Skat_Game::Skat_Game()
 {
-   number_of_players = 3;        /// Hardcoded for initial version
-   strcpy(player_name[0], p1);   /// Hardcoded for initial version
-   strcpy(player_name[1], p2);   /// Hardcoded for initial version
-   strcpy(player_name[2], p3);   /// Hardcoded for initial version
-   number_of_hands = 36;
    current_hand = 0;
 }
 
 void Skat_Game::calculate_hand_score(int h) {
    /// Need to add a check for overbid
+   /// Need to add *2 for bock
    if (hand[h].contract == NULLL) {
       if (hand[h].multipliers == OPEN) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 46;
       else if (hand[h].multipliers == HAND) hand[h].score[hand[h].declarer] = hand[h].kontrare * hand[h].winlose * 35;
@@ -41,7 +37,16 @@ void Skat_Game::calculate_hand_score(int h) {
          hand[h].kontrare * hand[h].winlose * hand[h].contract * 
          (hand[h].matadors + m.count() + 1);
       } else { // RAMSCH
-      /// Fill in RAMSCH scoring 
+         if (hand[h].ramsch == DURCHMARSCH) {
+            hand[h].score[hand[h].declarer] = 120;
+         } else {
+            for (int i = 0; i < hand[h].number_of_losers; i++) {
+               hand[h].score[hand[h].loser[i]] = hand[h].ramschpoints * hand[h].ramsch;
+               cout << "Losers: " << hand[h].loser[0] << " " << hand[h].loser[1] << " " << hand[h].loser[2] << endl; ///
+               cout << "i: " << i << endl; ///
+               cout << "Scores " << hand[h].score[0] << " " << hand[h].score[1] << " " << hand[h].score[2] << endl; ///
+            }
+         }
       }
    }
 }
@@ -68,18 +73,25 @@ void Skat_Game::print_game_status() {
       cout << "| " << setw(2) << i + 1 << " | " << setw(3) << hand[i].bid << " | ";
       cout << setw(8) << get_contract_name(hand[i].contract);
       cout << " | "; // Multiplers column
-      if (hand[i].multipliers & HAND) cout << "H";
-      else cout << " ";
-      if (hand[i].multipliers & OPEN) cout << "O";
-      else cout << " ";
-      if (hand[i].multipliers & SCHNEIDER) cout << "S";
-      else cout << " ";
-      if (hand[i].multipliers & SCHN_ANNC) cout << "A";
-      else cout << " ";
-      if (hand[i].multipliers & SCHWARZ) cout << "Z";
-      else cout << " ";
-      if (hand[i].multipliers & SCHW_ANNC) cout << "A";
-      else cout << " ";
+      /// Need to add handler for Jungfrau and Durchmarsch
+      if (hand[i].contract == RAMSCH) {
+         if (hand[i].ramsch == JUNGFRAU) cout << "JUNGF ";
+         else if (hand[i].ramsch == DURCHMARSCH) cout << "DURCH ";
+         else cout << "      ";
+      } else {
+         if (hand[i].multipliers & HAND) cout << "H";
+         else cout << " ";
+         if (hand[i].multipliers & OPEN) cout << "O";
+         else cout << " ";
+         if (hand[i].multipliers & SCHNEIDER) cout << "S";
+         else cout << " ";
+         if (hand[i].multipliers & SCHN_ANNC) cout << "A";
+         else cout << " ";
+         if (hand[i].multipliers & SCHWARZ) cout << "Z";
+         else cout << " ";
+         if (hand[i].multipliers & SCHW_ANNC) cout << "A";
+         else cout << " ";
+      }
       cout << " | ";
       // Kontra/Re column
       if (hand[i].kontrare == RE) cout << "KR | ";
