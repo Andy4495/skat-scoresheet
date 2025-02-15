@@ -12,6 +12,7 @@ const char* VERSION = "v0.0.1";
 #include "skat_game.h"
 #include <iostream>
 #include <string.h>
+#include <limits>
 
 int yes();
 int input_and_validate(int min, int max);
@@ -30,7 +31,6 @@ int main(int argc, char** argv) {
     string name;
     char c; 
     int h;
-
     /// Add support for a Ramsch-only game
 
     while (state != GAME_COMPLETED) {
