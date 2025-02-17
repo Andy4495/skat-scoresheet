@@ -44,9 +44,11 @@ int main(int argc, char** argv) {
                 cout << "Enter Player 1 name: " << endl;
                 cin >> name;
                 strncpy(game.player_name[0], name.c_str(), MAX_NAME_SIZE);
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any extra characters
                 cout << "Enter Player 2 name: " << endl;
                 cin >> name;
                 strncpy(game.player_name[1], name.c_str(), MAX_NAME_SIZE);
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any extra characters
                 cout << "Enter Player 3 name: " << endl;
                 cin >> name;
                 strncpy(game.player_name[2], name.c_str(), MAX_NAME_SIZE);
@@ -55,6 +57,7 @@ int main(int argc, char** argv) {
                     cin >> name;
                     strncpy(game.player_name[3], name.c_str(), MAX_NAME_SIZE);
                 }
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any extra characters
                 cout << "How many hands will you be playing in today's game (3 to 36)?" << endl;
                 game.number_of_hands = input_and_validate(3, 36);
                 cout << "Game will consist of " << game.number_of_players << " players named: " << endl;
@@ -273,10 +276,10 @@ int main(int argc, char** argv) {
                         cout << "With or without how many? " << endl;
                         game.hand[game.current_hand].matadors = input_and_validate(1, 8);
                         game.calculate_win_lose(game.current_hand);
-                        cout << game.player_name[game.hand[game.current_hand].declarer]; 
+                        cout << "*** " << game.player_name[game.hand[game.current_hand].declarer]; 
                         if (game.hand[game.current_hand].winlose == Skat_Game::WIN) cout << " won ";
                         else cout << " lost ";
-                        cout << "the hand." << endl;
+                        cout << "the hand. ***" << endl;
                     }
                     cout << "Was there a Kontra? " << endl;
                     if (yes()) {
@@ -309,7 +312,7 @@ int main(int argc, char** argv) {
                     */
                    if (game.current_hand < game.number_of_hands - 1) {
                         state = NEW_HAND;
-                        if (bock > 0) cout << "There are " << --bock << " Bockrunds remaining." << endl;
+                        if (bock > 0) cout << "There are " << --bock << " Bocks remaining." << endl;
                         game.current_hand++;
                     }
                     else state = END_GAME;

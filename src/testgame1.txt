@@ -1,9 +1,15 @@
+# Test file for skat-scoresheet
+# Need to first parse this file and remove comment lines starting with '#':
+#
+#   sed '/^#/d' <testgame1.txt  | ./skat-scoresheet      
+#   
+#### Game Setup ####
 # Number of players
 3
 # Player names
-AT
-RT
-MT
+Player1
+Player-2
+Player-33
 # Number of Hands
 3
 # Is game setup correct
