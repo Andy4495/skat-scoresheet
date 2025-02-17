@@ -30,6 +30,7 @@ int number_of_ties;
 int main(int argc, char** argv) {
     string name;
     int h;
+    int i;  // For use in for loops
     int bock = 1;  /// Change to 0 after testing
 
     /// Add support for a Ramsch-only game
@@ -60,7 +61,7 @@ int main(int argc, char** argv) {
                 cout << "How many hands will you be playing in today's game (3 to 36)?" << endl;
                 game.number_of_hands = input_and_validate(3, 36);
                 cout << "Game will consist of " << game.number_of_players << " players named: " << endl;
-                for (int i = 0; i < game.number_of_players; i++) cout << game.player_name[i] << endl;
+                for (i = 0; i < game.number_of_players; i++) cout << game.player_name[i] << endl;
                 cout << "Game will end after " << game.number_of_hands << " hands." << endl;
                 cout << "Is this correct? " << endl;
                 if (yes()) state = START_GAME;
@@ -68,7 +69,7 @@ int main(int argc, char** argv) {
                 break;
 
             case START_GAME:  /// This state may not be needed; merge code into INIT state
-                for (int i = 0; i < game.number_of_players; i++ ) tie_game[i] = -1;
+                for (i = 0; i < game.number_of_players; i++ ) tie_game[i] = -1;
                 state = NEW_HAND;
                 break;
 
@@ -78,20 +79,24 @@ int main(int argc, char** argv) {
                     cout << "This hand is a Bockrund. Scores double." << endl;
                     game.hand[game.current_hand].bock = Skat_Game::BOCKRUND;
                 } else game.hand[game.current_hand].bock = Skat_Game::NOBOCK;
-                /// This may not be correct for 4 player games
+                // In 4 player games, geben-hoeren-sagen-weitersagen still applies: 
+                // - Player to left of dealer is "hoeren" and player to right of dealer is "weitersagen" ("continue saying")
+                // - weitersagen continues bid after either gaben or hoeren passes
                 cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer." << endl;
                 cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens." << endl;
                 cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks."  << endl;
+                if (game.number_of_players == 4) cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues."  << endl;
                 cout << "Enter winning bid (enter 0 for Ramsch): " << endl; 
                 game.hand[game.current_hand].bid = input_and_validate(0, 168);
                 // if Ramsch, then don't need to ask about contract
                 if (game.hand[game.current_hand].bid == 0) game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
                 else game.set_contract(game.current_hand);
                 if (game.hand[game.current_hand].contract != Skat_Game::RAMSCH) {
-                    /// Need logic for 4-player game -- dealer should not be listed
                     cout << "Who is the declarer? " << endl;
-                    for (int i = 0; i < game.number_of_players; i++) {
-                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+                    // In 4 player games, dealer doesn't play, so don't list the dealer name
+                    for (i = 0; i < game.number_of_players; i++) {
+                        if (game.current_hand % game.number_of_players != i)
+                            cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                     }
                     game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
                     if (game.hand[game.current_hand].contract == Skat_Game::Skat_Game::NULLL) {
@@ -155,9 +160,10 @@ int main(int argc, char** argv) {
                         game.hand[game.current_hand].winlose = Skat_Game::WIN;
                         game.hand[game.current_hand].number_of_losers = 0;
                         cout << "Who won the Durchmarsch? " << endl;
-                        /// Need handler for 4 players
-                        for (int i = 0; i < game.number_of_players; i++) {
-                            cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+                        // In 4 player games, dealer doesn't play, so don't list the dealer name
+                        for (i = 0; i < game.number_of_players; i++) {
+                            if (game.current_hand % game.number_of_players != i)
+                                cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                         }
                         game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
                     } else { // Not a Durchmarsch
@@ -167,9 +173,10 @@ int main(int argc, char** argv) {
                                 game.hand[game.current_hand].winlose = Skat_Game::LOSE;
                                 game.hand[game.current_hand].number_of_losers = 1;
                                 cout << "Who lost the Ramsch? " << endl;
-                                /// Need handler for 4 players
-                                for (int i = 0; i < game.number_of_players; i++) {
-                                    cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+                                // In 4 player games, dealer doesn't play, so don't list the dealer name
+                                for (i = 0; i < game.number_of_players; i++) {
+                                    if (game.current_hand % game.number_of_players != i)
+                                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                                 }
                                 game.hand[game.current_hand].loser[0] = input_and_validate(1, game.number_of_players) - 1;
                                 cout << "How many points taken? " << endl;
@@ -183,16 +190,18 @@ int main(int argc, char** argv) {
                                 game.hand[game.current_hand].winlose = Skat_Game::LOSE;
                                 game.hand[game.current_hand].number_of_losers = 2;
                                 cout << "First player to lose the Ramsch? " << endl;
-                                /// Need handler for 4 players
-                                for (int i = 0; i < game.number_of_players; i++) {
-                                    cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+                                // In 4 player games, dealer doesn't play, so don't list the dealer name
+                                for (i = 0; i < game.number_of_players; i++) {
+                                    if (game.current_hand % game.number_of_players != i)
+                                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                                 }
                                 game.hand[game.current_hand].loser[0] = input_and_validate(1, game.number_of_players) - 1;
                                 cout << "Other player to lose the Ramsch? " << endl;
-                                /// Need handler for 4 players
-                                /// Need to remove player name chosen above
-                                for (int i = 0; i < game.number_of_players; i++) {
-                                    cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+                                // In 4 player games, dealer doesn't play, so don't list the dealer name
+                                // Also, don't list the player name that was selected above
+                                for (i = 0; i < game.number_of_players; i++) {
+                                    if ( (game.current_hand % game.number_of_players != i) && (game.hand[game.current_hand].loser[0] != i ) )
+                                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                                 }
                                 game.hand[game.current_hand].loser[1] = input_and_validate(1, game.number_of_players) - 1;
                                 cout << "How many points taken? " << endl;
@@ -207,9 +216,12 @@ int main(int argc, char** argv) {
                                 game.hand[game.current_hand].winlose = Skat_Game::LOSE;
                                 game.hand[game.current_hand].number_of_losers = 3;
                                 game.hand[game.current_hand].cardpoints = 40;
-                                /// Need to add a handler for 4 players
-                                for (int i = 0; i < 3; i++) {
-                                    game.hand[game.current_hand].loser[i] = i;
+                                i = 0;
+                                for (int j = 0; j < 3; j++) {
+                                    if (game.number_of_players == 4) {  // In 4 player game, dealer didn't play
+                                        if (game.current_hand % game.number_of_players == i) i++;
+                                    }
+                                    game.hand[game.current_hand].loser[j] = i++;
                                 }
                                 game.hand[game.current_hand].ramsch = Skat_Game::PLAIN;                                
                                 break;
@@ -288,7 +300,7 @@ int main(int argc, char** argv) {
                     cout << "Congratulations -- game has completed." << endl;
                     state = GAME_COMPLETED;
                     cout << "Final Scoring..." << endl;
-                    for (int i = 0; i < game.number_of_players; i++) {
+                    for (i = 0; i < game.number_of_players; i++) {
                         cout << game.player_name[i] << ": " << game.total_score[i] << endl;
                     }
                     if (game.total_score[0] > game.total_score[1]) winning_player = 0;
@@ -298,16 +310,16 @@ int main(int argc, char** argv) {
                         if (game.total_score[winning_player] < game.total_score[3]) winning_player = 3;
                     }
                     // Check for ties
-                    for (int i = 0; i < game.number_of_players; i++) {
+                    for (i = 0; i < game.number_of_players; i++) {
                         if (game.total_score[i] == game.total_score[winning_player]) tie_game[i] = 1;
                     }
-                    for (int i = 0; i < game.number_of_players; i++) {
+                    for (i = 0; i < game.number_of_players; i++) {
                         if (tie_game[i] == 1) number_of_ties++;
                     }
                     if (number_of_ties > 1) {
                         cout << "There was a tie for first place. " << endl;
                         cout << "Players ";
-                        for (int i = 0; i < game.number_of_players; i++) {
+                        for (i = 0; i < game.number_of_players; i++) {
                             if (tie_game[i] == 1) {
                                 cout << game.player_name[i];
                                 if (--number_of_ties > 0) cout << " and ";
@@ -327,7 +339,7 @@ int main(int argc, char** argv) {
                 // A set of three asterisks will be printed at the end of the line of any edited score
                 cout << "Which hand # needs to be udpated? " << endl;
                 h = input_and_validate(1, game.number_of_hands) - 1;
-                for (int i = 0; i < game.number_of_players; i++) {
+                for (i = 0; i < game.number_of_players; i++) {
                     cout << game.player_name[i] << ": " << game.hand[h].score[i] << " Correct (y/n)" << endl;
                     if (!yes()) {
                         cout << "Enter corrected score: " << endl;

@@ -2,7 +2,7 @@
 
 [![Check Markdown Links](https://github.com/Andy4495/skat-scoresheet/actions/workflows/check-links.yml/badge.svg)](https://github.com/Andy4495/skat-scoresheet/actions/workflows/check-links.yml)
 
-Text-based scoresheet for the card game [Skat][1]. Either three or four players (dealer sits out) are supported.
+Text-based scoresheet for the card game [Skat][1]. Either three or four players are supported.
 
 This will hopefully evolve into a graphical iOS app.
 
@@ -10,9 +10,9 @@ This will hopefully evolve into a graphical iOS app.
 
 This scoresheet is hard-coded with our particular house rules:
 
+- In four player games, the dealer sits out play for that hand
 - Scoring
   - Losses count double for non-Ramsch contracts
-    - A "nobody bids 18" Ramsch hand has Bock apply
   - Grand base value is 24
   - Opponents must take 31 to avoid Schneider
   - Declarer losing hand with less than 31 points is considered Schneider
@@ -22,6 +22,8 @@ This scoresheet is hard-coded with our particular house rules:
 - Ramsch
   - Play a Ramsch hand if nobody bids 18
   - Play a Ramschround of 3 hands after playing a Bockround of 3 hands
+  - There is no Bock during a Ramsch round
+    - A "nobody bids 18" Ramsch hand has Bock apply
   - A player taking all tricks (Durchmarsch) scores +120 points
   - If no single player takes all tricks, then he player who collects the most card points has those card points deducted
     - More than one player can lose in the case of a tie
@@ -41,7 +43,6 @@ This scoresheet is hard-coded with our particular house rules:
 
 Tasks to complete before this is ready to be called "Version 1.0.0":
 
-- Some handling for 4-player cases is awkward or incorrect. 3-player should work.
 - Allow an option at the beginning game to play "Schieberamsch" (all hands are Ramsch)
 - End the game early (play fewer hands than planned)
 - Allow Grand Hand bid during Ramsch Round
@@ -57,6 +58,19 @@ Not planned for Version 1.0.0, but may be added in a future release:
 - Configuration file with setup parameters (# of players, player names, # of hands)
 - Check for declarer taking zero tricks on a non-null contract
   - This would be an extremely rare occurrence
+
+## Building the code
+
+The code is fully text-based and should work on any modern Unix/Linux-based system. I have tested it on MacOS and Ubuntu 24.
+
+To build:
+
+``` shell
+cd src
+make
+```
+
+The executable is named `skat-scoresheet` and takes no arguments.
 
 ## References
 

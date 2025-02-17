@@ -24,7 +24,7 @@ Skat_Game::Skat_Game()
 
 void Skat_Game::calculate_hand_score(int h) {
    // It is up to the players to declare an overbid on NULL, since it is obvious before the hand starts play
-   if (hand[h].contract == NULLL) {
+   if (hand[h].contract == NULLL) { // Null contract
       if (hand[h].multipliers == OPEN) 
         hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 46;
       else if (hand[h].multipliers == HAND) 
@@ -34,9 +34,9 @@ void Skat_Game::calculate_hand_score(int h) {
       else 
         hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 23;
    } else {
-      if (hand[h].contract != RAMSCH) {
+      if (hand[h].contract != RAMSCH) { // Suit and Grand contracts
          hand[h].score[hand[h].declarer] = calculate_suit_grand_score(h) * hand[h].bock * hand[h].kontrare;
-      } else { // RAMSCH
+      } else { // Ramsch contract
          if (hand[h].ramsch == DURCHMARSCH) {
             hand[h].score[hand[h].declarer] = hand[h].bock * 120;
          } else {
@@ -127,7 +127,6 @@ void Skat_Game::print_game_status() {
    cout << "| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- |";
    if (number_of_players == 4) cout << " -------- |";
    cout << " ---- |" << endl;
-   if (number_of_players == 4) cout << "           ";
    cout << "                                  Totals: ";
    cout << setw(8) << total_score[0] << " | " 
    << setw(8) << total_score[1] << " | " 
