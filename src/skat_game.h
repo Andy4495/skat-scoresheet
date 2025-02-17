@@ -11,6 +11,7 @@
 #define SKAT_GAME_H
 
 #define MAX_NAME_SIZE 8
+#define MAX_NUMBER_OF_HANDS 40
 
 class Skat_Game {
 public:
@@ -43,7 +44,7 @@ public:
         Bock_Type bock;
         int score[4];   // Index to player_names[]; Initialize to zero, updated per hand
         int edited;  // Indicates if a score was edited for this hand at end of game
-    } hand[36];
+    } hand[MAX_NUMBER_OF_HANDS];
 
     Skat_Game();
     void calculate_hand_score(int hand); 

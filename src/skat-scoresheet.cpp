@@ -19,7 +19,7 @@ int input_and_validate(int min, int max);
 
 using namespace std;
 
-enum State {INIT, START_GAME, NEW_HAND, SCORE_HAND, END_GAME, EDIT_GAME, GAME_COMPLETED};
+enum State {INIT, START_GAME, NEW_HAND_BID, NEW_HAND_CONTRACT, SCORE_HAND, END_GAME, EDIT_GAME, GAME_COMPLETED};
 
 State state = INIT;
 Skat_Game game;
@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
                 }
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any extra characters
                 cout << "How many hands will you be playing in today's game (3 to 36)?" << endl;
-                game.number_of_hands = input_and_validate(3, 36);
+                game.number_of_hands = input_and_validate(3, MAX_NUMBER_OF_HANDS);
                 cout << "Game will consist of " << game.number_of_players << " players named: " << endl;
                 for (i = 0; i < game.number_of_players; i++) cout << game.player_name[i] << endl;
                 cout << "Game will end after " << game.number_of_hands << " hands." << endl;
@@ -70,11 +70,11 @@ int main(int argc, char** argv) {
 
             case START_GAME:  /// This state may not be needed; merge code into INIT state
                 for (i = 0; i < game.number_of_players; i++ ) tie_game[i] = -1;
-                state = NEW_HAND;
+                state = NEW_HAND_BID;
                 break;
 
-            case NEW_HAND:
-                cout << "Starting hand number " << game.current_hand +1 << endl;
+            case NEW_HAND_BID:
+                cout << "Starting hand number " << game.current_hand + 1 << endl;
                 if (bock > 0) {
                     cout << "This hand is a Bockrund. Scores double." << endl;
                     game.hand[game.current_hand].bock = Skat_Game::BOCKRUND;
@@ -86,16 +86,27 @@ int main(int argc, char** argv) {
                 cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens." << endl;
                 cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks."  << endl;
                 if (game.number_of_players == 4) cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues."  << endl;
-                cout << "Enter winning bid (enter 0 for Ramsch): " << endl; 
-                game.hand[game.current_hand].bid = input_and_validate(0, 168);
+                cout << "Enter winning bid (enter 0 for Ramsch or 999 to end Game early): " << endl; 
+                game.hand[game.current_hand].bid = input_and_validate(0, 999);
                 // if Ramsch, then don't need to ask about contract
+                if (game.hand[game.current_hand].bid == 999) {
+                    cout << "Ending game early" << endl;
+                    state = END_GAME;
+                    game.number_of_hands = game.current_hand;
+                    game.current_hand--;
+                } else {
+                    state = NEW_HAND_CONTRACT;
+                }
+                break;
+            
+            case NEW_HAND_CONTRACT:
                 if (game.hand[game.current_hand].bid == 0) game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
                 else game.set_contract(game.current_hand);
                 if (game.hand[game.current_hand].contract != Skat_Game::RAMSCH) {
                     cout << "Who is the declarer? " << endl;
                     // In 4 player games, dealer doesn't play, so don't list the dealer name
                     for (i = 0; i < game.number_of_players; i++) {
-                        if (game.current_hand % game.number_of_players != i)
+                        if ( (game.current_hand % game.number_of_players != i) || (game.number_of_players == 3) )
                             cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                     }
                     game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
@@ -148,7 +159,7 @@ int main(int argc, char** argv) {
                 if (yes()) {
                     cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " leads." << endl;
                     state = SCORE_HAND;
-                 } else state = NEW_HAND;
+                 } else state = NEW_HAND_BID;
                 break;
 
             case SCORE_HAND:
@@ -162,7 +173,7 @@ int main(int argc, char** argv) {
                         cout << "Who won the Durchmarsch? " << endl;
                         // In 4 player games, dealer doesn't play, so don't list the dealer name
                         for (i = 0; i < game.number_of_players; i++) {
-                            if (game.current_hand % game.number_of_players != i)
+                            if ( (game.current_hand % game.number_of_players != i) || (game.number_of_players == 3) )
                                 cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                         }
                         game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
@@ -175,7 +186,7 @@ int main(int argc, char** argv) {
                                 cout << "Who lost the Ramsch? " << endl;
                                 // In 4 player games, dealer doesn't play, so don't list the dealer name
                                 for (i = 0; i < game.number_of_players; i++) {
-                                    if (game.current_hand % game.number_of_players != i)
+                                    if ( (game.current_hand % game.number_of_players != i) || (game.number_of_players == 3) )
                                         cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                                 }
                                 game.hand[game.current_hand].loser[0] = input_and_validate(1, game.number_of_players) - 1;
@@ -192,7 +203,7 @@ int main(int argc, char** argv) {
                                 cout << "First player to lose the Ramsch? " << endl;
                                 // In 4 player games, dealer doesn't play, so don't list the dealer name
                                 for (i = 0; i < game.number_of_players; i++) {
-                                    if (game.current_hand % game.number_of_players != i)
+                                    if ( (game.current_hand % game.number_of_players != i) || (game.number_of_players == 3) )
                                         cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                                 }
                                 game.hand[game.current_hand].loser[0] = input_and_validate(1, game.number_of_players) - 1;
@@ -200,7 +211,8 @@ int main(int argc, char** argv) {
                                 // In 4 player games, dealer doesn't play, so don't list the dealer name
                                 // Also, don't list the player name that was selected above
                                 for (i = 0; i < game.number_of_players; i++) {
-                                    if ( (game.current_hand % game.number_of_players != i) && (game.hand[game.current_hand].loser[0] != i ) )
+                                    if ( ((game.current_hand % game.number_of_players != i) || (game.number_of_players == 3)) && 
+                                          (game.hand[game.current_hand].loser[0] != i ) )
                                         cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                                 }
                                 game.hand[game.current_hand].loser[1] = input_and_validate(1, game.number_of_players) - 1;
@@ -255,7 +267,7 @@ int main(int argc, char** argv) {
                     cout << "Was there a Kontra? " << endl;
                     if (yes()) {
                         game.hand[game.current_hand].kontrare = Skat_Game::KONTRA;
-                        cout << " Was there a Re? " << endl;  // Only ask about Re if there was a Kontra
+                        cout << "Was there a Re? " << endl;  // Only ask about Re if there was a Kontra
                         if (yes()) game.hand[game.current_hand].kontrare = Skat_Game::RE;
                     } else game.hand[game.current_hand].kontrare = game.SINGLE;
                 }
@@ -282,7 +294,7 @@ int main(int argc, char** argv) {
                         cout << "There are " << h << " Bockrunds remaining." << endl;
                     */
                    if (game.current_hand < game.number_of_hands - 1) {
-                        state = NEW_HAND;
+                        state = NEW_HAND_BID;
                         if (bock > 0) cout << "There are " << --bock << " Bocks remaining." << endl;
                         game.current_hand++;
                     }
