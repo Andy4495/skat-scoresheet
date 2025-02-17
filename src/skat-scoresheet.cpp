@@ -16,7 +16,6 @@ const char* VERSION = "v0.0.1";
 
 int yes();
 int input_and_validate(int min, int max);
-int calculate_new_bocks(int current_bocks, int current_hand);
 
 using namespace std;
 
@@ -107,7 +106,7 @@ int main(int argc, char** argv) {
                         case 'H': 
                           game.hand[game.current_hand].contract = Skat_Game::HEARTS;
                           break;
-                        case 'd':
+                        case 'd': // Don't have one-letter "karo" or "caro" because it clashes with Clubs/Kreuz
                         case 'D': 
                           game.hand[game.current_hand].contract = Skat_Game::DIAMONDS;
                           break;
@@ -213,6 +212,9 @@ int main(int argc, char** argv) {
                                 game.hand[game.current_hand].loser[0] = input_and_validate(1, game.number_of_players) - 1;
                                 cout << "How many points taken? " << endl;
                                 game.hand[game.current_hand].cardpoints = input_and_validate(40, 120); 
+                                cout << "Was there a Jungf?" << endl;
+                                if (yes()) game.hand[game.current_hand].ramsch = Skat_Game::JUNGF;
+                                else game.hand[game.current_hand].ramsch = Skat_Game::PLAIN;                                
                                 break;
 
                             case 2: 
@@ -233,6 +235,9 @@ int main(int argc, char** argv) {
                                 game.hand[game.current_hand].loser[1] = input_and_validate(1, game.number_of_players) - 1;
                                 cout << "How many points taken? " << endl;
                                 game.hand[game.current_hand].cardpoints = input_and_validate(40, 120); 
+                                cout << "Was there a Jungf?" << endl;
+                                if (yes()) game.hand[game.current_hand].ramsch = Skat_Game::JUNGF;
+                                else game.hand[game.current_hand].ramsch = Skat_Game::PLAIN;                                
                                 break;
 
                             case 3: 
@@ -244,36 +249,34 @@ int main(int argc, char** argv) {
                                 for (int i = 0; i < 3; i++) {
                                     game.hand[game.current_hand].loser[i] = i;
                                 }
+                                game.hand[game.current_hand].ramsch = Skat_Game::PLAIN;                                
                                 break;
 
                             default:
                                 cout << "Invalid number of Ramsch losers." << endl;
                                 break;
                         }
-                        cout << "Was there a Jungfrau?" << endl;
-                        if (yes()) game.hand[game.current_hand].ramsch = Skat_Game::JUNGFRAU;
-                        else game.hand[game.current_hand].ramsch = Skat_Game::PLAIN;
                     }
                 } else { // not Ramsch
-                    /// cout << "How many points did " << game.player_name[game.hand[game.current_hand].declarer] << "collect? " << endl;
-                    /// game.hand[game.current_hand].cardpoints = input_and_validate(0, 120);
-                    /// Create new function to calculate win/lose/schneider; set winlose value;
-                    /// Null game still need to ask win/lose instead of card points
-                    /// For Schwarz, need to ask additional question
-                    cout << "Did " << game.player_name[game.hand[game.current_hand].declarer] << " win the hand? " << endl;
-                    if (yes()) game.hand[game.current_hand].winlose = Skat_Game::WIN;
-                    else game.hand[game.current_hand].winlose = Skat_Game::LOSE;
-                    if (game.hand[game.current_hand].contract == Skat_Game::NULLL){
-
+                    if (game.hand[game.current_hand].contract == Skat_Game::NULLL) {
+                        cout << "Did " << game.player_name[game.hand[game.current_hand].declarer] << " win the Null? " << endl;
+                        if (yes()) game.hand[game.current_hand].winlose = Skat_Game::WIN;
+                        else game.hand[game.current_hand].winlose = Skat_Game::WIN;
+                        game.hand[game.current_hand].cardpoints = 0;
                     } else {
+                        cout << "How many card points did " << game.player_name[game.hand[game.current_hand].declarer] << " collect? " << endl;
+                        game.hand[game.current_hand].cardpoints = input_and_validate(0, 120);
+                        if (game.hand[h].cardpoints == 120) {
+                            cout << "Did "<< game.player_name[game.hand[game.current_hand].declarer] << "take all the tricks? " << endl;
+                            if (yes()) game.hand[h].multipliers |= Skat_Game::SCHWARZ;
+                        }
                         cout << "With or without how many? " << endl;
                         game.hand[game.current_hand].matadors = input_and_validate(1, 8);
-                        cout << "Was it Schneider?" << endl;
-                        if (yes()) {
-                            game.hand[game.current_hand].multipliers |= Skat_Game::SCHNEIDER;
-                            cout << "Was it Schwarz?" << endl;
-                            if (yes()) game.hand[game.current_hand].multipliers |= Skat_Game::SCHWARZ;
-                        }
+                        game.calculate_win_lose(game.current_hand);
+                        cout << game.player_name[game.hand[game.current_hand].declarer]; 
+                        if (game.hand[game.current_hand].winlose == Skat_Game::WIN) cout << " won ";
+                        else cout << " lost ";
+                        cout << "the hand." << endl;
                     }
                     cout << "Was there a Kontra? " << endl;
                     if (yes()) {
@@ -283,9 +286,6 @@ int main(int argc, char** argv) {
                     } else game.hand[game.current_hand].kontrare = game.SINGLE;
                 }
 
-                /// Add a handler to check if player lost (e.g., called Schneider but didn't)
-                /// Add Bock handler
-
                 game.calculate_hand_score(game.current_hand);
                 game.calculate_game_score();
                 game.print_game_status();
@@ -294,7 +294,7 @@ int main(int argc, char** argv) {
                 }
                 cout << "Was this hand scored correctly? " << endl;
                 if (yes()) {
-                    h = calculate_new_bocks(bock, game.current_hand);
+                    h = game.calculate_new_bocks(bock, game.current_hand);
                     if (h > 0) {
                         cout << "This hand created new bocks." << endl;
                         bock += h;
@@ -414,41 +414,4 @@ int input_and_validate(int min, int max) {
     if (i > max) i = max;
 
     return i;
-}
-
-int calculate_new_bocks(int b, int h) {
-    // Did this hand create more Bocks?
-    int new_bocks = 0;
-
-    // - Raw points > 120 (before loss/bock/Kontra/Re)
-    if ( (game.hand[h].contract != Skat_Game::RAMSCH) && (game.hand[h].contract != Skat_Game::NULLL) ) {
-        if ((game.hand[h].matadors + 1) * game.hand[h].contract >= 120)
-            new_bocks += 3;
-    }
-
-    // - 60/60 tie
-    if ( (game.hand[h].contract != Skat_Game::RAMSCH) && (game.hand[h].contract != Skat_Game::NULLL) ) {
-        if (game.hand[h].cardpoints == 60)
-            new_bocks += 3;
-    }
-
-    // - successful Kontra (opponents win)
-    if ( (game.hand[h].kontrare == Skat_Game::KONTRA) && (game.hand[h].winlose == Skat_Game::LOSE) ) {
-        new_bocks += 3; 
-    }
-
-    // - successful Re (declarer wins) --> Somebody loses in Re, so Re always creates a bock
-    if (game.hand[h].kontrare == Skat_Game::RE) {
-        new_bocks += 3;
-    }
-
-    // - Schneider (if there are currently no Bocks)
-    if ( (b == 0) && (game.hand[game.current_hand].multipliers & Skat_Game::SCHNEIDER) ) {
-                            new_bocks += 3;
-    }
-
-    // Max 3 bocks generated per hand
-    if (new_bocks > 3) new_bocks = 3;
-
-    return new_bocks;
 }

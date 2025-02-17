@@ -24,7 +24,7 @@ public:
     enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 
                                SCHN_ANNC = 8, SCHWARZ = 16, SCHW_ANNC = 32};
     enum    Kontra_Re {SINGLE = 1, KONTRA = 2, RE = 4};
-    enum    Ramsch_Special {PLAIN = -1, JUNGFRAU = -2, DURCHMARSCH = 99};
+    enum    Ramsch_Special {PLAIN = -1, JUNGF = -2, DURCHMARSCH = 99};
     enum    Win_Lose {LOSE = -2, WIN = 1};
     enum    Bock_Type {NOBOCK = 1, BOCKRUND = 2};
     struct  {
@@ -45,9 +45,12 @@ public:
 
     Skat_Game();
     void calculate_hand_score(int hand); 
+    int calculate_suit_grand_score(int hand);
     void calculate_game_score();
     void print_game_status();
     const char* const get_contract_name(int hand);
+    int calculate_new_bocks(int b, int h);
+    void calculate_win_lose(int h);
     
 };
 

@@ -1,39 +1,76 @@
+# Number of players
 3
+# Player names
 AT
 RT
 MT
+# Number of Hands
 3
+# Is game setup correct
 y
+#### Hand 1 ####
+# Bid
 23
+# Contract -- NULL
 n
+# Player number that won the bid
 1
+# Will it be hand?
 n
+# Will it be open?
 n
+# Is hand play information correct?
 y
+# Did declarer win the hand?
 y
+# Was there a Kontra?
 n
+# Was this hand scored correctly?
 y
+#### Hand 2 ####
+# Bid
 20
+# Contract -- DIAMONDS
 D
+# Player number that won the bid
 2
+# Will it be hand?
 n
+# Is hand play information correct?
 y
-y
-3
+# How many card points did declarer collect?
+89
+# With or without number
+1
+# Was there Kontra?
 n
-n
+# Was this hand scored correctly
 y
+#### Hand 3 ####
+# Bid
 48
+# Contract
 g
+# Player number that won the bid
 3
+# Will it be played Hand
 y
+# Will it be played open
 n
+# Announce Schneider
 n
+# Is hand play information correct/
 y
-n
+# How many card points did declarer collect
+58
+# With or without number
 3
-n
+# Was there a Kontra?
 y
-n
+# Was there a Re?
 y
+# Was this hand scored correctly?
+y
+#### All hands have been played ####
+# Any hands that need to be corrected
 n

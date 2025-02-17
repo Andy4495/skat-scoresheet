@@ -35,10 +35,7 @@ void Skat_Game::calculate_hand_score(int h) {
         hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 23;
    } else {
       if (hand[h].contract != RAMSCH) {
-         bitset<32> m(hand[h].multipliers);
-         hand[h].score[hand[h].declarer] =
-         hand[h].bock * hand[h].kontrare * hand[h].winlose * hand[h].contract * 
-           (hand[h].matadors + m.count() + 1);
+         hand[h].score[hand[h].declarer] = calculate_suit_grand_score(h) * hand[h].bock * hand[h].kontrare;
       } else { // RAMSCH
          if (hand[h].ramsch == DURCHMARSCH) {
             hand[h].score[hand[h].declarer] = hand[h].bock * 120;
@@ -49,6 +46,13 @@ void Skat_Game::calculate_hand_score(int h) {
          }
       }
    }
+}
+
+int Skat_Game::calculate_suit_grand_score(int h) {
+   // This returns a value before Kontra/Re and bock multipliers
+   bitset<32> m(hand[h].multipliers);
+
+   return  hand[h].winlose * hand[h].contract * (hand[h].matadors + m.count() + 1);
 }
 
 void Skat_Game::calculate_game_score() {
@@ -63,24 +67,27 @@ void Skat_Game::calculate_game_score() {
 
 void Skat_Game::print_game_status() {
    // Header row
-   cout << "|  # | Bid | Contract | HOSAZA | KR | " << setw(8) << player_name[0] << " | "
+   cout << "|  # | Bid | M | Contract | HOSAZA | KR | " << setw(8) << player_name[0] << " | "
    << setw(8) << player_name[1] << " | " << setw(8) << player_name[2]; 
    if (number_of_players == 4) cout << " | " << setw(8) << player_name[3];
    cout << " | Bock |" << endl;
    // Delimiter row
-   cout << "| -- | --- | -------- | ------ | -- | -------- | -------- | -------- |";
+   cout << "| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- |";
    if (number_of_players == 4) cout << " -------- |";
    cout << " ---- |" << endl;
    // Hand-by-hand rows
    for (int i = 0; i <= current_hand; i++ ) {
       // Hand # and bid fields
       cout << "| " << setw(2) << i + 1 << " | " << setw(3) << hand[i].bid << " | ";
+      // Matadors field
+      if (hand[i].contract == NULLL || hand[i].contract == RAMSCH) cout << "  | "; // No matadors for Null or Ramsch
+      else cout << hand[i].matadors << " | ";
       // Contract field
       cout << setw(8) << left << get_contract_name(hand[i].contract) << right;
       // Multipliers field (Hand, Open, Schneider, Schwarz, Announce)
       cout << " | ";
       if (hand[i].contract == RAMSCH) {
-         if (hand[i].ramsch == JUNGFRAU) cout << "JUNGF ";
+         if (hand[i].ramsch == JUNGF) cout << "JUNGF ";
          else if (hand[i].ramsch == DURCHMARSCH) cout << "DURCH ";
          else cout << "      ";
       } else {
@@ -109,14 +116,15 @@ void Skat_Game::print_game_status() {
       if (number_of_players == 4) cout << " | " << setw(8) << hand[i].score[3];
       // Bock field
       cout << " | ";
-      if (hand[i].bock == Skat_Game::BOCKRUND) cout << " B  ";
+      if (hand[i].bock == BOCKRUND) cout << " B  ";
       else cout << "    ";
       cout << " |" << endl;
    }
-   cout << "| -- | --- | -------- | ------ | -- | -------- | -------- | -------- |";
+   cout << "| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- |";
    if (number_of_players == 4) cout << " -------- |";
    cout << " ---- |" << endl;
-   cout << "                              Totals: ";
+   if (number_of_players == 4) cout << "           ";
+   cout << "                                  Totals: ";
    cout << setw(8) << total_score[0] << " | " 
    << setw(8) << total_score[1] << " | " 
    << setw(8) << total_score[2];
@@ -155,4 +163,79 @@ const char* const Skat_Game::get_contract_name(int h) {
         break;
    }
    return(contract_name[index]);
+}
+
+int Skat_Game::calculate_new_bocks(int b, int h) {
+   // Did this hand create more Bocks?
+   int new_bocks = 0;
+
+   // - Raw points > 120 (before loss/bock/Kontra/Re)
+   if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
+       if ((hand[h].matadors + 1) * hand[h].contract >= 120)
+           new_bocks += 3;
+   }
+
+   // - 60/60 tie
+   if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
+       if (hand[h].cardpoints == 60)
+           new_bocks += 3;
+   }
+
+   // - successful Kontra (opponents win)
+   if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
+       new_bocks += 3; 
+   }
+
+   // - successful Re (declarer wins) --> Somebody loses in Re, so Re always creates a bock
+   if (hand[h].kontrare == RE) {
+       new_bocks += 3;
+   }
+
+   // - Schneider (if there are currently no Bocks)
+   if ( (b == 0) && (hand[current_hand].multipliers & SCHNEIDER) ) {
+                           new_bocks += 3;
+   }
+
+   // Max 3 bocks generated per hand
+   if (new_bocks > 3) new_bocks = 3;
+
+   return new_bocks;
+}
+
+void Skat_Game::calculate_win_lose(int h) {
+   // This function is only useful for suit and grand bids. Ramsch and Null are calculated separately.
+   // Assumes that SCHWARZ bit is set before calling this method if player took all the tricks
+   // Score of 120 wins unless SCHWARZ was announced, but player did not take all tricks
+   if (hand[h].cardpoints == 120) {
+      if (hand[h].multipliers & SCHW_ANNC) {
+         if (hand[h].multipliers & SCHWARZ) hand[h].winlose = WIN;
+         else hand[h].winlose = LOSE;
+      } else {
+         hand[h].multipliers |= SCHNEIDER;
+         hand[h].winlose = WIN;
+      }
+   } else { // Check for Schneider
+         if (hand[h].cardpoints > 89) {
+            hand[h].multipliers |= SCHNEIDER;
+            hand[h].winlose = WIN;
+         } else { // Not Schneider or Schwarz, check if regular game win
+            if (hand[h].cardpoints > 60) {// Between [61 and 89], win unless Schneider Announced
+               if (hand[h].multipliers & SCHN_ANNC) hand[h].winlose = LOSE;
+               else hand[h].winlose = WIN;
+            } else  {  // Declarer lost. Check if delarer was out of Schneider (extra multiple)
+               hand[h].winlose = LOSE;
+               if (hand[h].cardpoints < 31) hand[h].multipliers |= SCHNEIDER;
+            }
+         }
+   }
+   // Check for overbid
+   // Overbid checks the score before Kontra/Re
+   if ( (hand[h].winlose == WIN) && (calculate_suit_grand_score(h) < hand[h].bid)) {
+      cout << "Overbid. Adding a multiplier to match bid." << endl;
+      /// Need logic to correct the score based on the bid.
+      while (calculate_suit_grand_score(h) < hand[h].bid) {
+         hand[h].matadors++;
+      }
+      hand[h].winlose = LOSE;
+   }
 }
