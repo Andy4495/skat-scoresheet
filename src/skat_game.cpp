@@ -23,7 +23,7 @@ Skat_Game::Skat_Game()
 }
 
 void Skat_Game::calculate_hand_score(int h) {
-   /// Need to add a check for overbid
+   // It is up to the players to declare an overbid on NULL, since it is obvious before the hand starts play
    if (hand[h].contract == NULLL) {
       if (hand[h].multipliers == OPEN) 
         hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 46;
@@ -60,8 +60,6 @@ void Skat_Game::calculate_game_score() {
    for (i = 0; i < number_of_players; i++) total_score[i] = 0;
    for (i = 0; i <= current_hand; i++) {
       for (j=0; j < number_of_players; j++) total_score[j] += hand[i].score[j];
-      /// Following is for testing
-      /// for (j=0; j < number_of_players; j++) total_score[j] += i + j;
    }
 }
 
@@ -118,7 +116,13 @@ void Skat_Game::print_game_status() {
       cout << " | ";
       if (hand[i].bock == BOCKRUND) cout << " B  ";
       else cout << "    ";
-      cout << " |" << endl;
+      cout << " |";
+      // Score edited field
+      if (hand[i].edited) {
+         cout << " ***";
+         edited_score_note = 1;
+      }
+      cout << endl;
    }
    cout << "| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- |";
    if (number_of_players == 4) cout << " -------- |";
@@ -130,6 +134,7 @@ void Skat_Game::print_game_status() {
    << setw(8) << total_score[2];
    if (number_of_players == 4) cout << " | " << setw(8) << total_score[3];
    cout << endl;
+   if (edited_score_note) cout << "*** Indicates that a score was manually edited for that hand." << endl;
 }
 
 const char* const Skat_Game::get_contract_name(int h) {
@@ -232,10 +237,50 @@ void Skat_Game::calculate_win_lose(int h) {
    // Overbid checks the score before Kontra/Re
    if ( (hand[h].winlose == WIN) && (calculate_suit_grand_score(h) < hand[h].bid)) {
       cout << "Overbid. Adding a multiplier to match bid." << endl;
-      /// Need logic to correct the score based on the bid.
       while (calculate_suit_grand_score(h) < hand[h].bid) {
          hand[h].matadors++;
       }
       hand[h].winlose = LOSE;
+   }
+}
+
+void Skat_Game::set_contract(int h) {
+   char c;
+
+   cout << "Enter contract (C, S, H, D, G, N): " << endl; 
+   cin >> c;
+   switch (c) {
+       case 'c':
+       case 'C': 
+       case 'k': // Kreuz
+       case 'K': 
+         hand[h].contract = Skat_Game::CLUBS;
+         break;
+       case 's':
+       case 'S': 
+       case 'p': // Pik
+       case 'P':
+         hand[h].contract = Skat_Game::SPADES;
+         break;
+       case 'h': // Herz
+       case 'H': 
+         hand[h].contract = Skat_Game::HEARTS;
+         break;
+       case 'd': // Don't have one-letter "karo" or "caro" because it clashes with Clubs/Kreuz
+       case 'D': 
+         hand[h].contract = Skat_Game::DIAMONDS;
+         break;
+       case 'g':
+       case 'G': 
+         hand[h].contract = Skat_Game::GRAND;
+         break;
+       case 'n':
+       case 'N': 
+         hand[h].contract = Skat_Game::NULLL;
+         break;
+       default:
+         cout << "Invalid contract. Defaulting to Clubs." << endl;
+         hand[h].contract = Skat_Game::CLUBS;
+         break;
    }
 }

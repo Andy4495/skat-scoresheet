@@ -19,6 +19,7 @@ public:
     int     number_of_hands;
     int     current_hand;
     int     total_score[4];
+    int     edited_score_note;
     static const char* const contract_name[7];
     enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1};
     enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 
@@ -41,6 +42,7 @@ public:
         Ramsch_Special ramsch;
         Bock_Type bock;
         int score[4];   // Index to player_names[]; Initialize to zero, updated per hand
+        int edited;  // Indicates if a score was edited for this hand at end of game
     } hand[36];
 
     Skat_Game();
@@ -51,7 +53,7 @@ public:
     const char* const get_contract_name(int hand);
     int calculate_new_bocks(int b, int h);
     void calculate_win_lose(int h);
-    
+    void set_contract(int h);
 };
 
 #endif
