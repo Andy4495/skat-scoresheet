@@ -12,6 +12,7 @@ This scoresheet is hard-coded with our particular house rules:
 
 - Scoring
   - Losses count double for non-Ramsch contracts
+    - A "nobody bids 18" Ramsch hand has Bock apply
   - Grand base value is 24
   - Opponents must take 31 to avoid Schneider
   - Declarer losing hand with less than 31 points is considered Schneider
@@ -21,23 +22,37 @@ This scoresheet is hard-coded with our particular house rules:
 - Ramsch
   - Play a Ramsch hand if nobody bids 18
   - Play a Ramschround of 3 hands after playing a Bockround of 3 hands
-  - The player who collects the most card points loses (except for Durchmarsch)
-    - More than one player can lose in the case of a tie
-    - Scores are counted negative (except for Durchmarsch)
-    - If a player takes zero tricks, the losing hand(s) scores double
   - A player taking all tricks (Durchmarsch) scores +120 points
-  - During a Ramschround, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular contract hand
+  - If no single player takes all tricks, then he player who collects the most card points has those card points deducted
+    - More than one player can lose in the case of a tie
+    - If a player takes zero tricks, the losing hand(s) score(s) double
+  - During a Ramschround, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract
 - Bockround
   - Scores double in a Bock hand
   - A new Bockround (3 hands) is created in the following cases:
-    - Declarer and opponents each take 60 points (suits and Grand contracts)
-    - Raw hand score >= 120 (non-Ramsch; before Bock/Lose/Kontra/Re doubling)
+    - For suit and Grand contracts:
+      - Declarer and opponents each take 60 points
+      - Raw hand score >= 120 (before Bock/Lose/Kontra/Re doubling)
     - Successful Kontra (declarer loses)
     - Any Re (i.e. declarer says Re to opponent's Kontra)
     - The contract results in a Schneider (but only if current hand is not a Bock hand)
 
+## To-Do
+
+Tasks to complete before this is ready to be called "Version 1.0.0":
+
+- Some handling for 4-player cases is awkward or incorrect. 3-player should work.
+- Allow an option at the beginning game to play "Schieberamsch" (all hands are Ramsch)
+- End the game early (play fewer hands than planned)
+- Allow Grand Hand bid during Ramsch Round
+- More thorough testing, including running a test as part of the Build action
+
 ## Future Features
 
+Not planned for Version 1.0.0, but may be added in a future release:
+
+- Add hands to an existing game (play longer than originally planned)
+- Allow an option to select whether to play a Ramsch round after a Bock round
 - Saving the game to a file
 - Configuration file with setup parameters (# of players, player names, # of hands)
 - Check for declarer taking zero tricks on a non-null contract
