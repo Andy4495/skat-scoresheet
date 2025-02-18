@@ -21,6 +21,7 @@ public:
     int     current_hand;
     int     total_score[4];
     int     edited_score_note;
+    bool    schieberamsch;
     static const char* const contract_name[7];
     enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1};
     enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 

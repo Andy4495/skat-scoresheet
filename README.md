@@ -29,6 +29,7 @@ This scoresheet is hard-coded with our particular house rules:
     - More than one player can lose in the case of a tie
     - If a player takes zero tricks, the losing hand(s) score(s) double
   - During a Ramschround, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract
+  - Entire game can be played Ramsch ("Schieberamsch")
 - Bockround
   - Scores double in a Bock hand
   - A new Bockround (3 hands) is created in the following cases:
@@ -38,13 +39,13 @@ This scoresheet is hard-coded with our particular house rules:
     - Successful Kontra (declarer loses)
     - Any Re (i.e. declarer says Re to opponent's Kontra)
     - The contract results in a Schneider (but only if current hand is not a Bock hand)
+  - A maximum of one Bockrund (3 hands) can be created per hand
+    - For example, a 120 raw hand score with a Schneider only creates 1 Bockrund
 
 ## To-Do
 
 Tasks to complete before this is ready to be called "Version 1.0.0":
 
-- Allow an option at the beginning game to play "Schieberamsch" (all hands are Ramsch)
-- End the game early (play fewer hands than planned)
 - Allow Grand Hand bid during Ramsch Round
 - More thorough testing, including running a test as part of the Build action
 
@@ -53,6 +54,7 @@ Tasks to complete before this is ready to be called "Version 1.0.0":
 Not planned for Version 1.0.0, but may be added in a future release:
 
 - Add hands to an existing game (play longer than originally planned)
+- End Schieberamsch early
 - Allow an option to select whether to play a Ramsch round after a Bock round
 - Saving the game to a file
 - Configuration file with setup parameters (# of players, player names, # of hands)

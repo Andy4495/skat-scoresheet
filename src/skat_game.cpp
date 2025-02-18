@@ -176,32 +176,29 @@ int Skat_Game::calculate_new_bocks(int b, int h) {
    // - Raw points > 120 (before loss/bock/Kontra/Re)
    if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
        if ((hand[h].matadors + 1) * hand[h].contract >= 120)
-           new_bocks += 3;
+           new_bocks = 3;
    }
 
    // - 60/60 tie
    if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
        if (hand[h].cardpoints == 60)
-           new_bocks += 3;
+           new_bocks = 3;
    }
 
    // - successful Kontra (opponents win)
    if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
-       new_bocks += 3; 
+       new_bocks = 3; 
    }
 
    // - successful Re (declarer wins) --> Somebody loses in Re, so Re always creates a bock
    if (hand[h].kontrare == RE) {
-       new_bocks += 3;
+       new_bocks = 3;
    }
 
    // - Schneider (if there are currently no Bocks)
    if ( (b == 0) && (hand[current_hand].multipliers & SCHNEIDER) ) {
-                           new_bocks += 3;
+                           new_bocks = 3;
    }
-
-   // Max 3 bocks generated per hand
-   if (new_bocks > 3) new_bocks = 3;
 
    return new_bocks;
 }

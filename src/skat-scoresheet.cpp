@@ -7,8 +7,7 @@
 
 */
 
-const char* VERSION = "v0.0.1";
-
+#include "version.h"
 #include "skat_game.h"
 #include <iostream>
 #include <string.h>
@@ -33,12 +32,13 @@ int main(int argc, char** argv) {
     int i;  // For use in for loops
     int bock = 1;  /// Change to 0 after testing
 
-    /// Add support for a Ramsch-only game
-
     while (state != GAME_COMPLETED) {
         switch (state) {
             case INIT:
-                cout << "Welcome to the Skat Scoresheet!" << endl;
+                cout << "Welcome to the Skat Scoresheet " << VERSION << "!" << endl;
+                cout << "Will this be a Ramsch-only (Schieberamsch) game? " << endl;
+                if (yes()) game.schieberamsch = true;
+                else game.schieberamsch = false;
                 cout << "Enter number of players (3 or 4): " << endl;
                 game.number_of_players = input_and_validate(3, 4);
                 cout << "Enter Player 1 name: " << endl;
@@ -75,27 +75,34 @@ int main(int argc, char** argv) {
 
             case NEW_HAND_BID:
                 cout << "Starting hand number " << game.current_hand + 1 << endl;
-                if (bock > 0) {
-                    cout << "This hand is a Bockrund. Scores double." << endl;
-                    game.hand[game.current_hand].bock = Skat_Game::BOCKRUND;
-                } else game.hand[game.current_hand].bock = Skat_Game::NOBOCK;
-                // In 4 player games, geben-hoeren-sagen-weitersagen still applies: 
-                // - Player to left of dealer is "hoeren" and player to right of dealer is "weitersagen" ("continue saying")
-                // - weitersagen continues bid after either gaben or hoeren passes
-                cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer." << endl;
-                cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens." << endl;
-                cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks."  << endl;
-                if (game.number_of_players == 4) cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues."  << endl;
-                cout << "Enter winning bid (enter 0 for Ramsch or 999 to end Game early): " << endl; 
-                game.hand[game.current_hand].bid = input_and_validate(0, 999);
-                // if Ramsch, then don't need to ask about contract
-                if (game.hand[game.current_hand].bid == 999) {
-                    cout << "Ending game early" << endl;
-                    state = END_GAME;
-                    game.number_of_hands = game.current_hand;
-                    game.current_hand--;
-                } else {
+                if (game.schieberamsch) {
+                    game.hand[game.current_hand].bid = 0;
+                    game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
+                    game.hand[game.current_hand].bock = Skat_Game::NOBOCK;
                     state = NEW_HAND_CONTRACT;
+                } else {
+                    if (bock > 0) {
+                        cout << "This hand is a Bockrund. Scores double." << endl;
+                        game.hand[game.current_hand].bock = Skat_Game::BOCKRUND;
+                    } else game.hand[game.current_hand].bock = Skat_Game::NOBOCK;
+                    // In 4 player games, geben-hoeren-sagen-weitersagen still applies: 
+                    // - Player to left of dealer is "hoeren" and player to right of dealer is "weitersagen" ("continue saying")
+                    // - weitersagen continues bid after either gaben or hoeren passes
+                    cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer." << endl;
+                    cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens." << endl;
+                    cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks."  << endl;
+                    if (game.number_of_players == 4) cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues."  << endl;
+                    cout << "Enter winning bid (enter 0 for Ramsch or 999 to end Game early): " << endl; 
+                    game.hand[game.current_hand].bid = input_and_validate(0, 999);
+                    // if Ramsch, then don't need to ask about contract
+                    if (game.hand[game.current_hand].bid == 999) {
+                        cout << "Ending game early" << endl;
+                        state = END_GAME;
+                        game.number_of_hands = game.current_hand;
+                        game.current_hand--;
+                    } else {
+                        state = NEW_HAND_CONTRACT;
+                    }
                 }
                 break;
             
@@ -157,9 +164,9 @@ int main(int argc, char** argv) {
                 }
                 cout << "Is this correct: " << endl;
                 if (yes()) {
-                    cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " leads." << endl;
+                    cout << ">>> " << game.player_name[(game.current_hand + 1) % game.number_of_players] << " leads. <<<" << endl;
                     state = SCORE_HAND;
-                 } else state = NEW_HAND_BID;
+                } else state = NEW_HAND_BID;
                 break;
 
             case SCORE_HAND:

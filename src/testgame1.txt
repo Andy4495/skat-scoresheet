@@ -4,6 +4,8 @@
 #   sed '/^#/d' <testgame1.txt  | ./skat-scoresheet      
 #   
 #### Game Setup ####
+# Ramsch-only
+n
 # Number of players
 3
 # Player names
