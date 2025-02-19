@@ -20,6 +20,8 @@ const char* const Skat_Game::contract_name[]={"Clubs", "Spades", "Hearts", "Diam
 Skat_Game::Skat_Game()
 {
    current_hand = 0;
+   ramsch_count = 0;
+   bock_count = 0;
 }
 
 void Skat_Game::calculate_hand_score(int h) {
@@ -114,7 +116,7 @@ void Skat_Game::print_game_status() {
       if (number_of_players == 4) cout << " | " << setw(8) << hand[i].score[3];
       // Bock field
       cout << " | ";
-      if (hand[i].bock == BOCKRUND) cout << " B  ";
+      if (hand[i].bock == BOCK) cout << " B  ";
       else cout << "    ";
       cout << " |";
       // Score edited field
@@ -169,35 +171,35 @@ const char* const Skat_Game::get_contract_name(int h) {
    return(contract_name[index]);
 }
 
-int Skat_Game::calculate_new_bocks(int b, int h) {
+int Skat_Game::calculate_new_bocks(int h) {
    // Did this hand create more Bocks?
    int new_bocks = 0;
 
    // - Raw points > 120 (before loss/bock/Kontra/Re)
    if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
        if ((hand[h].matadors + 1) * hand[h].contract >= 120)
-           new_bocks = 3;
+           new_bocks = number_of_players;
    }
 
    // - 60/60 tie
    if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
        if (hand[h].cardpoints == 60)
-           new_bocks = 3;
+           new_bocks = number_of_players;
    }
 
    // - successful Kontra (opponents win)
    if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
-       new_bocks = 3; 
+       new_bocks = number_of_players; 
    }
 
    // - successful Re (declarer wins) --> Somebody loses in Re, so Re always creates a bock
    if (hand[h].kontrare == RE) {
-       new_bocks = 3;
+       new_bocks = number_of_players;
    }
 
    // - Schneider (if there are currently no Bocks)
-   if ( (b == 0) && (hand[current_hand].multipliers & SCHNEIDER) ) {
-                           new_bocks = 3;
+   if ( (bock_count == 0) && (hand[current_hand].multipliers & SCHNEIDER) ) {
+                           new_bocks = number_of_players;
    }
 
    return new_bocks;
@@ -250,6 +252,8 @@ void Skat_Game::set_contract(int h) {
        case 'C': 
        case 'k': // Kreuz
        case 'K': 
+       case 'z': // kreuZ (last letter abbreviation)
+       case 'Z':
          hand[h].contract = Skat_Game::CLUBS;
          break;
        case 's':
@@ -262,8 +266,10 @@ void Skat_Game::set_contract(int h) {
        case 'H': 
          hand[h].contract = Skat_Game::HEARTS;
          break;
-       case 'd': // Don't have one-letter "karo" or "caro" because it clashes with Clubs/Kreuz
+       case 'd': // Don't have first letter "Karo" or "Caro" because it clashes with Clubs/Kreuz
        case 'D': 
+       case 'o':// carO (last letter abbreviation)
+       case 'O': 
          hand[h].contract = Skat_Game::DIAMONDS;
          break;
        case 'g':

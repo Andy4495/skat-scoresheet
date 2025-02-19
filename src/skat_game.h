@@ -11,7 +11,7 @@
 #define SKAT_GAME_H
 
 #define MAX_NAME_SIZE 8
-#define MAX_NUMBER_OF_HANDS 40
+#define MAX_NUMBER_OF_HANDS 99
 
 class Skat_Game {
 public:
@@ -22,6 +22,8 @@ public:
     int     total_score[4];
     int     edited_score_note;
     bool    schieberamsch;
+    int     ramsch_count;
+    int     bock_count;
     static const char* const contract_name[7];
     enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1};
     enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 
@@ -29,7 +31,7 @@ public:
     enum    Kontra_Re {SINGLE = 1, KONTRA = 2, RE = 4};
     enum    Ramsch_Special {PLAIN = -1, JUNGF = -2, DURCHMARSCH = 99};
     enum    Win_Lose {LOSE = -2, WIN = 1};
-    enum    Bock_Type {NOBOCK = 1, BOCKRUND = 2};
+    enum    Bock_Type {NOBOCK = 1, BOCK = 2};
     struct  {
         int declarer;     // Index to player_names[]; -1 for Ramsch
         int bid;
@@ -53,7 +55,7 @@ public:
     void calculate_game_score();
     void print_game_status();
     const char* const get_contract_name(int hand);
-    int calculate_new_bocks(int b, int h);
+    int calculate_new_bocks(int h);
     void calculate_win_lose(int h);
     void set_contract(int h);
 };

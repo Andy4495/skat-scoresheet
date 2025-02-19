@@ -18,7 +18,8 @@ int input_and_validate(int min, int max);
 
 using namespace std;
 
-enum State {INIT, START_GAME, NEW_HAND_BID, NEW_HAND_CONTRACT, SCORE_HAND, END_GAME, EDIT_GAME, GAME_COMPLETED};
+enum State {INIT, NEW_HAND_BID, HAND_CONTRACT, HAND_SUMMARY, 
+            SCORE_HAND, END_GAME, EDIT_GAME, GAME_COMPLETED};
 
 State state = INIT;
 Skat_Game game;
@@ -30,15 +31,20 @@ int main(int argc, char** argv) {
     string name;
     int h;
     int i;  // For use in for loops
-    int bock = 1;  /// Change to 0 after testing
 
     while (state != GAME_COMPLETED) {
         switch (state) {
             case INIT:
                 cout << "Welcome to the Skat Scoresheet " << VERSION << "!" << endl;
                 cout << "Will this be a Ramsch-only (Schieberamsch) game? " << endl;
-                if (yes()) game.schieberamsch = true;
-                else game.schieberamsch = false;
+                if (yes()) {
+                    game.schieberamsch = true;
+                    game.ramsch_count = MAX_NUMBER_OF_HANDS;   // Allows bid of Grand Hand
+                }
+                else {
+                    game.schieberamsch = false;
+                    game.ramsch_count = 0;
+                }
                 cout << "Enter number of players (3 or 4): " << endl;
                 game.number_of_players = input_and_validate(3, 4);
                 cout << "Enter Player 1 name: " << endl;
@@ -64,26 +70,28 @@ int main(int argc, char** argv) {
                 for (i = 0; i < game.number_of_players; i++) cout << game.player_name[i] << endl;
                 cout << "Game will end after " << game.number_of_hands << " hands." << endl;
                 cout << "Is this correct? " << endl;
-                if (yes()) state = START_GAME;
+                if (yes()) state = NEW_HAND_BID;
                 else state = INIT;
-                break;
-
-            case START_GAME:  /// This state may not be needed; merge code into INIT state
                 for (i = 0; i < game.number_of_players; i++ ) tie_game[i] = -1;
-                state = NEW_HAND_BID;
                 break;
 
             case NEW_HAND_BID:
+                cout << "======================";
+                if (game.current_hand + 1 > 9) cout << "=";
+                cout << endl;
                 cout << "Starting hand number " << game.current_hand + 1 << endl;
-                if (game.schieberamsch) {
+                cout << "======================";
+                if (game.current_hand + 1 > 9) cout << "=";
+                cout << endl;
+                if (game.schieberamsch || game.ramsch_count) {
                     game.hand[game.current_hand].bid = 0;
                     game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
                     game.hand[game.current_hand].bock = Skat_Game::NOBOCK;
-                    state = NEW_HAND_CONTRACT;
+                    state = HAND_SUMMARY;
                 } else {
-                    if (bock > 0) {
-                        cout << "This hand is a Bockrund. Scores double." << endl;
-                        game.hand[game.current_hand].bock = Skat_Game::BOCKRUND;
+                    if (game.bock_count > 0) {
+                        cout << "This hand is Bock. Scores double." << endl;
+                        game.hand[game.current_hand].bock = Skat_Game::BOCK;
                     } else game.hand[game.current_hand].bock = Skat_Game::NOBOCK;
                     // In 4 player games, geben-hoeren-sagen-weitersagen still applies: 
                     // - Player to left of dealer is "hoeren" and player to right of dealer is "weitersagen" ("continue saying")
@@ -92,67 +100,72 @@ int main(int argc, char** argv) {
                     cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens." << endl;
                     cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks."  << endl;
                     if (game.number_of_players == 4) cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues."  << endl;
-                    cout << "Enter winning bid (enter 0 for Ramsch or 999 to end Game early): " << endl; 
+                    cout << "Enter winning bid (0 for Ramsch, 999 to end game early): " << endl; 
                     game.hand[game.current_hand].bid = input_and_validate(0, 999);
-                    // if Ramsch, then don't need to ask about contract
-                    if (game.hand[game.current_hand].bid == 999) {
-                        cout << "Ending game early" << endl;
-                        state = END_GAME;
-                        game.number_of_hands = game.current_hand;
-                        game.current_hand--;
+                    if (game.hand[game.current_hand].bid == 0) {
+                        game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
+                        state = HAND_SUMMARY;
                     } else {
-                        state = NEW_HAND_CONTRACT;
+                        if (game.hand[game.current_hand].bid == 999) {
+                            cout << "Ending game early" << endl;
+                            state = END_GAME;
+                            game.number_of_hands = game.current_hand;
+                            game.current_hand--;
+                        } else {
+                            state = HAND_CONTRACT;
+                        }
                     }
                 }
                 break;
             
-            case NEW_HAND_CONTRACT:
-                if (game.hand[game.current_hand].bid == 0) game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
-                else game.set_contract(game.current_hand);
-                if (game.hand[game.current_hand].contract != Skat_Game::RAMSCH) {
-                    cout << "Who is the declarer? " << endl;
-                    // In 4 player games, dealer doesn't play, so don't list the dealer name
-                    for (i = 0; i < game.number_of_players; i++) {
-                        if ( (game.current_hand % game.number_of_players != i) || (game.number_of_players == 3) )
-                            cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+            case HAND_CONTRACT:
+                game.set_contract(game.current_hand);
+                cout << "Who is the declarer? " << endl;
+                // In 4 player games, dealer doesn't play, so don't list the dealer name
+                for (i = 0; i < game.number_of_players; i++) {
+                    if ( (game.current_hand % game.number_of_players != i) || (game.number_of_players == 3) )
+                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+                }
+                game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
+                if (game.hand[game.current_hand].contract == Skat_Game::Skat_Game::NULLL) {
+                    cout << "Will it be played Hand (Y/N)? " << endl;
+                    if (yes()) {
+                        game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
                     }
-                    game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
-                    if (game.hand[game.current_hand].contract == Skat_Game::Skat_Game::NULLL) {
-                        cout << "Will it be played Hand (Y/N)? " << endl;
+                    cout << "Will it be played Open (Y/N)? " << endl;
+                    if (yes()) {
+                        game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
+                    }
+                } else { // Suit or Grand
+                    cout << "Will it be played Hand (Y/N)? " << endl;
+                    if (yes()) game.hand[game.current_hand].multipliers = Skat_Game::HAND;
+                    // If hand, then can play open. 
+                    if (game.hand[game.current_hand].multipliers & Skat_Game::HAND) {
+                        cout << "Will it be played Open -- must take all tricks (Y/N)? " << endl;
                         if (yes()) {
-                            game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
-                        }
-                        cout << "Will it be played Open (Y/N)? " << endl;
-                        if (yes()) {
-                            game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
-                        }
-                    } else { // Suit or Grand
-                        cout << "Will it be played Hand (Y/N)? " << endl;
-                        if (yes()) game.hand[game.current_hand].multipliers = Skat_Game::HAND;
-                        // If hand, then can play open. 
-                        if (game.hand[game.current_hand].multipliers & Skat_Game::HAND) {
-                            cout << "Will it be played Open -- must take all tricks (Y/N)? " << endl;
+                            game.hand[game.current_hand].multipliers = 
+                            (Skat_Game::HAND | Skat_Game::OPEN | Skat_Game::SCHNEIDER |  
+                            Skat_Game::SCHN_ANNC | Skat_Game::SCHWARZ | Skat_Game::SCHW_ANNC);
+                            cout << "Playing Open implies announcing Schneider and Schwarz." << endl;
+                        } else {
+                            // If hand but not open, then can announce Schneider or Schwarz
+                            cout << "Announce Schneider? " << endl;
                             if (yes()) {
-                                game.hand[game.current_hand].multipliers = 
-                                (Skat_Game::HAND | Skat_Game::OPEN | Skat_Game::SCHNEIDER |  
-                                Skat_Game::SCHN_ANNC | Skat_Game::SCHWARZ | Skat_Game::SCHW_ANNC);
-                                cout << "Playing Open implies announcing Schneider and Schwarz." << endl;
-                            } else {
-                                // If hand but not open, then can announce Schneider or Schwarz
-                                cout << "Announce Schneider? " << endl;
-                                if (yes()) {
-                                    game.hand[game.current_hand].multipliers |= 
-                                    (Skat_Game::SCHN_ANNC | Skat_Game::SCHNEIDER);
-                                    cout << "Announce Schwarz? " << endl; 
-                                    if (yes()) game.hand[game.current_hand].multipliers |= 
-                                    (Skat_Game::SCHW_ANNC | Skat_Game::SCHWARZ); 
-                                }
+                                game.hand[game.current_hand].multipliers |= 
+                                (Skat_Game::SCHN_ANNC | Skat_Game::SCHNEIDER);
+                                cout << "Announce Schwarz? " << endl; 
+                                if (yes()) game.hand[game.current_hand].multipliers |= 
+                                (Skat_Game::SCHW_ANNC | Skat_Game::SCHWARZ); 
                             }
                         }
-                    }                    
+                    }
                 }
+                state = HAND_SUMMARY;
+                break;             
+
+            case HAND_SUMMARY:
                 cout << "Hand summary: " << endl; 
-                if (game.hand[game.current_hand].contract == game.RAMSCH) {
+                if (game.hand[game.current_hand].contract == Skat_Game::RAMSCH) {
                     cout << "This hand will be played Ramsch." << endl;
                 } else {
                     cout << game.player_name[game.hand[game.current_hand].declarer]
@@ -248,6 +261,11 @@ int main(int argc, char** argv) {
                             default:
                                 cout << "Invalid number of Ramsch losers." << endl;
                                 break;
+                        }  // How many players lost
+                    }  // Not a Durchmarsch
+                    if (game.ramsch_count > 0) {
+                        if (--game.ramsch_count == 0) {
+                            cout << "End of Ramschround" << endl;
                         }
                     }
                 } else { // not Ramsch
@@ -282,31 +300,42 @@ int main(int argc, char** argv) {
                 game.calculate_hand_score(game.current_hand);
                 game.calculate_game_score();
                 game.print_game_status();
-                if (bock > 0) { 
-                    cout << "This hand was a Bockrund. " << endl;
+                if (game.bock_count > 0) { 
+                    cout << "This hand was Bock. " << endl;
                 }
                 cout << "Was this hand scored correctly? " << endl;
                 if (yes()) {
-                    h = game.calculate_new_bocks(bock, game.current_hand);
-                    if (h > 0) {
-                        cout << "This hand created new bocks." << endl;
-                        bock += h;
-                    }
                     /*  /// 
-                        The code below adjusts # of bocks to the # of hands remaining
                         It may be more informative to show all bocks, even beyond end of game,
-                        in case players want to extend the game
+                        in case players want to extend the game.
+                        However, if you want the # of bocks not to go beyond the end of the name,
+                        the code below adjusts # of bocks to the # of hands remaining
                         if (game.number_of_hands - game.current_hand - 1 > bock) h = bock;
                         else h = game.number_of_hands - game.current_hand - 1;
-                        cout << "There are " << h << " Bockrunds remaining." << endl;
+                        cout << "There are " << h << " Bocks remaining." << endl;
                     */
                    if (game.current_hand < game.number_of_hands - 1) {
                         state = NEW_HAND_BID;
-                        if (bock > 0) cout << "There are " << --bock << " Bocks remaining." << endl;
+                        h = game.calculate_new_bocks(game.current_hand);
+                        if (game.bock_count > 0) game.bock_count--;
+                        // If we completed a bockround, then start a ramschround
+                        if ( (game.hand[game.current_hand].bock == Skat_Game::BOCK) &&
+                             (game.bock_count % game.number_of_players == 0) ) {
+                                cout << "End of a Bockround. Next hand starts a Ramschround" << endl;
+                                game.ramsch_count = game.number_of_players;
+                                cout << "ramsch_count: " << game.ramsch_count << endl; /// Testing
+                        }
+                        if (h > 0) {
+                            cout << "This hand created new bocks." << endl;
+                            game.bock_count += h;
+                            cout << "bock_count, h: " << game.bock_count << " " << h << endl; /// Testing
+                        }
+                        if (game.bock_count > 0) cout << "There are " << game.bock_count << " Bocks remaining." << endl;
                         game.current_hand++;
+                    } else {
+                        state = END_GAME;
                     }
-                    else state = END_GAME;
-                } 
+                }
                 else state = SCORE_HAND;
                 break;
             
