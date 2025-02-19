@@ -33,32 +33,33 @@ public:
     enum    Win_Lose {LOSE = -2, WIN = 1};
     enum    Bock_Type {NOBOCK = 1, BOCK = 2};
     struct  {
-        int declarer;     // Index to player_names[]; -1 for Ramsch
-        int bid;
-        Contract_Type contract;   // Clubs, Spades, Hearts, Diamonds, Null, Grand, Ramsch
-        Win_Lose winlose;
-        int multipliers;  // Logical OR of Hand, Open, Schneider, Announce, Schwarz, Announce
-        int matadors;   // Top trumps, use 0 for Ramsch or Null
-        int overbid;    // Added multipliers when there is an overbid
-        int number_of_losers; // How many loser[] entries are valid
-        int loser[3];  // Index to player_names[]; May have one, two, or three losers in Ramsch
-        int cardpoints; // Declarer points taken, or Points taken by Ramsch loser, 
-        Kontra_Re kontrare; 
+        int         declarer;       // Index to player_names[]
+        int         bid;
+        Contract_Type contract;     // Clubs, Spades, Hearts, Diamonds, Null, Grand, Ramsch
+        Win_Lose    winlose;
+        int         multipliers;    // Logical OR of Hand, Open, Schneider, Announce, Schwarz, Announce
+        int         matadors;       // Top trumps, use 0 for Ramsch or Null
+        int         overbid;        // Added multipliers when there is an overbid
+        int         loser[3];       // Index to player_names[]; May have one, two, or three losers in Ramsch
+        int         number_of_losers; // How many loser[] entries are valid
+        int         cardpoints;     // Declarer points taken, or Points taken by Ramsch loser, 
+        Kontra_Re   kontrare; 
         Ramsch_Special ramsch;
-        Bock_Type bock;
-        int score[4];   // Index to player_names[]; Initialize to zero, updated per hand
-        int edited;  // Indicates if a score was edited for this hand at end of game
+        Bock_Type   bock;
+        int         score[4];       // Index to player_names[]; Initialize to zero, updated per hand
+        int         edited;         // Indicates if a score was edited for this hand at end of game
+        bool        grand_during_ramsch;    // Player bid Grand Hand during a Ramsch round or Schieberamsch game
     } hand[MAX_NUMBER_OF_HANDS];
 
     Skat_Game();
-    void calculate_hand_score(int hand); 
-    int calculate_suit_grand_score(int hand);
-    void calculate_game_score();
-    void print_game_status();
+    void    calculate_hand_score(int hand); 
+    int     calculate_suit_grand_score(int hand);
+    void    calculate_game_score();
+    void    print_game_status();
     const char* const get_contract_name(int hand);
-    int calculate_new_bocks(int h);
-    void calculate_win_lose(int h);
-    void set_contract(int h);
+    int     calculate_new_bocks(int h);
+    void    calculate_win_lose(int h);
+    void    set_contract(int h);
 };
 
 #endif

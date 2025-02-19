@@ -29,6 +29,7 @@ This scoresheet is hard-coded with our particular house rules:
     - More than one player can lose in the case of a tie
     - If a player takes zero tricks, the losing hand(s) score(s) double
   - During a Ramschround, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract
+    - No bock can be created in this case
   - Entire game can be played Ramsch ("Schieberamsch")
 - Bockround
   - Scores double in a Bock hand
@@ -46,20 +47,22 @@ This scoresheet is hard-coded with our particular house rules:
 
 Tasks to complete before this is ready to be called "Version 1.0.0":
 
-- Allow Grand Hand bid during Ramsch Round
 - More thorough testing, including running a test as part of the Build action
 
 ## Future Features
 
 Not planned for Version 1.0.0, but may be added in a future release:
 
-- Add hands to an existing game (play longer than originally planned)
-- End Schieberamsch early
 - Allow an option to select whether to play a Ramsch round after a Bock round
 - Saving the game to a file
-- Configuration file with setup parameters (# of players, player names, # of hands)
-- Check for declarer taking zero tricks on a non-null contract
+- Configuration file with setup parameters (# of players, player names)
+- Improved error handling when input is out of range
+  - Currently defaults to "no" on yes/no input and the min value on integer input
+- Check for declarer taking zero tricks on a non-null contract (opponents Schwarz the declarer)
   - This would be an extremely rare occurrence
+- Add hands to an existing game (play longer than originally planned)
+  - This may not be necessary, since the program currently allocates 99 hands which can be ended early
+  - I don't think that I've ever played a game even close to 99 hands
 
 ## Building the code
 

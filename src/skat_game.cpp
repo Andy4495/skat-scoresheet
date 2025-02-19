@@ -68,8 +68,8 @@ void Skat_Game::calculate_game_score() {
 void Skat_Game::print_game_status() {
    // Header row
    cout << "|  # | Bid | M | Contract | HOSAZA | KR | " << setw(8) << player_name[0] << " | "
-   << setw(8) << player_name[1] << " | " << setw(8) << player_name[2]; 
-   if (number_of_players == 4) cout << " | " << setw(8) << player_name[3];
+        << setw(8) << player_name[1] << " | " << setw(8) << player_name[2]; 
+   if (number_of_players == 4) cout  << " | " << setw(8) << player_name[3];
    cout << " | Bock |" << endl;
    // Delimiter row
    cout << "| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- |";
@@ -84,7 +84,7 @@ void Skat_Game::print_game_status() {
       else cout << hand[i].matadors << " | ";
       // Contract field
       cout << setw(8) << left << get_contract_name(hand[i].contract) << right;
-      // Multipliers field (Hand, Open, Schneider, Schwarz, Announce)
+      // Multipliers field (Hand, Open, Schneider, Announce, Schwarz, Announce)
       cout << " | ";
       if (hand[i].contract == RAMSCH) {
          if (hand[i].ramsch == JUNGF) cout << "JUNGF ";
@@ -131,9 +131,9 @@ void Skat_Game::print_game_status() {
    cout << " ---- |" << endl;
    cout << "                                  Totals: ";
    cout << setw(8) << total_score[0] << " | " 
-   << setw(8) << total_score[1] << " | " 
-   << setw(8) << total_score[2];
-   if (number_of_players == 4) cout << " | " << setw(8) << total_score[3];
+        << setw(8) << total_score[1] << " | " 
+        << setw(8) << total_score[2];
+   if (number_of_players == 4) cout  << " | " << setw(8) << total_score[3];
    cout << endl;
    if (edited_score_note) cout << "*** Indicates that a score was manually edited for that hand." << endl;
 }
@@ -175,29 +175,29 @@ int Skat_Game::calculate_new_bocks(int h) {
    // Did this hand create more Bocks?
    int new_bocks = 0;
 
-   // - Raw points > 120 (before loss/bock/Kontra/Re)
+   // Raw points > 120 (before loss/bock/Kontra/Re)
    if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
        if ((hand[h].matadors + 1) * hand[h].contract >= 120)
            new_bocks = number_of_players;
    }
 
-   // - 60/60 tie
+   // 60/60 tie
    if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
        if (hand[h].cardpoints == 60)
            new_bocks = number_of_players;
    }
 
-   // - successful Kontra (opponents win)
+   // Successful Kontra (opponents win)
    if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
        new_bocks = number_of_players; 
    }
 
-   // - successful Re (declarer wins) --> Somebody loses in Re, so Re always creates a bock
+   // Any Rekontra (declarer wins) --> Either opponents lose Kontra or declarer loses Re, so Re always creates a bock
    if (hand[h].kontrare == RE) {
        new_bocks = number_of_players;
    }
 
-   // - Schneider (if there are currently no Bocks)
+   // Schneider (if there are currently no Bocks)
    if ( (bock_count == 0) && (hand[current_hand].multipliers & SCHNEIDER) ) {
                            new_bocks = number_of_players;
    }

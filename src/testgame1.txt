@@ -12,8 +12,6 @@ n
 Player1
 Player-2
 Player-33
-# Number of Hands
-3
 # Is game setup correct
 y
 #### Hand 1 ####
@@ -79,6 +77,8 @@ y
 y
 # Was this hand scored correctly?
 y
+#### End the game ####
+999
 #### All hands have been played ####
 # Any hands that need to be corrected
 n
