@@ -54,7 +54,7 @@ int Skat_Game::calculate_suit_grand_score(int h) {
    // This returns a value before Kontra/Re and bock multipliers
    bitset<32> m(hand[h].multipliers);
 
-   return  hand[h].winlose * hand[h].contract * (hand[h].matadors + m.count() + 1);
+   return  hand[h].winlose * hand[h].contract * (hand[h].matadors + hand[h].overbid + m.count() + 1);
 }
 
 void Skat_Game::calculate_game_score() {
@@ -212,31 +212,42 @@ void Skat_Game::calculate_win_lose(int h) {
    if (hand[h].cardpoints == 120) {
       if (hand[h].multipliers & SCHW_ANNC) {
          if (hand[h].multipliers & SCHWARZ) hand[h].winlose = WIN;
-         else hand[h].winlose = LOSE;
-      } else {
+         else {
+            hand[h].winlose = LOSE;
+            // If Schwarz announced but did not take all tricks, then need to add the Schwarz multipler for scoring
+            hand[h].multipliers |= SCHWARZ;
+         }
+      } else {  // Scoring 120 points also implies Schneider
          hand[h].multipliers |= SCHNEIDER;
          hand[h].winlose = WIN;
       }
-   } else { // Check for Schneider
-         if (hand[h].cardpoints > 89) {
-            hand[h].multipliers |= SCHNEIDER;
-            hand[h].winlose = WIN;
+   } else { // Anything less than 120, and Schwarz announced loses
+         if (hand[h].multipliers & SCHW_ANNC) {
+            hand[h].winlose = LOSE;
+            // If Schwarz announced but did not take all tricks, then need to add the Schwarz multipler for scoring
+            hand[h].multipliers |= SCHWARZ;
+         } else {  // Check for Schneider
+            if (hand[h].cardpoints > 89) { 
+                  hand[h].multipliers |= SCHNEIDER;
+                  hand[h].winlose = WIN;
          } else { // Not Schneider or Schwarz, check if regular game win
-            if (hand[h].cardpoints > 60) {// Between [61 and 89], win unless Schneider Announced
-               if (hand[h].multipliers & SCHN_ANNC) hand[h].winlose = LOSE;
-               else hand[h].winlose = WIN;
+            if (hand[h].cardpoints > 60) {  // Between [61 and 89], win unless Schneider Announced
+               if (hand[h].multipliers & SCHN_ANNC) {
+                  hand[h].winlose = LOSE;
+               } else hand[h].winlose = WIN;
             } else  {  // Declarer lost. Check if delarer was out of Schneider (extra multiple)
                hand[h].winlose = LOSE;
                if (hand[h].cardpoints < 31) hand[h].multipliers |= SCHNEIDER;
             }
-         }
-   }
+         } // Not Schneider or Schwarz
+      } // Check for Schneider
+   } // Anything less than 120
    // Check for overbid
    // Overbid checks the score before Kontra/Re
    if ( (hand[h].winlose == WIN) && (calculate_suit_grand_score(h) < hand[h].bid)) {
       cout << "Overbid. Adding a multiplier to match bid." << endl;
       while (calculate_suit_grand_score(h) < hand[h].bid) {
-         hand[h].matadors++;
+         hand[h].overbid++;
       }
       hand[h].winlose = LOSE;
    }

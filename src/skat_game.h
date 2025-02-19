@@ -39,6 +39,7 @@ public:
         Win_Lose winlose;
         int multipliers;  // Logical OR of Hand, Open, Schneider, Announce, Schwarz, Announce
         int matadors;   // Top trumps, use 0 for Ramsch or Null
+        int overbid;    // Added multipliers when there is an overbid
         int number_of_losers; // How many loser[] entries are valid
         int loser[3];  // Index to player_names[]; May have one, two, or three losers in Ramsch
         int cardpoints; // Declarer points taken, or Points taken by Ramsch loser, 
