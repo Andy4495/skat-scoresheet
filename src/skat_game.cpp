@@ -25,8 +25,9 @@ Skat_Game::Skat_Game()
 }
 
 void Skat_Game::calculate_hand_score(int h) {
+   // Calculate Null contract score
    // It is up to the players to declare an overbid on NULL, since it is obvious before the hand starts play
-   if (hand[h].contract == NULLL) { // Null contract
+   if (hand[h].contract == NULLL) {
       if (hand[h].multipliers == OPEN) 
         hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 46;
       else if (hand[h].multipliers == HAND) 
@@ -36,9 +37,12 @@ void Skat_Game::calculate_hand_score(int h) {
       else 
         hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 23;
    } else {
-      if (hand[h].contract != RAMSCH) { // Suit and Grand contracts
-         hand[h].score[hand[h].declarer] = calculate_suit_grand_score(h) * hand[h].bock * hand[h].kontrare;
-      } else { // Ramsch contract
+      // Calculate Suit and Grand contracts score
+      if (hand[h].contract != RAMSCH) { 
+         hand[h].score[hand[h].declarer] = calculate_suit_grand_score(h) * hand[h].winlose * hand[h].bock * hand[h].kontrare;
+      } else { 
+         // Calculate Ramsch contract score
+         for (int i = 0; i < number_of_players; i++) hand[h].score[i] = 0;
          if (hand[h].ramsch == DURCHMARSCH) {
             hand[h].score[hand[h].declarer] = hand[h].bock * 120;
          } else {
@@ -51,10 +55,10 @@ void Skat_Game::calculate_hand_score(int h) {
 }
 
 int Skat_Game::calculate_suit_grand_score(int h) {
-   // This returns a value before Kontra/Re and bock multipliers
+   // This returns a value before Kontra/Re, lose, and bock multipliers
    bitset<32> m(hand[h].multipliers);
 
-   return  hand[h].winlose * hand[h].contract * (hand[h].matadors + hand[h].overbid + m.count() + 1);
+   return hand[h].contract * (hand[h].matadors + hand[h].overbid + m.count() + 1);
 }
 
 void Skat_Game::calculate_game_score() {
@@ -175,31 +179,36 @@ int Skat_Game::calculate_new_bocks(int h) {
    // Did this hand create more Bocks?
    int new_bocks = 0;
 
-   // Raw points > 120 (before loss/bock/Kontra/Re)
-   if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
-       if ((hand[h].matadors + 1) * hand[h].contract >= 120)
-           new_bocks = number_of_players;
-   }
+   // Cannot create bocks from Grand Hand during Ramsch
+   if (!hand[h].grand_during_ramsch) {
 
-   // 60/60 tie
-   if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
-       if (hand[h].cardpoints == 60)
-           new_bocks = number_of_players;
-   }
+      // Raw points > 120 (before loss/bock/Kontra/Re)
+      if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
+         if ((hand[h].matadors + 1) * hand[h].contract >= 120)
+            new_bocks = number_of_players;
+      }
 
-   // Successful Kontra (opponents win)
-   if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
-       new_bocks = number_of_players; 
-   }
+      // 60/60 tie
+      if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
+            if (hand[h].cardpoints == 60)
+               new_bocks = number_of_players;
+      }
 
-   // Any Rekontra (declarer wins) --> Either opponents lose Kontra or declarer loses Re, so Re always creates a bock
-   if (hand[h].kontrare == RE) {
-       new_bocks = number_of_players;
-   }
+      // Successful Kontra (opponents win)
+      if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
+            new_bocks = number_of_players; 
+      }
 
-   // Schneider (if there are currently no Bocks)
-   if ( (bock_count == 0) && (hand[current_hand].multipliers & SCHNEIDER) ) {
-                           new_bocks = number_of_players;
+      // Any Rekontra (declarer wins) --> Either opponents lose Kontra or declarer loses Re, so Re always creates a bock
+      if (hand[h].kontrare == RE) {
+            new_bocks = number_of_players;
+      }
+
+      // Schneider (if there are currently no Bocks)
+      if ( (bock_count == 0) && (hand[current_hand].multipliers & SCHNEIDER) ) {
+                              new_bocks = number_of_players;
+      }
+
    }
 
    return new_bocks;
@@ -207,45 +216,52 @@ int Skat_Game::calculate_new_bocks(int h) {
 
 void Skat_Game::calculate_win_lose(int h) {
    // This function is only useful for suit and grand bids. Ramsch and Null are calculated separately.
-   // Assumes that SCHWARZ bit is set before calling this method if player took all the tricks
-   // Score of 120 wins unless SCHWARZ was announced, but player did not take all tricks
-   if (hand[h].cardpoints == 120) {
-      if (hand[h].multipliers & SCHW_ANNC) {
-         if (hand[h].multipliers & SCHWARZ) hand[h].winlose = WIN;
-         else {
-            hand[h].winlose = LOSE;
-            // If Schwarz announced but did not take all tricks, then need to add the Schwarz multipler for scoring
-            hand[h].multipliers |= SCHWARZ;
-         }
-      } else {  // Scoring 120 points also implies Schneider
+
+   // First, set or clear SCHNEIDER and SCHWARZ bits based on the cardpoints and take-all-tricks flag
+   if (hand[h].takealltricks) hand[h].multipliers |= SCHWARZ;
+   else hand[h].multipliers &= ~SCHWARZ;
+   if (hand[h].cardpoints > 89) hand[h].multipliers |= SCHNEIDER;
+   else hand[h].multipliers &= ~SCHNEIDER;
+
+   // Next check if SCHNEIDER or SCHWARZ were announced
+   if ((hand[h].multipliers & SCHW_ANNC)) {
+      if (hand[h].takealltricks) hand[h].winlose = WIN;
+      else {
+         hand[h].winlose = LOSE;
+         // Losing an announced hand also incurs the Schneider/Schwarz multipliers, regardless of points taken
+         hand[h].multipliers |= SCHWARZ;
          hand[h].multipliers |= SCHNEIDER;
-         hand[h].winlose = WIN;
       }
-   } else { // Anything less than 120, and Schwarz announced loses
-         if (hand[h].multipliers & SCHW_ANNC) {
-            hand[h].winlose = LOSE;
-            // If Schwarz announced but did not take all tricks, then need to add the Schwarz multipler for scoring
-            hand[h].multipliers |= SCHWARZ;
-         } else {  // Check for Schneider
-            if (hand[h].cardpoints > 89) { 
-                  hand[h].multipliers |= SCHNEIDER;
-                  hand[h].winlose = WIN;
-         } else { // Not Schneider or Schwarz, check if regular game win
-            if (hand[h].cardpoints > 60) {  // Between [61 and 89], win unless Schneider Announced
-               if (hand[h].multipliers & SCHN_ANNC) {
-                  hand[h].winlose = LOSE;
-               } else hand[h].winlose = WIN;
-            } else  {  // Declarer lost. Check if delarer was out of Schneider (extra multiple)
-               hand[h].winlose = LOSE;
-               if (hand[h].cardpoints < 31) hand[h].multipliers |= SCHNEIDER;
-            }
-         } // Not Schneider or Schwarz
-      } // Check for Schneider
-   } // Anything less than 120
+   }
+   else if ((hand[h].multipliers & SCHN_ANNC)) {
+      if (hand[h].cardpoints > 89) hand[h].winlose = WIN;
+      else {
+         hand[h].winlose = LOSE;
+         // Losing an announced hand also incurs the Schneider multiplier, regardless of points taken
+         hand[h].multipliers |= SCHNEIDER;
+      }
+   }
+
+   // Next check if non-announced hand won
+   if ( !(hand[h].multipliers & (SCHW_ANNC | SCHN_ANNC)) ) {
+      if (hand[h].cardpoints > 60) hand[h].winlose = WIN;
+      else hand[h].winlose = LOSE;
+   }
+
+   // Finally check for declarer losing Schneider (takes less than 31 points) (unusual, but not unheard of)
+   if ( !(hand[h].multipliers & (SCHW_ANNC | SCHN_ANNC)) ) {
+      if (hand[h].cardpoints < 31) hand[h].multipliers |= SCHNEIDER;
+   }   
+
+   /// There is a final case to check: declarer loses all tricks
+   /// This would incur a Schneider and Schwarz multiplier against the declarer
+   /// This currently UNIMPLEMENTED, but should be extremely rare
+
    // Check for overbid
    // Overbid checks the score before Kontra/Re
-   if ( (hand[h].winlose == WIN) && (calculate_suit_grand_score(h) < hand[h].bid)) {
-      cout << "Overbid. Adding a multiplier to match bid." << endl;
+   hand[h].overbid = 0;
+   if (calculate_suit_grand_score(h) < hand[h].bid) {
+      cout << "Overbid. Adding multiplier(s) to match bid." << endl;
       while (calculate_suit_grand_score(h) < hand[h].bid) {
          hand[h].overbid++;
       }

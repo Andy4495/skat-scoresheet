@@ -3,6 +3,10 @@
 #
 #   sed '/^#/d' <testgame1.txt  | ./skat-scoresheet      
 #   
+#***** 
+#       This test file focuses on a regular (non Schieberamsch) 3-player game
+#*****
+#
 #### Game Setup ####
 # Ramsch-only
 n
@@ -31,8 +35,8 @@ y
 y
 # Was there a Kontra?
 n
-# Was this hand scored correctly?
-y
+# c to continue game, r to rescore, e to end
+c
 #### Hand 2 ####
 # Bid
 20
@@ -50,8 +54,8 @@ y
 1
 # Was there Kontra?
 n
-# Was this hand scored correctly
-y
+# c to continue game, r to rescore, e to end
+c
 #### Hand 3 ####
 # Bid
 48
@@ -75,10 +79,8 @@ y
 y
 # Was there a Re?
 y
-# Was this hand scored correctly?
-y
-#### End the game ####
-999
+# c to continue game, r to rescore, e to end
+e
 #### All hands have been played ####
 # Any hands that need to be corrected
 n

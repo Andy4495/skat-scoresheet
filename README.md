@@ -18,15 +18,15 @@ This scoresheet is hard-coded with our particular house rules:
   - Declarer losing hand with less than 31 points is considered Schneider
 - Kontra and Re (or Rekontra) allowed
   - An opponent must not have passed on an 18 bid in order to say Kontra
-    - This is not currently enforced in the code
+    - This is not enforced in the code
 - Ramsch
   - Play a Ramsch hand if nobody bids 18
   - Play a Ramschround of 3 hands after playing a Bockround of 3 hands
   - There is no Bock during a Ramsch round
-    - A "nobody bids 18" Ramsch hand has Bock apply
+    - Except a "nobody bids 18" Ramsch hand has Bock scoring apply
   - A player taking all tricks (Durchmarsch) scores +120 points
   - If no single player takes all tricks, then he player who collects the most card points has those card points deducted
-    - More than one player can lose in the case of a tie
+    - More than one player can lose points in the case of a tie
     - If a player takes zero tricks, the losing hand(s) score(s) double
   - During a Ramschround, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract
     - No bock can be created in this case
@@ -66,7 +66,7 @@ Not planned for Version 1.0.0, but may be added in a future release:
 
 ## Building the code
 
-The code is fully text-based and should work on any modern Unix/Linux-based system. I have tested it on MacOS and Ubuntu 24.
+The code is fully text-based and should work on any modern Unix/Linux-based system. I have compiled and tested it on MacOS (clang version 12.0.0) and Ubuntu 24 (GNU version 13.3.0).
 
 To build:
 

@@ -49,6 +49,7 @@ public:
         int         score[4];       // Index to player_names[]; Initialize to zero, updated per hand
         int         edited;         // Indicates if a score was edited for this hand at end of game
         bool        grand_during_ramsch;    // Player bid Grand Hand during a Ramsch round or Schieberamsch game
+        bool        takealltricks;  // Flag for Schwarz to differentiate it from a 120 point hand w/o all tricks
     } hand[MAX_NUMBER_OF_HANDS];
 
     Skat_Game();
