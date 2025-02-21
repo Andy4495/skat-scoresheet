@@ -1,0 +1,38 @@
+# Test the Scoresheet
+
+name: Test
+
+on: 
+  push:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: Message to display in job summary
+        required: false
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          cd src
+          make clean
+          make
+      - name: Test runs
+        env:
+          FILES: test-3player test-4player test-3p-ramsch
+        run: |
+          cd src
+          for f in $FILES; do
+            echo "file basename: ${f}"
+            sed '/^#/d' <${f}-input.txt  | ./skat-scoresheet >${f}-output.result
+            echo "Comparing... ${f}.result ${f}.testout"
+            diff ${f}-output.txt ${f}-output.result
+          done
+      - name: Print the job summary
+        if: ${{ inputs.message }}
+        run: |
+          echo ${{ inputs.message }} >$GITHUB_STEP_SUMMARY

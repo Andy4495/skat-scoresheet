@@ -1,0 +1,238 @@
+# Test file for skat-scoresheet
+# Need to first parse this file and remove comment lines starting with '#':
+#
+#   sed '/^#/d' <testgame1.txt  | ./skat-scoresheet      
+#   
+#***** 
+#       This test file focuses on a Schieberamsch 3-player game
+#*****
+#
+#### Game Setup ####
+# Ramsch-only
+y
+# Number of players
+3
+# Player names
+PlayerA
+PlayerBB
+PlayerCCC
+# Is game setup correct
+y
+#### Hand 1 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+2
+# which player lost
+2
+# which player lost
+3
+# Card points taken
+59
+# c to continue game, r to rescore, e to end
+c
+#### Hand 2 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+3
+# c to continue game, r to rescore, e to end
+c
+#### Hand 3 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+72
+# Jungf?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 4 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+99
+# Jungf?
+y
+# c to continue game, r to rescore, e to end
+c
+#### Hand 5 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+49
+# c to continue game, r to rescore, e to end
+c
+#### Hand 6 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+2
+# which player lost
+1
+# other player lost
+2
+# Card points taken
+60
+# c to continue game, r to rescore, e to end
+c
+#### Hand 7 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+2
+# which player lost
+3
+# other player lost
+2
+# Card points taken
+45
+# c to continue game, r to rescore, e to end
+c
+#### Hand 8 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+2
+# which player lost
+1
+# other player lost
+2
+# Card points taken
+61
+# Invalid input, enter 41 - 60
+41
+# c to continue game, r to rescore, e to end
+c
+#### Hand 9 ####
+# Grand hand during ramsch round?
+y
+# Declarer?
+1
+# Is hand play information correct?
+y
+# Declarer card points
+61
+# With or without
+2
+# Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 10 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+y
+# who won Durchmarch
+3
+# c to continue game, r to rescore, e to end
+c
+#### Hand 11 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+n
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+y
+# Who won
+3
+# c to continue game, r to rescore, e to end
+r
+# Did player win Durchmarsh
+n
+# Number of players losing
+2
+# which player lost
+1
+# other player lost
+2
+# Card points taken
+41
+# c to continue game, r to rescore, e to end
+e
+#### All hands have been played ####
+# Any hands that need to be corrected
+y
+# Which hand # needs to be udpated? 
+8
+# Is p1 score of -41 correct? (y/n)
+n
+# Corrected score
+-51
+# Is p2 score of -41 correct? (y/n)
+N
+# Corrected score
+-51
+# Is p3 score of 0 correct? (y/n)
+y
+# Any more hands to update? (y/n) 
+n
+# Any hands that need to be corrected
+n
+# Final Score Sheet: 
+# |  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+# | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+# |  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+# |  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+# |  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+# |  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+# |  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+# |  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+# |  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+# |  8 |   0 |   | Ramsch   |        |    |      -51 |      -51 |        0 |      | ***
+# |  9 |   0 | 2 | Grand    | H      |    |       96 |        0 |        0 |      |
+# | 10 |   0 |   | Ramsch   | DURCH  |    |        0 |        0 |      120 |      |
+# | 11 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
+# | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+#                                   Totals:     -475 |     -356 |      -24

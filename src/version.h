@@ -3,13 +3,11 @@
    https://github.com/Andy4495/skat-scoresheet
    MIT License
 
-   0.1  10-Feb-2025 Andy4495 Initial code
-
 */
 
 #ifndef VERSION_H
 
-const char* VERSION = "v0.0.3";
+const char* VERSION = "v1.0.0";
 
 #define VERSION_H
 #endif

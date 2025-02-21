@@ -1,0 +1,484 @@
+Welcome to the Skat Scoresheet v1.0.0!
+The scoresheet supports up to 99 hands in a game
+Will this be a Ramsch-only (Schieberamsch) game? (y/n) 
+Enter number of players (3 or 4): 
+Enter Player 1 name: 
+Enter Player 2 name: 
+Enter Player 3 name: 
+Game will consist of 3 players named: 
+Player1
+Player-2
+Player-3
+Is this correct? (y/n) 
+======================
+Starting hand number 1
+======================
+Player1 is the dealer
+Player-2 listens
+Player-3 speaks
+Enter winning bid (0 for Ramsch): 
+Enter contract (C, S, H, D, G, N): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Will it be played Hand? (y/n) 
+Will it be played Open? (y/n) 
+Hand summary: 
+Player1 plays Null on a bid of 23
+Is this correct? (y/n) 
+>>> Player-2 leads. <<<
+Scoring the hand after play...
+Did Player1 win the Null? (y/n) 
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:       23 |        0 |        0
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 2
+======================
+Player-2 is the dealer
+Player-3 listens
+Player1 speaks
+Enter winning bid (0 for Ramsch): 
+Enter contract (C, S, H, D, G, N): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Will it be played Hand? (y/n) 
+Hand summary: 
+Player-2 plays Diamonds on a bid of 20
+Is this correct? (y/n) 
+>>> Player-3 leads. <<<
+Scoring the hand after play...
+How many card points did Player-2 collect? 
+With or without how many? 
+Overbid. Adding multiplier(s) to match bid.
+--- Player-2 lost the hand. ---
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:       23 |      -54 |        0
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 3
+======================
+Player-3 is the dealer
+Player1 listens
+Player-2 speaks
+Enter winning bid (0 for Ramsch): 
+Enter contract (C, S, H, D, G, N): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Will it be played Hand? (y/n) 
+Will it be played Open -- must take all tricks? (y/n) 
+Announce Schneider? (y/n) 
+Hand summary: 
+Player-3 plays Grand Hand on a bid of 48
+Is this correct? (y/n) 
+>>> Player1 leads. <<<
+Scoring the hand after play...
+How many card points did Player-3 collect? 
+With or without how many? 
+--- Player-3 lost the hand. ---
+Was there a Kontra? (y/n) 
+Did declarer Rekontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:       23 |      -54 |     -960
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+This hand created new Bocks.
+There are 3 Bocks remaining.
+======================
+Starting hand number 4
+======================
+This hand is Bock. Scores double.
+Player1 is the dealer
+Player-2 listens
+Player-3 speaks
+Enter winning bid (0 for Ramsch): 
+Enter contract (C, S, H, D, G, N): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Will it be played Hand? (y/n) 
+Will it be played Open -- must take all tricks? (y/n) 
+Playing Open implies announcing Schneider and Schwarz.
+Hand summary: 
+Player1 plays Hearts Hand Open announce Schneider announce Schwarz on a bid of 35
+Is this correct? (y/n) 
+>>> Player-2 leads. <<<
+Scoring the hand after play...
+How many card points did Player1 collect? 
+Did Player1 take all the tricks? 
+With or without how many? 
++++ Player1 won the hand. +++
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      223 |      -54 |     -960
+This hand was Bock. 
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+There are 2 Bocks remaining.
+======================
+Starting hand number 5
+======================
+This hand is Bock. Scores double.
+Player-2 is the dealer
+Player-3 listens
+Player1 speaks
+Enter winning bid (0 for Ramsch): 
+Enter contract (C, S, H, D, G, N): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Invalid input. Enter value from 1 to 3: 
+Will it be played Hand? (y/n) 
+Hand summary: 
+Player-2 plays Spades on a bid of 27
+Is this correct? (y/n) 
+>>> Player-3 leads. <<<
+Scoring the hand after play...
+How many card points did Player-2 collect? 
+With or without how many? 
++++ Player-2 won the hand. +++
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      223 |       12 |     -960
+This hand was Bock. 
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+There is 1 Bock remaining.
+======================
+Starting hand number 6
+======================
+This hand is Bock. Scores double.
+Player-3 is the dealer
+Player1 listens
+Player-2 speaks
+Enter winning bid (0 for Ramsch): 
+Enter contract (C, S, H, D, G, N): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Will it be played Hand? (y/n) 
+Hand summary: 
+Player-3 plays Diamonds on a bid of 18
+Is this correct? (y/n) 
+>>> Player1 leads. <<<
+Scoring the hand after play...
+How many card points did Player-3 collect? 
+With or without how many? 
++++ Player-3 won the hand. +++
+Was there a Kontra? (y/n) 
+Invalid response. Enter y or n: 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      223 |       12 |     -924
+This hand was Bock. 
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+End of a Bockround. Next hand starts a Ramschround
+======================
+Starting hand number 7
+======================
+Player1 is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> Player-2 leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+Who lost the Ramsch? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+How many points taken? 
+Was there a Jungf? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   | JUNGF  |    |     -136 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:       87 |       12 |     -924
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+Who lost the Ramsch? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+How many points taken? 
+Was there a Jungf? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      155 |       12 |     -924
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+There are 2 Ramsch hands remaining.
+======================
+Starting hand number 8
+======================
+Player-2 is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> Player-3 leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+First player to lose the Ramsch? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Other player to lose the Ramsch? 
+  1: Player1
+  3: Player-3
+How many points taken? 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+|  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      155 |      -33 |     -969
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+There is 1 Ramsch hand  remaining.
+======================
+Starting hand number 9
+======================
+Player-3 is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Hand summary: 
+Player-3 plays Grand Hand during Ramsch.
+Is this correct? (y/n) 
+Player-3 leads.
+Scoring the hand after play...
+How many card points did Player-3 collect? 
+With or without how many? 
++++ Player-3 won the hand. +++
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+|  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      155 |      -33 |     -873
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+End of Ramschround
+=======================
+Starting hand number 10
+=======================
+Player1 is the dealer
+Player-2 listens
+Player-3 speaks
+Enter winning bid (0 for Ramsch): 
+Enter contract (C, S, H, D, G, N): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Will it be played Hand? (y/n) 
+Hand summary: 
+Player1 plays Clubs on a bid of 35
+Is this correct? (y/n) 
+>>> Player-2 leads. <<<
+Scoring the hand after play...
+How many card points did Player1 collect? 
+With or without how many? 
+--- Player1 lost the hand. ---
+Was there a Kontra? (y/n) 
+Did declarer Rekontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+|  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
+| 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      -37 |      -33 |     -873
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+This hand created new Bocks.
+There are 3 Bocks remaining.
+=======================
+Starting hand number 11
+=======================
+This hand is Bock. Scores double.
+Player-2 is the dealer
+Player-3 listens
+Player1 speaks
+Enter winning bid (0 for Ramsch): 
+Enter contract (C, S, H, D, G, N): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Will it be played Hand? (y/n) 
+Hand summary: 
+Player1 plays Grand on a bid of 33
+Is this correct? (y/n) 
+>>> Player-3 leads. <<<
+Scoring the hand after play...
+How many card points did Player1 collect? 
+With or without how many? 
++++ Player1 won the hand. +++
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+|  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
+| 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
+| 11 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      251 |      -33 |     -873
+This hand was Bock. 
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+This hand created new Bocks.
+There are 5 Bocks remaining.
+=======================
+Starting hand number 12
+=======================
+This hand is Bock. Scores double.
+Player-3 is the dealer
+Player1 listens
+Player-2 speaks
+Enter winning bid (0 for Ramsch): 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> Player1 leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+40/40/40 Ramch.
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+|  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
+| 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
+| 11 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
+| 12 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      171 |     -113 |     -953
+This hand was Bock. 
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+***************************
+All hands have been played.
+Are there any hand scores that need to be corrected? (y/n) 
+Which hand # needs to be udpated? 
+Is Player1 score of 0 correct? (y/n)
+Is Player-2 score of -45 correct? (y/n)
+Is Player-3 score of -45 correct? (y/n)
+Enter corrected score: 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+|  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |        0 |      | ***
+|  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
+| 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
+| 11 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
+| 12 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      171 |     -113 |     -908
+*** Indicates that a score was manually edited for that hand.
+Any more hands to update? (y/n) 
+***************************
+All hands have been played.
+Are there any hand scores that need to be corrected? (y/n) 
+Congratulations -- game has completed.
+Final Scoring...
+Player1: 171
+Player-2: -113
+Player-3: -908
+Player Player1 won.

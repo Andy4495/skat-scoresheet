@@ -1,0 +1,398 @@
+Welcome to the Skat Scoresheet v1.0.0!
+The scoresheet supports up to 99 hands in a game
+Will this be a Ramsch-only (Schieberamsch) game? (y/n) 
+Enter number of players (3 or 4): 
+Enter Player 1 name: 
+Enter Player 2 name: 
+Enter Player 3 name: 
+Game will consist of 3 players named: 
+PlayerA
+PlayerBB
+PlayerCC
+Is this correct? (y/n) 
+======================
+Starting hand number 1
+======================
+PlayerA is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerBB leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+First player to lose the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+Other player to lose the Ramsch? 
+  1: PlayerA
+  3: PlayerCC
+How many points taken? 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:        0 |      -59 |      -59
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 2
+======================
+PlayerBB is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerCC leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+40/40/40 Ramch.
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      -40 |      -99 |      -99
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 3
+======================
+PlayerCC is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerA leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+Who lost the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+How many points taken? 
+Was there a Jungf? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -112 |      -99 |      -99
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 4
+======================
+PlayerA is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerBB leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+Who lost the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+How many points taken? 
+Was there a Jungf? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -310 |      -99 |      -99
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 5
+======================
+PlayerBB is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerCC leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+Who lost the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+How many points taken? 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -359 |      -99 |      -99
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 6
+======================
+PlayerCC is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerA leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+First player to lose the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+Other player to lose the Ramsch? 
+  2: PlayerBB
+  3: PlayerCC
+How many points taken? 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+|  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -479 |     -219 |      -99
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 7
+======================
+PlayerA is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerBB leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+First player to lose the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+Other player to lose the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+How many points taken? 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+|  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+|  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -479 |     -264 |     -144
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 8
+======================
+PlayerBB is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerCC leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+First player to lose the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+Other player to lose the Ramsch? 
+  2: PlayerBB
+  3: PlayerCC
+How many points taken? 
+Invalid input. Enter value from 41 to 60: 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+|  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+|  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  8 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -520 |     -305 |     -144
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+======================
+Starting hand number 9
+======================
+PlayerCC is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Who is the declarer? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+Hand summary: 
+PlayerA plays Grand Hand during Ramsch.
+Is this correct? (y/n) 
+PlayerA leads.
+Scoring the hand after play...
+How many card points did PlayerA collect? 
+With or without how many? 
++++ PlayerA won the hand. +++
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+|  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+|  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  8 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
+|  9 |   0 | 2 | Grand    | H      |    |       96 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -424 |     -305 |     -144
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+=======================
+Starting hand number 10
+=======================
+PlayerA is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerBB leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+Who won the Durchmarsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+|  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+|  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  8 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
+|  9 |   0 | 2 | Grand    | H      |    |       96 |        0 |        0 |      |
+| 10 |   0 |   | Ramsch   | DURCH  |    |        0 |        0 |      120 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -424 |     -305 |      -24
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+=======================
+Starting hand number 11
+=======================
+PlayerBB is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+=======================
+Starting hand number 11
+=======================
+PlayerBB is the dealer
+This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Hand summary: 
+This hand will be played Ramsch.
+Is this correct? (y/n) 
+>>> PlayerCC leads. <<<
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+Who won the Durchmarsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+|  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+|  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  8 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
+|  9 |   0 | 2 | Grand    | H      |    |       96 |        0 |        0 |      |
+| 10 |   0 |   | Ramsch   | DURCH  |    |        0 |        0 |      120 |      |
+| 11 |   0 |   | Ramsch   | DURCH  |    |        0 |        0 |      120 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -424 |     -305 |       96
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Scoring the hand after play...
+Did a player win Durchmarsch? (y/n) 
+How many players lost the Ramsch? (1, 2, 3)  
+First player to lose the Ramsch? 
+  1: PlayerA
+  2: PlayerBB
+  3: PlayerCC
+Other player to lose the Ramsch? 
+  2: PlayerBB
+  3: PlayerCC
+How many points taken? 
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+|  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+|  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  8 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
+|  9 |   0 | 2 | Grand    | H      |    |       96 |        0 |        0 |      |
+| 10 |   0 |   | Ramsch   | DURCH  |    |        0 |        0 |      120 |      |
+| 11 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -465 |     -346 |      -24
+Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+***************************
+All hands have been played.
+Are there any hand scores that need to be corrected? (y/n) 
+Which hand # needs to be udpated? 
+Is PlayerA score of -41 correct? (y/n)
+Enter corrected score: 
+Is PlayerBB score of -41 correct? (y/n)
+Enter corrected score: 
+Is PlayerCC score of 0 correct? (y/n)
+|  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
+|  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
+|  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
+|  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
+|  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+|  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
+|  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  8 |   0 |   | Ramsch   |        |    |      -51 |      -51 |        0 |      | ***
+|  9 |   0 | 2 | Grand    | H      |    |       96 |        0 |        0 |      |
+| 10 |   0 |   | Ramsch   | DURCH  |    |        0 |        0 |      120 |      |
+| 11 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:     -475 |     -356 |      -24
+*** Indicates that a score was manually edited for that hand.
+Any more hands to update? (y/n) 
+***************************
+All hands have been played.
+Are there any hand scores that need to be corrected? (y/n) 
+Congratulations -- game has completed.
+Final Scoring...
+PlayerA: -475
+PlayerBB: -356
+PlayerCC: -24
+Player PlayerCC won.

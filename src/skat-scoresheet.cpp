@@ -4,6 +4,7 @@
    MIT License
 
    0.1  10-Feb-2025 Andy4495 Initial code
+   1.0.0 21-Feb-2025 Andy4495 Version 1.0
 
 */
 
@@ -414,31 +415,36 @@ int yes() {
 RCE rce() {
     RCE result;
     char c;
+    bool valid = false;
 
-    cin >> c;
-    switch (c) {
-        case 'R':
-        case 'r':
-            result = RESCOREGAME;
-            break;
-        
-        case 'e':
-        case 'E': 
-            result = ENDTHEGAME;
-            break;
+    while (valid == false) {
+        cin >> c;
+        switch (c) {
+            case 'R':
+            case 'r':
+                result = RESCOREGAME;
+                valid = true;
+                break;
+            
+            case 'e':
+            case 'E': 
+                result = ENDTHEGAME;
+                valid = true;
+                break;
 
-        case 'c':
-        case 'C':
-            result = CONTINUEGAME; 
-            break;
+            case 'c':
+            case 'C':
+                result = CONTINUEGAME; 
+                valid = true;
+                break;
 
-        default:
-            cout << "Invalid response. Assuming Continue." << endl;
-            result = CONTINUEGAME;
-            break;
-    } 
-    cin.clear(); // Clear the error flags
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            default:
+                cout << "Invalid response. Enter r, c, or e: " << endl;
+                break;
+        } 
+        cin.clear(); // Clear the error flags
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+    }
     return result;
 }
 
@@ -516,7 +522,7 @@ void score_ramsch(int h) {
                 }
                 game.hand[h].loser[1] = input_and_validate(1, game.number_of_players) - 1;
                 cout << "How many points taken? " << endl;
-                game.hand[h].cardpoints = input_and_validate(40, 120); 
+                game.hand[h].cardpoints = input_and_validate(41, 60); 
                 if (game.hand[h].cardpoints == 60) {
                     game.hand[h].ramsch = Skat_Game::JUNGF;
                 }

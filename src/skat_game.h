@@ -4,6 +4,7 @@
    MIT License
 
    0.1  10-Feb-2025 Andy4495 Initial code
+   1.0.0 21-Feb-2025 Andy4495 Version 1.0
 
 */
 

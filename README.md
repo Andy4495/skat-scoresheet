@@ -4,8 +4,6 @@
 
 Text-based scoresheet for the card game [Skat][1]. Either three or four players are supported.
 
-This will hopefully evolve into a graphical iOS app.
-
 ## House Rules
 
 This scoresheet is hard-coded with our particular house rules:
@@ -45,24 +43,26 @@ This scoresheet is hard-coded with our particular house rules:
 
 ## To-Do
 
-Tasks to complete before this is ready to be called "Version 1.0.0":
+Version 1.0.0 completed.
 
-- More thorough testing, including running a test as part of the Build action
+Plans for v1.1.0:
+
+- Allow an option to select whether to play a Ramsch round after a Bock round
 
 ## Future Features
 
-Not planned for Version 1.0.0, but may be added in a future release:
+Features that may be added in a future release:
 
-- Allow an option to select whether to play a Ramsch round after a Bock round
 - Saving the game to a file
 - Configuration file with setup parameters (# of players, player names)
+  - Default name; if it exists, use it. Add default name to .gitignore
 - Check for declarer taking zero tricks on a non-null contract (opponents Schwarz the declarer)
   - This would be an extremely rare occurrence
 - Add hands to an existing game (play longer than originally planned)
   - This may not be necessary, since the program currently allocates 99 hands which can be ended early
   - I don't think that I've ever played a game even close to 99 hands
 
-## Building the code
+## Building
 
 The code is fully text-based and should work on any modern Unix/Linux-based system. I have compiled and tested it on MacOS (clang version 12.0.0) and Ubuntu 24 (GNU version 13.3.0).
 
@@ -74,6 +74,12 @@ make
 ```
 
 The executable is named `skat-scoresheet` and takes no arguments.
+
+## Testing
+
+The code is tested with the GitHub action workflow [`Test.yml`][7].
+
+This workflow builds the code and then runs several test input files (`test-*-input.txt`) through the program and compares the output to files containing the expected output (`test-*-output.txt`).
 
 ## References
 
@@ -95,6 +101,7 @@ The software and other files in this repository are released under what is commo
 [4]: https://skatgame.net/intro/Reference2.pdf
 [5]: https://www.fadedpage.com/link.php?file=20090109-a5.pdf
 [6]: https://www.pagat.com/schafkopf/sramsch.html
+[7]: ./.github/workflows/Test.yml
 [100]: https://choosealicense.com/licenses/mit/
 [101]: ./LICENSE.txt
 [//]: # ([200]: https://github.com/Andy4495/skat-scoresheet)
