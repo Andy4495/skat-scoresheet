@@ -40,7 +40,8 @@ int main(int argc, char** argv) {
         switch (state) {
             case INIT:
                 cout << "Welcome to the Skat Scoresheet " << VERSION << "!" << endl;
-                cout << "Will this be a Ramsch-only (Schieberamsch) game (y/n)? " << endl;
+                cout << "The scoresheet supports up to " << MAX_NUMBER_OF_HANDS <<" hands in a game" << endl;
+                cout << "Will this be a Ramsch-only (Schieberamsch) game? (y/n) " << endl;
                 if (yes()) {
                     game.schieberamsch = true;
                 }
@@ -61,17 +62,17 @@ int main(int argc, char** argv) {
                 cout << "Enter Player 3 name: " << endl;
                 cin >> name;
                 strncpy(game.player_name[2], name.c_str(), MAX_NAME_SIZE);
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any extra characters
                 if (game.number_of_players > 3) {
                     cout << "Enter Player 4 name: " << endl;
                     cin >> name;
                     strncpy(game.player_name[3], name.c_str(), MAX_NAME_SIZE);
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any extra characters
                 }
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any extra characters
-                cout << "The scoresheet supports up to " << MAX_NUMBER_OF_HANDS <<" hands in a game" << endl;
                 game.number_of_hands = MAX_NUMBER_OF_HANDS;
                 cout << "Game will consist of " << game.number_of_players << " players named: " << endl;
                 for (i = 0; i < game.number_of_players; i++) cout << game.player_name[i] << endl;
-                cout << "Is this correct (y/n)? " << endl;
+                cout << "Is this correct? (y/n) " << endl;
                 if (yes()) state = NEW_HAND_BID;
                 else state = INIT;
                 for (i = 0; i < game.number_of_players; i++ ) tie_game[i] = -1;
@@ -86,9 +87,9 @@ int main(int argc, char** argv) {
                 cout << "======================";
                 if (game.current_hand + 1 > 9) cout << "=";
                 cout << endl;
-                cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer." << endl;
                 if (game.schieberamsch || game.ramsch_count) {
-                    cout << "This is normally a Ramsch hand. Does anyone bid Grand Hand instead (y/n)? " << endl;
+                    cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer" << endl;
+                    cout << "This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) " << endl;
                     if (yes()) {  // Grand Hand during Ramsch
                         game.hand[game.current_hand].contract = Skat_Game::GRAND;
                         game.hand[game.current_hand].multipliers = Skat_Game::HAND;
@@ -116,10 +117,11 @@ int main(int argc, char** argv) {
                     // In 4 player games, geben-hoeren-sagen-weitersagen still applies: 
                     // - Player to left of dealer is "hoeren" and player to right of dealer is "weitersagen" ("continue saying")
                     // - weitersagen continues bid after either gaben or hoeren passes
-                    cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens." << endl;
-                    cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks."  << endl;
+                    cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer" << endl;
+                    cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens" << endl;
+                    cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks"  << endl;
                     if (game.number_of_players == 4) {
-                        cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues."  << endl;
+                        cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues"  << endl;
                     }
                     cout << "Enter winning bid (0 for Ramsch): " << endl; 
                     game.hand[game.current_hand].bid = input_and_validate(0, 264);
@@ -142,20 +144,20 @@ int main(int argc, char** argv) {
                 }
                 game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
                 if (game.hand[game.current_hand].contract == Skat_Game::Skat_Game::NULLL) {
-                    cout << "Will it be played Hand (y/n)? " << endl;
+                    cout << "Will it be played Hand? (y/n) " << endl;
                     if (yes()) {
                         game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
                     }
-                    cout << "Will it be played Open (y/n)? " << endl;
+                    cout << "Will it be played Open? (y/n) " << endl;
                     if (yes()) {
                         game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
                     }
                 } else { // Suit or Grand
-                    cout << "Will it be played Hand (y/n)? " << endl;
+                    cout << "Will it be played Hand? (y/n) " << endl;
                     if (yes()) game.hand[game.current_hand].multipliers = Skat_Game::HAND;
                     // If hand, then can play open. 
                     if (game.hand[game.current_hand].multipliers & Skat_Game::HAND) {
-                        cout << "Will it be played Open -- must take all tricks (y/n)? " << endl;
+                        cout << "Will it be played Open -- must take all tricks? (y/n) " << endl;
                         if (yes()) {
                             game.hand[game.current_hand].multipliers = 
                             (Skat_Game::HAND | Skat_Game::OPEN | Skat_Game::SCHNEIDER |  
@@ -163,10 +165,10 @@ int main(int argc, char** argv) {
                             cout << "Playing Open implies announcing Schneider and Schwarz." << endl;
                         } else {
                             // If hand but not open, then can announce Schneider or Schwarz
-                            cout << "Announce Schneider (y/n)? " << endl;
+                            cout << "Announce Schneider? (y/n) " << endl;
                             if (yes()) {
                                 game.hand[game.current_hand].multipliers |= Skat_Game::SCHN_ANNC;
-                                cout << "Announce Schwarz (y/n)? " << endl; 
+                                cout << "Announce Schwarz? (y/n) " << endl; 
                                 if (yes()) game.hand[game.current_hand].multipliers |= Skat_Game::SCHW_ANNC;
                             }
                         }
@@ -192,7 +194,7 @@ int main(int argc, char** argv) {
                     if (game.hand[game.current_hand].multipliers & Skat_Game::SCHW_ANNC) cout << "announce Schwarz ";
                     cout << "on a bid of " << game.hand[game.current_hand].bid << endl;
                 }
-                cout << "Is this correct (y/n)? " << endl;
+                cout << "Is this correct? (y/n) " << endl;
                 if (yes()) {
                     if (game.hand[game.current_hand].grand_during_ramsch) {
                         cout << game.player_name[game.hand[game.current_hand].declarer] << " leads." << endl;
@@ -211,7 +213,7 @@ int main(int argc, char** argv) {
                 } else { // not Ramsch
                     if (game.hand[game.current_hand].contract == Skat_Game::NULLL) {
                         cout << "Did " << game.player_name[game.hand[game.current_hand].declarer] 
-                             << " win the Null (y/n)? " << endl;
+                             << " win the Null? (y/n) " << endl;
                         if (yes()) game.hand[game.current_hand].winlose = Skat_Game::WIN;
                         else game.hand[game.current_hand].winlose = Skat_Game::LOSE;
                         game.hand[game.current_hand].cardpoints = 0;
@@ -237,10 +239,10 @@ int main(int argc, char** argv) {
                             cout << " lost the hand. ---" << endl;
                         }
                     }
-                    cout << "Was there a Kontra (y/n)? " << endl;
+                    cout << "Was there a Kontra? (y/n) " << endl;
                     if (yes()) {
                         game.hand[game.current_hand].kontrare = Skat_Game::KONTRA;
-                        cout << "Was there a Re (y/n)? " << endl;  // Only ask about Re if there was a Kontra
+                        cout << "Did declarer Rekontra? (y/n) " << endl;  // Only ask about Re if there was a Kontra
                         if (yes()) game.hand[game.current_hand].kontrare = Skat_Game::RE;
                     } else game.hand[game.current_hand].kontrare = game.SINGLE;
                 }
@@ -309,7 +311,7 @@ int main(int argc, char** argv) {
                 number_of_ties = 0;
                 cout << "***************************" << endl;
                 cout << "All hands have been played." << endl;
-                cout << "Are there any hand scores that need to be corrected (y/n)? " << endl;
+                cout << "Are there any hand scores that need to be corrected? (y/n) " << endl;
                 if (yes()) state = EDIT_GAME;
                 else {
                     cout << "Congratulations -- game has completed." << endl;
@@ -348,14 +350,14 @@ int main(int argc, char** argv) {
                 break;
             
             case EDIT_GAME:
-                // This only lets you edit scores for selected hands
+                // This only lets you edit player scores for the selected hands
                 // It does not change any other setting for that hand (can't change declarer or contract, etc)
                 // It does not re-calculate the hand score (although game total score will be recalculated)
                 // A set of three asterisks will be printed at the end of the line of any edited score
                 cout << "Which hand # needs to be udpated? " << endl;
                 h = input_and_validate(1, game.number_of_hands) - 1;
                 for (i = 0; i < game.number_of_players; i++) {
-                    cout << game.player_name[i] << ": " << game.hand[h].score[i] << " Correct (y/n)" << endl;
+                    cout << "Is " << game.player_name[i] << " score of " << game.hand[h].score[i] << " correct? (y/n)" << endl;
                     if (!yes()) {
                         cout << "Enter corrected score: " << endl;
                         game.hand[h].score[i] = input_and_validate(-3000, 3000);
@@ -364,7 +366,7 @@ int main(int argc, char** argv) {
                 }
                 game.calculate_game_score();
                 game.print_game_status();
-                cout << "Any more hands to update (y/n)? " << endl;
+                cout << "Any more hands to update? (y/n) " << endl;
                 if (yes()) state = EDIT_GAME;
                 else state = END_GAME;
                 break;
@@ -381,24 +383,31 @@ int main(int argc, char** argv) {
 int yes() {
     int result = 0;
     char c;
+    bool valid = false;
 
-    cin >> c;
-    switch (c) {
-        case 'Y':
-        case 'y':
-          result = 1;
-          break;
-        
-        case 'N':
-        case 'n': 
-          break;
+    while (valid == false) {
+        cin >> c;
+        cin.clear(); // Clear the error flags
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
 
-        default:
-          cout << "Invalid response. Assuming NO." << endl;
-          break;
-    } 
-    cin.clear(); // Clear the error flags
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+        switch (c) {
+            case 'Y':
+            case 'y':
+              result = 1;
+              valid = true;
+              break;
+            
+            case 'N':
+            case 'n': 
+                valid = true;
+              break;
+    
+            default:
+              cout << "Invalid response. Enter y or n: " << endl;
+              break;
+        } 
+    }
+
     return result;
 }
 
@@ -435,16 +444,17 @@ RCE rce() {
 
 int input_and_validate(int min, int max) {
     int i;
-    cin >> i;
-    if (cin.fail()) {
-        i = min;
-        cout << "Invalid input, setting to " << min << endl;
-        cin.clear(); // Clear the error flags
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+    bool valid = false;
 
+    while (valid == false) {
+        cin >> i;
+        if ( cin.fail() || (i < min) || (i > max) ) {
+            cin.clear(); // Clear the error flags
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            cout << "Invalid input. Enter value from " << min << " to " << max << ": " << endl;
+        }
+        else valid = true;
     }
-    if (i < min) i = min;
-    if (i > max) i = max;
 
     return i;
 }
@@ -453,7 +463,7 @@ void score_ramsch(int h) {
     int i;
 
     game.hand[h].ramsch = Skat_Game::PLAIN;
-    cout << "Did a player win Durchmarsch (y/n)? " << endl;
+    cout << "Did a player win Durchmarsch? (y/n) " << endl;
     if (yes()) {
         game.hand[h].ramsch = Skat_Game::DURCHMARSCH;
         game.hand[h].winlose = Skat_Game::WIN;
@@ -466,7 +476,7 @@ void score_ramsch(int h) {
         }
         game.hand[h].declarer = input_and_validate(1, game.number_of_players) - 1;
     } else { // Not a Durchmarsch
-        cout << "How many players lost the Ramsch (1, 2, 3)? " << endl;
+        cout << "How many players lost the Ramsch? (1, 2, 3)  " << endl;
         switch (input_and_validate(1, 3)) {
             case 1: 
                 game.hand[h].winlose = Skat_Game::LOSE;
@@ -481,7 +491,7 @@ void score_ramsch(int h) {
                 cout << "How many points taken? " << endl;
                 game.hand[h].cardpoints = input_and_validate(41, 120); 
                 if (game.hand[h].cardpoints > 60) {
-                    cout << "Was there a Jungf (y/n)?" << endl;
+                    cout << "Was there a Jungf? (y/n) " << endl;
                     if (yes()) game.hand[h].ramsch = Skat_Game::JUNGF;
                 } 
                 break;

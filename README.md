@@ -56,8 +56,6 @@ Not planned for Version 1.0.0, but may be added in a future release:
 - Allow an option to select whether to play a Ramsch round after a Bock round
 - Saving the game to a file
 - Configuration file with setup parameters (# of players, player names)
-- Improved error handling when input is out of range
-  - Currently defaults to "no" on yes/no input and the min value on integer input
 - Check for declarer taking zero tricks on a non-null contract (opponents Schwarz the declarer)
   - This would be an extremely rare occurrence
 - Add hands to an existing game (play longer than originally planned)
