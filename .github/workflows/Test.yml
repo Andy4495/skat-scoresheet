@@ -29,7 +29,7 @@ jobs:
           for f in $FILES; do
             echo "file basename: ${f}"
             sed '/^#/d' <${f}-input.txt  | ./skat-scoresheet >${f}-output.result
-            echo "Comparing... ${f}.result ${f}.testout"
+            echo "Comparing... ${f}-output.txt ${f}-output.result"
             diff ${f}-output.txt ${f}-output.result
           done
       - name: Print the job summary
