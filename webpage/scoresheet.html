@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skat Scoresheet</title> <!-- Add type of game (Regular, Ramsch after Bock, Scheiberamsch here) -->
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-family: "Courier New";
+        }   
+        .button {
+            background-color: #04AA6D; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button1 {font-size: 10px;}
+        .button2 {font-size: 12px;}
+        .button3 {font-size: 16px;}
+        .button4 {font-size: 20px;}
+        .button5 {font-size: 24px;}
+    </style>
+</head>
+<body>
+    <h1>Skat Scoresheet</h1>
+
+    <!-- Start of game layout should be removed once game started. -->
+    <br>
+    <label for="player1">Player 1 Name:</label><input type="text" id="player1name" value="" title="Player1 Name"><br><br>
+    <label for="player2">Player 2 Name:</label><input type="text" id="player2name" value=""><br><br>
+    <label for="player3">Player 3 Name:</label><input type="text" id="player3name" value=""><br><br>
+    <label for="player4">Player 4 Name:</label><input type="text" id="player4name" value=""><br><br>
+
+    <p>What type of game will you be playing today:</p>
+    <input type="radio" id="Regular" name="game_type" value="Regular">
+    <label for="Regular">Regular</label><br>
+    <input type="radio" id="RamschAfterBock" name="game_type" value="RamschAfterBock">
+    <label for="RamchAfterBock">Ramsch After Bock</label><br>
+    <input type="radio" id="Scheiberamsch" name="game_type" value="Scheiberamsch">
+    <label for="Scheiberamsch">Scheiberamsch</label>
+    <br>  
+
+    <br>
+    <button class="button button3" onclick="startGame()">Start the Game</button>
+    <br> <br>
+
+    <hr>
+
+    <h2>Bidding the hand</h2>
+    <p>Who is the declarer:</p>
+    <input type="radio" id="Player1declare" name="declarer" value="">
+    <label for="Player1declare">Player1</label><br>
+    <input type="radio" id="Player2declare" name="declarer" value="">
+    <label for="Player2declare">Player2</label><br>
+    <input type="radio" id="Player3declare" name="declarer" value="">
+    <label for="Player3declare">Player3</label><br>
+    <br>
+
+    <label for="Bid">What was the bid (0 for Ramsch)?:</label><input type="number" align="right" id="bid" value=""><br><br>
+
+    <p>What is the contract:</p>
+    <input type="radio" id="grand" name="contract" value="">
+    <label for="grand">Grand</label><br>
+    <input type="radio" id="clubs" name="contract" value="">
+    <label for="clubs">Clubs</label><br>
+    <input type="radio" id="spades" name="contract" value="">
+    <label for="spades">Spades</label><br>
+    <input type="radio" id="hearts" name="contract" value="">
+    <label for="hearts">Hearts</label><br>
+    <input type="radio" id="diamonds" name="contract" value="">
+    <label for="diamonds">Diamonds</label><br>
+    <input type="radio" id="null" name="contract" value="">
+    <label for="null">Null</label><br>
+    <input type="radio" id="ramsch" name="contract" value=""> <!-- This one should not be needed. -->
+    <label for="ramsch">Ramsch</label><br>
+
+    <p>Pre-play multipliers:</p> 
+    <input type="checkbox" id="hand" name="hand" value="">
+    <label for="hand">Hand</label><br>
+    <input type="checkbox" id="open" name="open" value="">  <!-- For non-Null, implies Announce Schwarz -->
+    <label for="open">Open</label><br> 
+    <input type="checkbox" id="annSchn" name="annSchn" value=""> <!-- Only if Hand -->
+    <label for="annSchn">Announce Schneider</label><br>
+    <input type="checkbox" id="annSchw" name="annSchw" value=""> <!-- Only if Hand -->
+    <label for="annSchw">Announce Schwarz</label><br>
+    <br>  <br>
+
+    <button class="button button3" onclick="startHand()">Start the hand</button>
+
+ 
+<!--
+      /// Scoring the Hand
+-->
+
+    <hr>
+    <h2>Scoring the hand</h2>
+    <!-- Display the bidding summary (probably need Javascript)-->
+    <p id="handbidsummary">Hand bid summary: </p>
+
+    <label for="cardpoints">How many card points collected by declarer?:</label><input type="number" align="right" id="cardpoints" value=""><br><br>
+
+    <p>Post-play multipliers:</p> 
+    <input type="checkbox" id="schneider" name="schneider" value="">
+    <label for="schneider">Schneider</label><br>
+    <input type="checkbox" id="schwarz" name="schwarz" value="">
+    <label for="schwarz">Schwarz</label><br> 
+    <input type="checkbox" id="kontra" name="kontra" value="">
+    <label for="kontra">Kontra</label><br>
+    <input type="checkbox" id="rekontra" name="rekontra" value="">
+    <label for="rekontra">Rekontra</label><br>
+    <br> 
+
+    <label for="matadors">With or without how many?:</label><input type="range" value="1" min="1" max="7" id="matadors" oninput="this.nextElementSibling.value = this.value">
+    <output>1</output> <br> <br>
+
+    <button class="button button3" onclick="scoreHand()">Score the hand</button>
+
+<!-- Score table -->    
+    <hr>
+    <table id="scoreTable">
+    <tr>
+        <th>&nbsp;#&nbsp;</th>
+        <th>&nbsp;Bid&nbsp;</th>
+        <th>&nbsp;M&nbsp;</th>
+        <th>&nbsp;Contract&nbsp;</th>
+        <th>&nbsp;HOSAZA&nbsp;</th>
+        <th>&nbsp;KR&nbsp;</th>
+        <th id="player1">Player1</th>
+        <th id="player2">Player2</th>
+        <th id="player3">Player3</th>
+        <th>&nbsp;Bock&nbsp;</th>
+    </tr>
+    </table>
+
+    <button class="button button3" onclick="adjustScore()">Adjust a score</button>
+
+    <br>
+    <button class="button button3" onclick="endGame()">End the Game</button>
+
+    <script>
+
+    </script>
+
+</body>
+</html>
+
