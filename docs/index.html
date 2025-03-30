@@ -16,7 +16,11 @@
 -->
 <head>
     <title>Skat Scoresheet</title> <!-- Add type of game (Regular, Ramsch after Bock, Scheiberamsch here) -->
+    <link rel="shortcut icon" href="https://andy4495.github.io/skat-scoresheet/favicon.ico" /> 
     <style>
+        p {
+            line-height: 0.7;
+        }
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -71,6 +75,10 @@
 
     <div id="bidhand">
         <h2>Bidding the hand</h2>
+        <p id="handnumber"></p>
+        <p id="dealername"></p>
+        <p id="listenname"></p>
+        <p id="speaksname"></p>
         <p>Who is the declarer:</p>
         <input type="radio" id="game.declarer-player1" name="declarer" value="">
         <label for="Player1declare">Player1</label><br>
@@ -109,7 +117,7 @@
         <label for="annSchw">Announce Schwarz</label><br>
         <br>  <br>
 
-        <button class="button button3" onclick="startHand()">Start the hand</button>
+        <button class="button button3" onclick="playHand()">Play the hand</button>
 
     </div>
 <!--
@@ -175,6 +183,8 @@
             gametype = gt;
         }
         function startGame() {
+            current_hand = 0
+            number_of_players = 3; /// This needs to be updated to support 4 players
             // document.write("Called startGame()")  /// Testing: Clears the page and just writes this line
             if (gametype == "scheiberamsch") {
                 scheiberamsch = true;
@@ -202,9 +212,17 @@
             /// Clear out the initgame div
             /// Print out game summary: names, type (schieberamsch, ramsch after bock, regular)
             /// Print out the bidhand div
+            startHand()
         }
         function startHand() {
             /// document.write("Called startHand()")  /// Testing: Clears the page and just writes this line
+            document.getElementById("handnumber").innerHTML = "<p>Starting hand number: " + (current_hand+1) + " </p>"
+            document.getElementById("dealername").innerHTML = "<p> " + player_name[current_hand%number_of_players].value + " is the dealer</p>"
+            document.getElementById("listenname").innerHTML = "<p> " + player_name[current_hand%number_of_players+1].value + " listens</p>"
+            document.getElementById("speaksname").innerHTML = "<p> " + player_name[current_hand%number_of_players+2].value + " speaks</p>"
+        }
+        function playHand() {
+            document.write("Called playHand()")  /// Testing: Clears the page and just writes this line
 
         }
         function scoreHand() {
