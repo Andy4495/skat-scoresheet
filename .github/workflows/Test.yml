@@ -4,6 +4,10 @@ name: Test
 
 on: 
   push:
+    paths-ignore:
+      - 'docs/**'
+      - 'js/**'
+      - '*.md'
   workflow_dispatch:
     inputs:
       message:
