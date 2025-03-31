@@ -74,53 +74,6 @@
     <hr>
 
     <div id="bidhand">
-        <h2>Bidding the hand</h2>
-        <p id="handnumber"></p>
-        <p id="dealername"></p>
-        <p id="listenname"></p>
-        <p id="speaksname"></p>
-        <p>Who is the declarer:</p>
-        <!-- Need to put this in a script so that specific player name can be displayed -->
-        <input type="radio" id="game.declarer-player1" name="declarer" onclick="getDeclarer(player_name[0])">
-        <label for="Player1declare">Player1</label><br>
-        <input type="radio" id="game.declarer-player2" name="declarer" onclick="getDeclarer(player_name[1])">
-        <label for="Player2declare">Player2</label><br>
-        <input type="radio" id="game.declarer-player3" name="declarer" onclick="getDeclarer(player_name[2])">
-        <label for="Player3declare">Player3</label><br>
-        <br>
-
-        <label for="Bid">What was the bid (0 for Ramsch)?:</label><input type="number" align="right" id="game.bid" value=""><br><br>
-
-        <p>What is the contract:</p>
-        <input type="radio" id="game.contract-grand" name="contract" value="Grand" onclick="getContract(this.value)">
-        <label for="grand">Grand</label><br>
-        <input type="radio" id="game.contract-clubs" name="contract" value="Clubs" onclick="getContract(this.value)">
-        <label for="clubs">Clubs</label><br>
-        <input type="radio" id="game.contract-spades" name="contract" value="Spades" onclick="getContract(this.value)">
-        <label for="spades">Spades</label><br>
-        <input type="radio" id="game.contract-hearts" name="contract" value="Hearts" onclick="getContract(this.value)">
-        <label for="hearts">Hearts</label><br>
-        <input type="radio" id="game.contract-diamonds" name="contract" value="Diamonds" onclick="getContract(this.value)">
-        <label for="diamonds">Diamonds</label><br>
-        <input type="radio" id="game.contract-null" name="contract" value="Null" onclick="getContract(this.value)">
-        <label for="null">Null</label><br>
-        <!-- Ramssch should not be needed, since a bid of 0 is same as Ramsch, but leaving in for now -->
-        <input type="radio" id="game.contract-ramsch" name="contract" value="Ramsch" onclick="getContract(this.value)"> 
-        <label for="ramsch">Ramsch</label><br>
-
-        <p>Pre-play multipliers:</p> 
-        <input type="checkbox" id="game.multiplier-hand" name="hand" value="">
-        <label for="hand">Hand</label><br>
-        <input type="checkbox" id="game.multiplier-open" name="open" value="">  <!-- For non-Null, implies Announce Schwarz -->
-        <label for="open">Open</label><br> 
-        <input type="checkbox" id="game.multiplier-annSchn" name="schn_annc" value=""> <!-- Only if Hand -->
-        <label for="annSchn">Announce Schneider</label><br>
-        <input type="checkbox" id="game.multiplier-annSchw" name="schw_annc" value=""> <!-- Only if Hand -->
-        <label for="annSchw">Announce Schwarz</label><br>
-        <br>  <br>
-
-        <button class="button button3" onclick="playHand()">Play the hand</button>
-
     </div>
 <!--
       /// Scoring the Hand
@@ -233,6 +186,56 @@
             /// Clear out the initgame div
             /// Print out game summary: names, type (schieberamsch, ramsch after bock, regular)
             /// Print out the bidhand div
+            displayBidHand()
+        }
+        function displayBidHand() {
+            document.getElementById("bidhand").innerHTML = '\
+                <h2>Bidding the hand</h2>\
+                <p id="handnumber"></p>\
+                <p id="dealername"></p>\
+                <p id="listenname"></p>\
+                <p id="speaksname"></p>\
+                <p>Who is the declarer:</p>\
+                <!-- Need to put this in a script so that specific player name can be displayed -->\
+                <input type="radio" id="game.declarer-player1" name="declarer" onclick="getDeclarer(player_name[0])">\
+                <label for="Player1declare">' + player_name[0].value
+                + '</label><br>\
+                <input type="radio" id="game.declarer-player2" name="declarer" onclick="getDeclarer(player_name[1])">\
+                <label for="Player2declare">' + player_name[1].value
+                + '</label><br>\
+                <input type="radio" id="game.declarer-player3" name="declarer" onclick="getDeclarer(player_name[2])">\
+                <label for="Player3declare">' + player_name[2].value
+                + '</label><br>\
+                <br>\
+                <label for="Bid">What was the bid (leave empty for Ramsch)?:</label><input type="number" align="right" id="game.bid" value=""><br><br>\
+                <p>What is the contract:</p>\
+                <input type="radio" id="game.contract-grand" name="contract" value="Grand" onclick="getContract(this.value)">\
+                <label for="grand">Grand</label><br>\
+                <input type="radio" id="game.contract-clubs" name="contract" value="Clubs" onclick="getContract(this.value)">\
+                <label for="clubs">Clubs</label><br>\
+                <input type="radio" id="game.contract-spades" name="contract" value="Spades" onclick="getContract(this.value)">\
+                <label for="spades">Spades</label><br>\
+                <input type="radio" id="game.contract-hearts" name="contract" value="Hearts" onclick="getContract(this.value)">\
+                <label for="hearts">Hearts</label><br>\
+                <input type="radio" id="game.contract-diamonds" name="contract" value="Diamonds" onclick="getContract(this.value)">\
+                <label for="diamonds">Diamonds</label><br>\
+                <input type="radio" id="game.contract-null" name="contract" value="Null" onclick="getContract(this.value)">\
+                <label for="null">Null</label><br>\
+                <!-- Ramssch should not be needed, since a bid of 0 is same as Ramsch, but leaving in for now -->\
+                <input type="radio" id="game.contract-ramsch" name="contract" value="Ramsch" onclick="getContract(this.value)"> \
+                <label for="ramsch">Ramsch</label><br>\
+                <p>Pre-play multipliers:</p> \
+                <input type="checkbox" id="game.multiplier-hand" name="hand" value="">\
+                <label for="hand">Hand</label><br>\
+                <input type="checkbox" id="game.multiplier-open" name="open" value="">  <!-- For non-Null, implies Announce Schwarz -->\
+                <label for="open">Open</label><br> \
+                <input type="checkbox" id="game.multiplier-annSchn" name="schn_annc" value=""> <!-- Only if Hand -->\
+                <label for="annSchn">Announce Schneider</label><br>\
+                <input type="checkbox" id="game.multiplier-annSchw" name="schw_annc" value=""> <!-- Only if Hand -->\
+                <label for="annSchw">Announce Schwarz</label><br>\
+                <br>  <br>\
+                <button class="button button3" onclick="playHand()">Play the hand</button>\
+            '
             bidHand()
         }
         function bidHand() {
@@ -245,26 +248,58 @@
         function playHand() {
             /// document.write("Called playHand()")  /// Testing: Clears the page and just writes this line
             bid = document.getElementById("game.bid")
-            if (document.getElementById("game.multiplier-hand").checked == true) {
-                multipliers.hand = true
-            } else {
-                multipliers.hand = false
+            if (contract == "Null") {
+                if (document.getElementById("game.multiplier-hand").checked == true) {
+                    multipliers.hand = true
+                } else {
+                    multipliers.hand = false
+                    multipliers.annc_schneider = false
+                    multipliers.annc_schwarz = false
+                }
+                if (document.getElementById("game.multiplier-open").checked == true) {
+                    multipliers.open = true
+                } else {
+                    multipliers.open = false
+                    multipliers.annc_schneider = false
+                    multipliers.annc_schwarz = false                
+                }
+            } else {    // Not a Null contract
+                if (contract == "Ramsch") {
+                    multipliers.hand = false
+                    multipliers.open = false
+                    multipliers.annc_schneider = false
+                    multipliers.annc_schwarz = false
+                } else {    // Not a Null or Ramsch contract
+                    if (document.getElementById("game.multiplier-hand").checked == true) {
+                        multipliers.hand = true
+                        if (document.getElementById("game.multiplier-open").checked == true) {
+                            multipliers.open = true
+                            // Playing open implies Schwarz
+                            multipliers.annc_schneider = true
+                            multipliers.annc_schwarz = true
+                        } else { // Not an Open contract
+                            multipliers.open = false
+                            if (document.getElementById("game.multiplier-annSchn").checked == true) {
+                                multipliers.annc_schneider = true
+                            } else {
+                                multipliers.annc_schneider = false
+                            }
+                            if (document.getElementById("game.multiplier-annSchw").checked == true) {
+                                multipliers.annc_schwarz = true
+                                multipliers.annc_schneider = true  // Announcing Schneider implies Schneider
+                            } else {
+                                multipliers.annc_schwarz = false
+                            }
+                        }
+                    } else { // Not a Hand contract
+                        multipliers.hand = false
+                        multipliers.open = false
+                        multipliers.annc_schneider = false
+                        multipliers.annc_schwarz = false                
+                    }
+                }
             }
-            if (document.getElementById("game.multiplier-open").checked == true) {
-                multipliers.open = true
-            } else {
-                multipliers.open = false
-            }
-            if (document.getElementById("game.multiplier-annSchn").checked == true) {
-                multipliers.annc_schneider = true
-            } else {
-                multipliers.annc_schneider = false
-            }
-            if (document.getElementById("game.multiplier-annSchw").checked == true) {
-                multipliers.annc_schwarz = true
-            } else {
-                multipliers.annc_schwarz = false
-            }
+
             multipliersnone = true
             multiplierstext = ""
             if (multipliers.hand == true) {
@@ -276,28 +311,40 @@
                 multipliersnone = false
             }
             if (multipliers.annc_schneider == true) {
-                multiplierstext += "Announce Schneider "
+                multiplierstext += "Announce-Schneider "
                 multipliersnone = false
             }
-            if (multiplierstext.annc_schwarz == true) {
-                multiplierstext += "Announce Schwarz"
+            if ((multipliers.annc_schwarz == true)) {
+                multiplierstext += "Announce-Schwarz"
+                multipliers.annc_schneider = true
                 multipliersnone = false
             }
             if (multipliersnone == true) {
                 multiplierstext = "None"
             }
-            bidhandsummary = "<p>Hand bid summary:</p>" 
-                + "<ul>" 
-                + "<li>Declarer: " +  declarer.value + "</li>"
+            bidhandsummary = "<p>Hand #" + (current_hand+1)
+            bidhandsummary += " summary:</p>" + "<ul>"
+            if (contract != "Ramsch") {
+                bidhandsummary += "<li>Declarer: " +  declarer.value + "</li>"
                 + "<li>Contract: " + contract + "</li>"
                 + "<li>Bid: " + bid.value + "</li>"
                 + "<li>Multipliers: " 
                 + multiplierstext
                 + "</li>"
-                + "</ul>"
-                + "<p>Player " + player_name[current_hand%number_of_players+1].value + " leads </p>"
+            } else {
+                bidhandsummary += "<li>Contract: " + contract + "</li>"
+            }
+            bidhandsummary += "</ul>"
+                + "<p>" 
+                + player_name[current_hand%number_of_players].value + " dealt and "
+                + player_name[current_hand%number_of_players+1].value + " leads </p>"
+            bidhandsummary += '<button class="button button3" onclick="rebidHand()">Re-bid the hand</button>'
+
             document.getElementById("bidhand").innerHTML=bidhandsummary
 
+        }
+        function rebidHand() {
+            displayBidHand()
         }
         function scoreHand() {
             document.write("Called scoreHand()")  /// Testing: Clears the page and just writes this line
