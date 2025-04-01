@@ -12,7 +12,7 @@
 <html>
 <!-- 
     To Do:
-        - Save game state in cookie, read back if necessary, method to clear old cookie
+        - Save game state, read back if requested
 -->
 <head>
     <title>Skat Scoresheet</title> <!-- Add type of game (Regular, Ramsch after Bock, Scheiberamsch here) -->
@@ -52,10 +52,12 @@
     <!-- Start of game layout should be removed once game started. -->
     <div id="initgame">
         <br>
-        <label for="player1" id="player1namelabel">Player 1 Name:</label><input type="text" id="game.player_name-1" value="" title="Player1 Name"><br><br>
-        <label for="player2" id="player2namelabel">Player 2 Name:</label><input type="text" id="game.player_name-2" value=""><br><br>
-        <label for="player3" id="player3namelabel">Player 3 Name:</label><input type="text" id="game.player_name-3" value=""><br><br>
-        <label for="player4" id="player4namelabel">Player 4 Name:</label><input type="text" id="game.player_name-4" value=""><br><br>
+        <label for="player1" id="player1namelabel">Player 1 Name (first dealer):</label><input type="text" id="game.player_name-1" value=""><br>
+        <label for="player2" id="player2namelabel">Player 2 Name:</label><input type="text" id="game.player_name-2" value=""><br>
+        <label for="player3" id="player3namelabel">Player 3 Name:</label><input type="text" id="game.player_name-3" value=""><br>
+        <!-- Player 4 not implemented yet
+        <label for="player4" id="player4namelabel">Player 4 Name:</label><input type="text" id="game.player_name-4" value=""><br>
+        -->
 
         <p>What type of game will you be playing today:</p>
         <input type="radio" id="Regular" name="game_type" value="regular" onclick="gameType(this.value)">
@@ -79,28 +81,6 @@
       /// Scoring the Hand
 -->
     <div id="scorehand">
-        <hr>
-        <h2>Scoring the hand</h2>
-        <!-- Display the bidding summary (probably need Javascript)-->
-        <p id="handbidsummary">Hand bid summary: </p>
-
-        <label for="cardpoints">How many card points collected by declarer?:</label><input type="number" align="right" id="game.cardpoints" value=""><br><br>
-
-        <p>Post-play multipliers:</p> 
-        <input type="checkbox" id="game.multiplier-schneider" name="schneider" value="">
-        <label for="schneider">Schneider</label><br>
-        <input type="checkbox" id="game.multiplier-schwarz" name="schwarz" value="">
-        <label for="schwarz">Schwarz</label><br> 
-        <input type="checkbox" id="game.multiplier-kontra" name="kontra" value="">
-        <label for="kontra">Kontra</label><br>
-        <input type="checkbox" id="game.multiplier-re" name="re" value="">
-        <label for="rekontra">Rekontra</label><br>
-        <br> 
-
-        <label for="matadors">With or without how many?:</label><input type="range" value="1" min="1" max="7" id="game.matadors" oninput="this.nextElementSibling.value = this.value">
-        <output>1</output> <br> <br>
-
-        <button class="button button3" onclick="scoreHand()">Score the hand</button>
     </div>
 
 <!-- Score table -->    
@@ -135,6 +115,9 @@
         let gametype
         let gametypename
         let declarer
+        let cardpoints
+        let handscore
+        let matadors
         const multipliers = {
             hand: false,
             open: false,
@@ -186,15 +169,12 @@
             /// Clear out the initgame div
             /// Print out game summary: names, type (schieberamsch, ramsch after bock, regular)
             /// Print out the bidhand div
-            displayBidHand()
+            bidHand()
         }
         function displayBidHand() {
             document.getElementById("bidhand").innerHTML = '\
-                <h2>Bidding the hand</h2>\
-                <p id="handnumber"></p>\
-                <p id="dealername"></p>\
-                <p id="listenname"></p>\
-                <p id="speaksname"></p>\
+                <h2 id="bidheader"> </h2>\
+                <p id="handinfo"></p>\
                 <p>Who is the declarer:</p>\
                 <!-- Need to put this in a script so that specific player name can be displayed -->\
                 <input type="radio" id="game.declarer-player1" name="declarer" onclick="getDeclarer(player_name[0])">\
@@ -234,19 +214,18 @@
                 <input type="checkbox" id="game.multiplier-annSchw" name="schw_annc" value=""> <!-- Only if Hand -->\
                 <label for="annSchw">Announce Schwarz</label><br>\
                 <br>  <br>\
-                <button class="button button3" onclick="playHand()">Play the hand</button>\
+                <button class="button button3" onclick="confirmBid()">Confirm the bid</button>\
             '
-            bidHand()
         }
         function bidHand() {
+            displayBidHand()
             /// document.write("Called bidHand()")  /// Testing: Clears the page and just writes this line
-            document.getElementById("handnumber").innerHTML = "<p>Starting hand number: " + (current_hand+1) + " </p>"
-            document.getElementById("dealername").innerHTML = "<p> " + player_name[current_hand%number_of_players].value + " is the dealer</p>"
-            document.getElementById("listenname").innerHTML = "<p> " + player_name[current_hand%number_of_players+1].value + " listens</p>"
-            document.getElementById("speaksname").innerHTML = "<p> " + player_name[current_hand%number_of_players+2].value + " speaks</p>"
+            document.getElementById("bidheader").innerHTML = "Bidding hand number: " + (current_hand+1) + " "
+            document.getElementById("handinfo").innerHTML = player_name[current_hand%number_of_players].value + " is the dealer, "
+            + player_name[current_hand%number_of_players+1].value + " listens, "
+            + player_name[current_hand%number_of_players+2].value + " speaks"
         }
-        function playHand() {
-            /// document.write("Called playHand()")  /// Testing: Clears the page and just writes this line
+        function confirmBid() {
             bid = document.getElementById("game.bid")
             if (contract == "Null") {
                 if (document.getElementById("game.multiplier-hand").checked == true) {
@@ -322,8 +301,8 @@
             if (multipliersnone == true) {
                 multiplierstext = "None"
             }
-            bidhandsummary = "<p>Hand #" + (current_hand+1)
-            bidhandsummary += " summary:</p>" + "<ul>"
+            bidhandsummary = "<h2>Hand #" + (current_hand+1)
+            bidhandsummary += " summary:</h2>" + "<ul>"
             if (contract != "Ramsch") {
                 bidhandsummary += "<li>Declarer: " +  declarer.value + "</li>"
                 + "<li>Contract: " + contract + "</li>"
@@ -338,6 +317,7 @@
                 + "<p>" 
                 + player_name[current_hand%number_of_players].value + " dealt and "
                 + player_name[current_hand%number_of_players+1].value + " leads </p>"
+            bidhandsummary += '<button class="button button3" onclick="handResults()">Play the hand</button>'
             bidhandsummary += '<button class="button button3" onclick="rebidHand()">Re-bid the hand</button>'
 
             document.getElementById("bidhand").innerHTML=bidhandsummary
@@ -346,15 +326,94 @@
         function rebidHand() {
             displayBidHand()
         }
-        function scoreHand() {
-            document.write("Called scoreHand()")  /// Testing: Clears the page and just writes this line
-
+        function displayHandResults() {
+            document.getElementById("scorehand").innerHTML = '\
+                <hr>\
+                <h2>Scoring the hand</h2>\
+                <label for="cardpoints">How many card points collected by declarer?:</label><input type="number" align="right" id="game.cardpoints" value=""><br><br>\
+                <p>Post-play multipliers:</p>\
+                <input type="checkbox" id="game.multiplier-schneider" name="schneider" value="">\
+                <label for="schneider">Schneider</label><br>\
+                <input type="checkbox" id="game.multiplier-schwarz" name="schwarz" value="">\
+                <label for="schwarz">Schwarz</label><br> \
+                <input type="checkbox" id="game.multiplier-kontra" name="kontra" value="">\
+                <label for="kontra">Kontra</label><br>\
+                <input type="checkbox" id="game.multiplier-re" name="re" value="">\
+                <label for="rekontra">Rekontra</label><br>\
+                <br> \
+                <label for="matadors">With or without how many?:</label><input type="range" value="1" min="1" max="7" id="game.matadors" oninput="this.nextElementSibling.value = this.value">\
+                <output>1</output> <br> <br>\
+                <button class="button button3" onclick="scoreHand()">Score the hand</button>\
+                '
         }
-        function adjustScore() {
-            document.write("Called adjustScore()")  /// Testing: Clears the page and just writes this line
+        function handResults() {
+            displayHandResults()
+        }
+        function scoreHand(){
+            cardpoints = document.getElementById("game.cardpoints")
+            matadors = document.getElementById("game.matadors").value
+            if (document.getElementById("game.multiplier-schneider").checked == true) {
+                multipliers.schneider = true
+            } else {
+                multipliers.schneider = false
+            }
+            if (document.getElementById("game.multiplier-schwarz").checked == true) {
+                multipliers.schwarz = true
+                multipliers.schneider = true
+            } else {
+                multipliers.schwarz = false
+            }
+            if (document.getElementById("game.multiplier-kontra").checked == true) {
+                kontrare.kontra = true
+            } else {
+                kontrare.kontra = false
+            }
+            if (document.getElementById("game.multiplier-re").checked == true) {
+                kontrare.re = true
+            } else {
+                kontrare.re = false
+            }
+            calculate_score()
+            scorehandsummary = '<hr>'
+            scorehandsummary += '<p>' + declarer.value + ' collected ' + cardpoints.value + ' cardpoints </p>'
+                + '<p> With/without: ' + matadors + '</p>'
+            if (multipliers.schwarz == true) {
+                scorehandsummary += '<p>Schneider and Schwarz<\p>'
+            } else {
+                if (multipliers.schneider == true) {
+                    scorehandsummary += '<p>Schneider<\p>'
+                }
+            }
+            if (kontrare.re == true) {
+                scorehandsummary += '<p>Kontra and Re<\p>'
+            } else {
+                if (kontrare.kontra == true) {
+                    scorehandsummary += '<p>Kontra<\p>'
+                }
+            }
+            scorehandsummary += '<p>Game points earned: ' + handscore + '</p>'
+            scorehandsummary += '<button class="button button3" onclick="startNextHand()">Start next hand</button>'
+            scorehandsummary += '<button class="button button3" onclick="rescoreHand()">Re-score the hand</button>'
+            scorehandsummary += '<button class="button button3" onclick="endGame()">End the game</button>'
+            document.getElementById("scorehand").innerHTML = scorehandsummary
+        }
+        function startNextHand() {
+            updateScoresheet()
+            current_hand++
+            document.getElementById("scorehand").innerHTML = '<p> </p>'
+            bidHand()
+        }
+        function rescoreHand() {
+            handResults()
         }
         function endGame() {
             document.write("Called endGame()")  /// Testing: Clears the page and just writes this line
+        }
+        function calculate_score() {
+            handscore = 0
+        }
+        function updateScoresheet() {
+
         }
     </script>
 

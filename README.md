@@ -4,14 +4,15 @@
 
 Scoresheet for the card game [Skat][1]. Either three or four players are supported.
 
-The initial version is text-based and run from the command line. 
+The initial version is text-based and run from the command line.
 
-A web-based version with similar functionality is in progress.
+A [web-based version][8] with similar functionality is in progress.
 
 ## House Rules
 
 This scoresheet is hard-coded with our particular house rules:
 
+- Player #1 is the first dealer
 - In four player games, the dealer sits out play for that hand
 - Scoring
   - Losses count double for non-Ramsch contracts
@@ -84,7 +85,7 @@ This workflow builds the code and then runs several test input files (`test-*-in
 
 ## Web-based Version
 
-A web-based version is in progress (see [docs/index.html](docs/index.html)). This is a manual port of the C++ code over to JavaScript and uses HTML to provide a GUI.
+A web-based version is in progress (see [docs/index.html](docs/index.html)). This is a manual port of the C++ code over to JavaScript and uses HTML to provide a GUI. It is entirely run in the browser; there is no back-end processing involved.
 
 The web page is published using [GitHub Pages][9] and can be accessed [here][8].
 
