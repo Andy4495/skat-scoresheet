@@ -1,7 +1,7 @@
 # Test file for skat-scoresheet
 # Need to first parse this file and remove comment lines starting with '#':
 #
-#   sed '/^#/d' <testgame1.txt  | ./skat-scoresheet      
+#   sed '/^#/d' <test-3p-ramsch-input.txt  | ./skat-scoresheet      
 #   
 #***** 
 #       This test file focuses on a Schieberamsch 3-player game

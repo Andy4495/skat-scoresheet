@@ -14,14 +14,14 @@ Is this correct? (y/n)
 Starting hand number 1
 ======================
 Player1 is the dealer
-Player-2 listens
+Player-2 listens and will lead
 Player-3 speaks
 Enter winning bid (0 for Ramsch): 
-Enter contract (C, S, H, D, G, N): 
 Who is the declarer? 
   1: Player1
   2: Player-2
   3: Player-3
+Enter contract (C, S, H, D, G, N): 
 Will it be played Hand? (y/n) 
 Will it be played Open? (y/n) 
 Hand summary: 
@@ -41,14 +41,14 @@ Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e)
 Starting hand number 2
 ======================
 Player-2 is the dealer
-Player-3 listens
+Player-3 listens and will lead
 Player1 speaks
 Enter winning bid (0 for Ramsch): 
-Enter contract (C, S, H, D, G, N): 
 Who is the declarer? 
   1: Player1
   2: Player-2
   3: Player-3
+Enter contract (C, S, H, D, G, N): 
 Will it be played Hand? (y/n) 
 Hand summary: 
 Player-2 plays Diamonds on a bid of 20
@@ -71,14 +71,14 @@ Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e)
 Starting hand number 3
 ======================
 Player-3 is the dealer
-Player1 listens
+Player1 listens and will lead
 Player-2 speaks
 Enter winning bid (0 for Ramsch): 
-Enter contract (C, S, H, D, G, N): 
 Who is the declarer? 
   1: Player1
   2: Player-2
   3: Player-3
+Enter contract (C, S, H, D, G, N): 
 Will it be played Hand? (y/n) 
 Will it be played Open -- must take all tricks? (y/n) 
 Announce Schneider? (y/n) 
@@ -107,14 +107,14 @@ Starting hand number 4
 ======================
 This hand is Bock. Scores double.
 Player1 is the dealer
-Player-2 listens
+Player-2 listens and will lead
 Player-3 speaks
 Enter winning bid (0 for Ramsch): 
-Enter contract (C, S, H, D, G, N): 
 Who is the declarer? 
   1: Player1
   2: Player-2
   3: Player-3
+Enter contract (C, S, H, D, G, N): 
 Will it be played Hand? (y/n) 
 Will it be played Open -- must take all tricks? (y/n) 
 Playing Open implies announcing Schneider and Schwarz.
@@ -144,15 +144,15 @@ Starting hand number 5
 ======================
 This hand is Bock. Scores double.
 Player-2 is the dealer
-Player-3 listens
+Player-3 listens and will lead
 Player1 speaks
 Enter winning bid (0 for Ramsch): 
-Enter contract (C, S, H, D, G, N): 
 Who is the declarer? 
   1: Player1
   2: Player-2
   3: Player-3
 Invalid input. Enter value from 1 to 3: 
+Enter contract (C, S, H, D, G, N): 
 Will it be played Hand? (y/n) 
 Hand summary: 
 Player-2 plays Spades on a bid of 27
@@ -180,14 +180,14 @@ Starting hand number 6
 ======================
 This hand is Bock. Scores double.
 Player-3 is the dealer
-Player1 listens
+Player1 listens and will lead
 Player-2 speaks
 Enter winning bid (0 for Ramsch): 
-Enter contract (C, S, H, D, G, N): 
 Who is the declarer? 
   1: Player1
   2: Player-2
   3: Player-3
+Enter contract (C, S, H, D, G, N): 
 Will it be played Hand? (y/n) 
 Hand summary: 
 Player-3 plays Diamonds on a bid of 18
@@ -335,14 +335,14 @@ End of Ramschround
 Starting hand number 10
 =======================
 Player1 is the dealer
-Player-2 listens
+Player-2 listens and will lead
 Player-3 speaks
 Enter winning bid (0 for Ramsch): 
-Enter contract (C, S, H, D, G, N): 
 Who is the declarer? 
   1: Player1
   2: Player-2
   3: Player-3
+Enter contract (C, S, H, D, G, N): 
 Will it be played Hand? (y/n) 
 Hand summary: 
 Player1 plays Clubs on a bid of 35
@@ -376,14 +376,14 @@ Starting hand number 11
 =======================
 This hand is Bock. Scores double.
 Player-2 is the dealer
-Player-3 listens
+Player-3 listens and will lead
 Player1 speaks
 Enter winning bid (0 for Ramsch): 
-Enter contract (C, S, H, D, G, N): 
 Who is the declarer? 
   1: Player1
   2: Player-2
   3: Player-3
+Enter contract (C, S, H, D, G, N): 
 Will it be played Hand? (y/n) 
 Hand summary: 
 Player1 plays Grand on a bid of 33
@@ -418,7 +418,7 @@ Starting hand number 12
 =======================
 This hand is Bock. Scores double.
 Player-3 is the dealer
-Player1 listens
+Player1 listens and will lead
 Player-2 speaks
 Enter winning bid (0 for Ramsch): 
 Hand summary: 

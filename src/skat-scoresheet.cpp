@@ -14,7 +14,7 @@
 #include <string.h>
 #include <limits>
 
-enum RCE {RESCOREGAME, CONTINUEGAME, ENDTHEGAME};
+enum RCE {RESCOREHAND, CONTINUEGAME, ENDTHEGAME};
 enum State {INIT, NEW_HAND_BID, HAND_CONTRACT, HAND_SUMMARY, 
             SCORE_HAND, END_GAME, EDIT_GAME, GAME_COMPLETED};
 
@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
                 }
                 cout << "Enter number of players (3 or 4): " << endl;
                 game.number_of_players = input_and_validate(3, 4);
-                cout << "Enter Player 1 name: " << endl;
+                cout << "Enter Player 1 name (this is the first dealer): " << endl;
                 cin >> name;
                 strncpy(game.player_name[0], name.c_str(), MAX_NAME_SIZE);
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore any extra characters
@@ -119,7 +119,7 @@ int main(int argc, char** argv) {
                     // - Player to left of dealer is "hoeren" and player to right of dealer is "weitersagen" ("continue saying")
                     // - weitersagen continues bid after either gaben or hoeren passes
                     cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer" << endl;
-                    cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens" << endl;
+                    cout << game.player_name[(game.current_hand + 1) % game.number_of_players] << " listens and will lead" << endl;
                     cout << game.player_name[(game.current_hand + 2) % game.number_of_players] << " speaks"  << endl;
                     if (game.number_of_players == 4) {
                         cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues"  << endl;
@@ -136,7 +136,6 @@ int main(int argc, char** argv) {
                 break;
             
             case HAND_CONTRACT:
-                game.set_contract(game.current_hand);
                 cout << "Who is the declarer? " << endl;
                 // In 4 player games, dealer doesn't play, so don't list the dealer name
                 for (i = 0; i < game.number_of_players; i++) {
@@ -144,6 +143,7 @@ int main(int argc, char** argv) {
                         cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
                 }
                 game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
+                game.set_contract(game.current_hand);
                 if (game.hand[game.current_hand].contract == Skat_Game::Skat_Game::NULLL) {
                     cout << "Will it be played Hand? (y/n) " << endl;
                     if (yes()) {
@@ -250,7 +250,7 @@ int main(int argc, char** argv) {
                 game.calculate_hand_score(game.current_hand);
                 game.calculate_game_score();
                 game.print_game_status();
-                if (game.bock_count > 0) { 
+                if ((game.bock_count > 0) && (game.ramsch_count == 0)) { 
                     cout << "This hand was Bock. " << endl;
                 }
                 cout << "Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): " << endl;
@@ -258,7 +258,7 @@ int main(int argc, char** argv) {
                     case CONTINUEGAME:
                         if (game.current_hand < game.number_of_hands - 1) {
                                 state = NEW_HAND_BID;
-                                if (game.ramsch_count > 0) {
+                                if (game.ramsch_count > 0) {  // Check if this is a ramschround hand
                                     if (--game.ramsch_count == 0) {
                                         cout << "End of Ramschround" << endl;
                                     } else {
@@ -270,27 +270,28 @@ int main(int argc, char** argv) {
                                             }
                                             cout << "remaining." << endl;
                                     }
-                                }
-                                h = game.calculate_new_bocks(game.current_hand);
-                                if (game.bock_count > 0) game.bock_count--;
-                                // If we completed a bockround, then start a ramschround
-                                if ( (game.hand[game.current_hand].bock == Skat_Game::BOCK) &&
-                                    (game.bock_count % game.number_of_players == 0) ) {
-                                        cout << "End of a Bockround. Next hand starts a Ramschround" << endl;
-                                        game.ramsch_count = game.number_of_players;
-                                }
-                                if (h > 0) {
-                                    cout << "This hand created new Bocks." << endl;
-                                    game.bock_count += h;
-                                }
-                                if (game.bock_count > 0) {
-                                    cout << "There ";
-                                    if (game.bock_count == 1) {
-                                        cout << "is 1 Bock ";
-                                    } else {
-                                        cout << "are " << game.bock_count << " Bocks ";
+                                } else {  // Not a ramschround hand
+                                    h = game.calculate_new_bocks(game.current_hand);
+                                    if (game.bock_count > 0) game.bock_count--;
+                                    // If we completed a bockround, then start a ramschround
+                                    if ( (game.hand[game.current_hand].bock == Skat_Game::BOCK) &&
+                                        (game.bock_count % game.number_of_players == 0) ) {
+                                            cout << "End of a Bockround. Next hand starts a Ramschround" << endl;
+                                            game.ramsch_count = game.number_of_players;
                                     }
-                                    cout << "remaining." << endl;
+                                    if (h > 0) {
+                                        cout << "This hand created new Bocks." << endl;
+                                        game.bock_count += h;
+                                    }
+                                    if (game.bock_count > 0) {
+                                        cout << "There ";
+                                        if (game.bock_count == 1) {
+                                            cout << "is 1 Bock ";
+                                        } else {
+                                            cout << "are " << game.bock_count << " Bocks ";
+                                        }
+                                        cout << "remaining." << endl;
+                                    }
                                 }
                                 game.current_hand++;
                         } else { // We have exceeded MAX_NUMBER_OF_HANDS
@@ -302,7 +303,7 @@ int main(int argc, char** argv) {
                         state = END_GAME;
                         break;
 
-                    case RESCOREGAME:
+                    case RESCOREHAND:
                         state = SCORE_HAND;
                         break;
                 }
@@ -422,7 +423,7 @@ RCE rce() {
         switch (c) {
             case 'R':
             case 'r':
-                result = RESCOREGAME;
+                result = RESCOREHAND;
                 valid = true;
                 break;
             

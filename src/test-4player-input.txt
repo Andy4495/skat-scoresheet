@@ -1,7 +1,7 @@
 # Test file for skat-scoresheet
 # Need to first parse this file and remove comment lines starting with '#':
 #
-#   sed '/^#/d' <testgame1.txt  | ./skat-scoresheet      
+#   sed '/^#/d' <test-4player-input.txt  | ./skat-scoresheet      
 #   
 #***** 
 #       This test file focuses on a regular (non Schieberamsch) 4-player game
@@ -22,10 +22,10 @@ y
 #### Hand 1 ####
 # Bid
 23
-# Contract -- NULL
-n
 # Player number that won the bid
 2
+# Contract -- NULL
+n
 # Will it be hand?
 n
 # Will it be open?
@@ -41,10 +41,10 @@ c
 #### Hand 2 ####
 # Bid
 20
-# Contract -- DIAMONDS
-D
 # Player number that won the bid
 3
+# Contract -- DIAMONDS
+D
 # Will it be hand?
 n
 # Is hand play information correct?
@@ -60,10 +60,10 @@ c
 #### Hand 3 ####
 # Bid
 48
-# Contract
-g
 # Player number that won the bid
 4
+# Contract
+g
 # Will it be played Hand
 y
 # Will it be played open
@@ -86,10 +86,10 @@ c
 # Start bock round (previous hand had Rekontra)
 # Bid
 35
-# Contract
-h
 # Player number that won the bid
 1
+# Contract
+h
 # Will it be played Hand
 y
 # Will it be played open
@@ -109,12 +109,12 @@ c
 #### Hand 5 ####
 # Bid
 27
-# Contract
-s
 # Player number that won the bid
 5
 # Invalid input, enter value 1 to 3
 2
+# Contract
+s
 # Will it be played Hand
 n
 # Is hand play information correct
@@ -130,10 +130,10 @@ c
 #### Hand 6 ####
 # Bid
 18
-# Contract
-d
 # Player number that won the bid
 3
+# Contract
+d
 # Will it be played Hand
 n
 # Is hand play information correct/
@@ -151,10 +151,10 @@ c
 #### Hand 7 ####
 # Bid
 18
-# Contract
-d
 # Player number that won the bid
 4
+# Contract
+d
 # Will it be played Hand
 n
 # Is hand play information correct/
@@ -246,10 +246,10 @@ c
 # Back to regular hands (no bock round, no ramsch round)
 # Bid
 35
-# Contract
-c
 # Player number that won the bid
 1
+# Contract
+c
 # Will it be played Hand
 n
 # Is hand play information correct?
@@ -267,10 +267,10 @@ c
 #### Hand 13 ####
 # Bid
 33
-# Contract
-g
 # Player number that won the bid
 2
+# Contract
+g
 # Will it be played Hand
 n
 # Is hand play information correct?
