@@ -2,7 +2,7 @@ Welcome to the Skat Scoresheet v1.0.0!
 The scoresheet supports up to 99 hands in a game
 Will this be a Ramsch-only (Schieberamsch) game? (y/n) 
 Enter number of players (3 or 4): 
-Enter Player 1 name: 
+Enter Player 1 name (this is the first dealer): 
 Enter Player 2 name: 
 Enter Player 3 name: 
 Game will consist of 3 players named: 
