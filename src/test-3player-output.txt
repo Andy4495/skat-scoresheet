@@ -36,7 +36,7 @@ Was there a Kontra? (y/n)
 |  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:       23 |        0 |        0
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 2
 ======================
@@ -66,7 +66,7 @@ Was there a Kontra? (y/n)
 |  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:       23 |      -54 |        0
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 3
 ======================
@@ -99,7 +99,7 @@ Did declarer Rekontra? (y/n)
 |  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:       23 |      -54 |     -960
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 This hand created new Bocks.
 There are 3 Bocks remaining.
 ======================
@@ -137,7 +137,7 @@ Was there a Kontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      223 |      -54 |     -960
 This hand was Bock. 
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 There are 2 Bocks remaining.
 ======================
 Starting hand number 5
@@ -173,7 +173,7 @@ Was there a Kontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      223 |       12 |     -960
 This hand was Bock. 
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 There is 1 Bock remaining.
 ======================
 Starting hand number 6
@@ -210,7 +210,7 @@ Invalid response. Enter y or n:
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      223 |       12 |     -924
 This hand was Bock. 
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 End of a Bockround. Next hand starts a Ramschround
 ======================
 Starting hand number 7
@@ -241,7 +241,7 @@ Was there a Jungf? (y/n)
 |  7 |   0 |   | Ramsch   | JUNGF  |    |     -136 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:       87 |       12 |     -924
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 Scoring the hand after play...
 Did a player win Durchmarsch? (y/n) 
 How many players lost the Ramsch? (1, 2, 3)  
@@ -262,7 +262,7 @@ Was there a Jungf? (y/n)
 |  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      155 |       12 |     -924
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 There are 2 Ramsch hands remaining.
 ======================
 Starting hand number 8
@@ -296,7 +296,7 @@ How many points taken?
 |  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      155 |      -33 |     -969
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 There is 1 Ramsch hand  remaining.
 ======================
 Starting hand number 9
@@ -329,7 +329,7 @@ Was there a Kontra? (y/n)
 |  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      155 |      -33 |     -873
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 End of Ramschround
 =======================
 Starting hand number 10
@@ -368,7 +368,7 @@ Did declarer Rekontra? (y/n)
 | 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      -37 |      -33 |     -873
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 This hand created new Bocks.
 There are 3 Bocks remaining.
 =======================
@@ -410,9 +410,48 @@ Was there a Kontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      251 |      -33 |     -873
 This hand was Bock. 
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
-This hand created new Bocks.
-There are 5 Bocks remaining.
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
+This mode allows correction of all the hand data.
+However, this requires you to score the hand manually; it is not checked for correctness.
+Bock count at beginning of hand (current value: 3): 
+Ramsch count at beginning of hand (current value: 0): 
+What was the bid (enter 0 for Ramch): 
+Enter contract (C, S, H, D, G, N): 
+Did Player1 win? (y/n) 
+Was the hand played HAND? (y/n) 
+Was the hand played OPEN? (y/n) 
+Was Schneider announced? (y/n) 
+Was Schwarz announced? (y/n) 
+Was the hand won Schneider? (y/n) 
+Was the hand won Schwarz? (y/n) 
+With or without how many? (enter 1 for Ramsch or Null) 
+Enter overbid correction: 
+Enter cardpoints collected: 
+Was there a Kontra? (y/n) 
+Was this hand played Bock? (y/n) 
+Is Player1 hand score of 288 correct? (y/n)
+Enter corrected hand score: 
+Is Player-2 hand score of 0 correct? (y/n)
+Is Player-3 hand score of 0 correct? (y/n)
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+|  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+|  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+|  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+|  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+|  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+|  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
+|  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
+| 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
+| 11 |  34 | 3 | Clubs    | H      |    |       48 |        0 |        0 |      | ***
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:       11 |      -33 |     -873
+*** Indicates that a score was manually edited for that hand.
+This hand was Bock. 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
+There is 1 Bock remaining.
 =======================
 Starting hand number 12
 =======================
@@ -441,12 +480,13 @@ How many players lost the Ramsch? (1, 2, 3)
 |  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
 |  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
 | 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
-| 11 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
+| 11 |  34 | 3 | Clubs    | H      |    |       48 |        0 |        0 |      | ***
 | 12 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-                                  Totals:      171 |     -113 |     -953
+                                  Totals:      -69 |     -113 |     -953
+*** Indicates that a score was manually edited for that hand.
 This hand was Bock. 
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ***************************
 All hands have been played.
 Are there any hand scores that need to be corrected? (y/n) 
@@ -467,10 +507,10 @@ Enter corrected score:
 |  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |        0 |      | ***
 |  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
 | 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
-| 11 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
+| 11 |  34 | 3 | Clubs    | H      |    |       48 |        0 |        0 |      | ***
 | 12 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-                                  Totals:      171 |     -113 |     -908
+                                  Totals:      -69 |     -113 |     -908
 *** Indicates that a score was manually edited for that hand.
 Any more hands to update? (y/n) 
 ***************************
@@ -478,7 +518,7 @@ All hands have been played.
 Are there any hand scores that need to be corrected? (y/n) 
 Congratulations -- game has completed.
 Final Scoring...
-Player1: 171
+Player1: -69
 Player-2: -113
 Player-3: -908
 Player Player1 won.

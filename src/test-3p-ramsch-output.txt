@@ -35,7 +35,7 @@ How many points taken?
 |  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:        0 |      -59 |      -59
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 2
 ======================
@@ -55,7 +55,7 @@ How many players lost the Ramsch? (1, 2, 3)
 |  2 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      -40 |      -99 |      -99
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 3
 ======================
@@ -81,7 +81,7 @@ Was there a Jungf? (y/n)
 |  3 |   0 |   | Ramsch   |        |    |      -72 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -112 |      -99 |      -99
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 4
 ======================
@@ -108,7 +108,7 @@ Was there a Jungf? (y/n)
 |  4 |   0 |   | Ramsch   | JUNGF  |    |     -198 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -310 |      -99 |      -99
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 5
 ======================
@@ -135,7 +135,7 @@ How many points taken?
 |  5 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -359 |      -99 |      -99
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 6
 ======================
@@ -166,7 +166,7 @@ How many points taken?
 |  6 |   0 |   | Ramsch   | JUNGF  |    |     -120 |     -120 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -479 |     -219 |      -99
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 7
 ======================
@@ -198,7 +198,7 @@ How many points taken?
 |  7 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -479 |     -264 |     -144
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 8
 ======================
@@ -232,7 +232,7 @@ Invalid input. Enter value from 41 to 60:
 |  8 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -520 |     -305 |     -144
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ======================
 Starting hand number 9
 ======================
@@ -264,7 +264,7 @@ Was there a Kontra? (y/n)
 |  9 |   0 | 2 | Grand    | H      |    |       96 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -424 |     -305 |     -144
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 =======================
 Starting hand number 10
 =======================
@@ -294,7 +294,7 @@ Who won the Durchmarsch?
 | 10 |   0 |   | Ramsch   | DURCH  |    |        0 |        0 |      120 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -424 |     -305 |      -24
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 =======================
 Starting hand number 11
 =======================
@@ -333,7 +333,7 @@ Who won the Durchmarsch?
 | 11 |   0 |   | Ramsch   | DURCH  |    |        0 |        0 |      120 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -424 |     -305 |       96
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 Scoring the hand after play...
 Did a player win Durchmarsch? (y/n) 
 How many players lost the Ramsch? (1, 2, 3)  
@@ -360,7 +360,7 @@ How many points taken?
 | 11 |   0 |   | Ramsch   |        |    |      -41 |      -41 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -465 |     -346 |      -24
-Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
 ***************************
 All hands have been played.
 Are there any hand scores that need to be corrected? (y/n) 

@@ -14,14 +14,16 @@
 #include <string.h>
 #include <limits>
 
-enum RCE {RESCOREHAND, CONTINUEGAME, ENDTHEGAME};
+enum CRME  {RESCOREHAND, CONTINUEGAME, MANUALSCORE, ENDTHEGAME};
 enum State {INIT, NEW_HAND_BID, HAND_CONTRACT, HAND_SUMMARY, 
-            SCORE_HAND, END_GAME, EDIT_GAME, GAME_COMPLETED};
+            SCORE_HAND, MANUALLY_SCORE_HAND, END_GAME, EDIT_GAME, 
+            PRINT_GAME_STATUS, GAME_COMPLETED};
 
-int yes();
-RCE rce();
-int input_and_validate(int min, int max);
+int  yes();
+CRME crme();
+int  input_and_validate(int min, int max);
 void score_ramsch(int h);
+void manually_score_hand(int h);
 
 
 State       state = INIT;
@@ -248,13 +250,17 @@ int main(int argc, char** argv) {
                     } else game.hand[game.current_hand].kontrare = game.SINGLE;
                 }
                 game.calculate_hand_score(game.current_hand);
+                state = PRINT_GAME_STATUS;
+                break;
+
+            case PRINT_GAME_STATUS:
                 game.calculate_game_score();
                 game.print_game_status();
                 if ((game.bock_count > 0) && (game.ramsch_count == 0)) { 
                     cout << "This hand was Bock. " << endl;
                 }
-                cout << "Enter 'c' to continue game, 'r' to re-score the hand, or 'e' to end game (c/r/e): " << endl;
-                switch (rce()) {
+                cout << "Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): " << endl;
+                switch (crme()) {
                     case CONTINUEGAME:
                         if (game.current_hand < game.number_of_hands - 1) {
                                 state = NEW_HAND_BID;
@@ -305,6 +311,10 @@ int main(int argc, char** argv) {
 
                     case RESCOREHAND:
                         state = SCORE_HAND;
+                        break;
+
+                    case MANUALSCORE:
+                        state = MANUALLY_SCORE_HAND;
                         break;
                 }
                 break;
@@ -373,6 +383,13 @@ int main(int argc, char** argv) {
                 else state = END_GAME;
                 break;
 
+            case MANUALLY_SCORE_HAND:
+                // Edit every hand data value manually; nothing is computed
+                // Also edit bockround and ramschround counts
+                manually_score_hand(game.current_hand);
+                state = PRINT_GAME_STATUS;
+                break;
+
             default:  /// Need better error handling
                 cout << "Invalid state reached. Exit." << endl;
                 return 1;
@@ -413,8 +430,8 @@ int yes() {
     return result;
 }
 
-RCE rce() {
-    RCE result;
+CRME crme() {
+    CRME result;
     char c;
     bool valid = false;
 
@@ -436,6 +453,12 @@ RCE rce() {
             case 'c':
             case 'C':
                 result = CONTINUEGAME; 
+                valid = true;
+                break;
+
+            case 'm':
+            case 'M':
+                result = MANUALSCORE;
                 valid = true;
                 break;
 
@@ -550,3 +573,70 @@ void score_ramsch(int h) {
         }  // How many players lost
     }  // Not a Durchmarsch
 } // score_ramsch()
+
+void manually_score_hand(int h) {
+    // Edit every hand data value manually; nothing is computed
+    // Also edit bockround and ramschround counts
+    cout << "This mode allows correction of all the hand data." << endl;
+    cout << "However, this requires you to score the hand manually; it is not checked for correctness." << endl;
+    cout << "Bock count at beginning of hand (current value: " << game.bock_count << "): " << endl;
+    game.bock_count = input_and_validate(0, 99);
+    cout << "Ramsch count at beginning of hand (current value: " << game.ramsch_count << "): " << endl;
+    game.ramsch_count = input_and_validate(0, 99);
+    cout << "What was the bid (enter 0 for Ramch): " << endl;
+    game.hand[h].bid = input_and_validate(0, 264);
+    if (game.hand[h].bid > 0) {
+        game.set_contract(h);  // This methods prompts, validates the imput, and assigns the member value
+        cout << "Did " << game.player_name[game.hand[h].declarer] << " win? (y/n) " << endl;
+        if (yes()) game.hand[h].winlose = Skat_Game::WIN;
+        else game.hand[h].winlose = Skat_Game::LOSE;
+        game.hand[h].multipliers = Skat_Game::NO_MULTIPLIERS;
+        cout << "Was the hand played HAND? (y/n) " << endl;
+        if (yes()) game.hand[h].multipliers = Skat_Game::HAND;
+        cout << "Was the hand played OPEN? (y/n) " << endl;
+        if (yes()) game.hand[h].multipliers += Skat_Game::OPEN;
+        cout << "Was Schneider announced? (y/n) " << endl;
+        if (yes()) game.hand[h].multipliers += Skat_Game::SCHN_ANNC;
+        cout << "Was Schwarz announced? (y/n) " << endl;
+        if (yes()) game.hand[h].multipliers += Skat_Game::SCHW_ANNC;
+        cout << "Was the hand won Schneider? (y/n) " << endl;
+        if (yes()) game.hand[h].multipliers += Skat_Game::SCHNEIDER;
+        cout << "Was the hand won Schwarz? (y/n) " << endl;
+        if (yes()) game.hand[h].multipliers += Skat_Game::SCHWARZ;
+        cout << "With or without how many? (enter 1 for Ramsch or Null) " << endl;
+        game.hand[h].matadors = input_and_validate(1, 8);
+        cout << "Enter overbid correction: " << endl;
+        game.hand[h].overbid = input_and_validate(0, 9);
+        cout << "Enter cardpoints collected: " << endl;
+        game.hand[h].cardpoints = input_and_validate(0, 120);
+        cout << "Was there a Kontra? (y/n) " << endl;
+        if (yes()) {
+            game.hand[h].kontrare = Skat_Game::KONTRA;
+            cout << "was there a Rekontra? (y/n) " << endl;
+            if (yes()) game.hand[h].kontrare = Skat_Game::RE;
+        } else game.hand[h].kontrare = Skat_Game::SINGLE;
+    } else { // Ramsch
+        game.hand[h].contract = Skat_Game::RAMSCH;
+        game.hand[h].ramsch = Skat_Game::PLAIN;
+        cout << "Was there a JungF? (y/n) " << endl;
+        if (yes()) {
+            game.hand[h].ramsch = Skat_Game::JUNGF;
+        } else {
+            cout << "Was there a Durchmarsch? (y/n) " << endl;
+            if (yes()) game.hand[h].ramsch = Skat_Game::DURCHMARSCH;
+        }
+    }
+    cout << "Was this hand played Bock? (y/n) " << endl;
+    if (yes()) game.hand[h].bock = Skat_Game::BOCK;
+    else game.hand[h].bock = Skat_Game::NOBOCK;
+    for (int i = 0; i < game.number_of_players; i++) {
+        cout << "Is " << game.player_name[i] << " hand score of " << game.hand[h].score[i] << " correct? (y/n)" << endl;
+        if (!yes()) {
+            cout << "Enter corrected hand score: " << endl;
+            game.hand[h].score[i] = input_and_validate(-3000, 3000);
+        }
+    }  
+
+    game.hand[h].edited = 1;
+
+}
