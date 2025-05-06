@@ -103,6 +103,7 @@
     </div>
 
     <script>
+        const date = new Date()
         let number_of_players
         const player_name = []
         let number_of_hands
@@ -117,7 +118,12 @@
         let declarer
         let cardpoints
         let handscore
-        let matadors
+        let matadors = 0
+        let addedmultipliers = 0
+        let bockmultiplier = 1
+        let basepoints
+        let winlose
+        let logtext = "Logtext: "     /// For testing
         const multipliers = {
             hand: false,
             open: false,
@@ -163,7 +169,8 @@
             player_name[0] = document.getElementById("game.player_name-1")
             player_name[1] = document.getElementById("game.player_name-2")
             player_name[2] = document.getElementById("game.player_name-3")
-            playernametext = "<p>Players: " + player_name[0].value + ", " + player_name[1].value + ", " + player_name[2].value + "<p>"
+            playernametext = "<p>Players: " + player_name[0].value + ", " + player_name[1].value + ", " + player_name[2].value + "</p>"
+                + "<p>Date: " + date + "</p"
             document.getElementById("mainheading").innerText="Skat Game Type: " + gametypename
             document.getElementById("initgame").innerHTML=playernametext
             /// Clear out the initgame div
@@ -332,8 +339,6 @@
                 <h2>Scoring the hand</h2>\
                 <label for="cardpoints">How many card points collected by declarer?:</label><input type="number" align="right" id="game.cardpoints" value=""><br><br>\
                 <p>Post-play multipliers:</p>\
-                <input type="checkbox" id="game.multiplier-schneider" name="schneider" value="">\
-                <label for="schneider">Schneider</label><br>\
                 <input type="checkbox" id="game.multiplier-schwarz" name="schwarz" value="">\
                 <label for="schwarz">Schwarz</label><br> \
                 <input type="checkbox" id="game.multiplier-kontra" name="kontra" value="">\
@@ -352,11 +357,6 @@
         function scoreHand(){
             cardpoints = document.getElementById("game.cardpoints")
             matadors = document.getElementById("game.matadors").value
-            if (document.getElementById("game.multiplier-schneider").checked == true) {
-                multipliers.schneider = true
-            } else {
-                multipliers.schneider = false
-            }
             if (document.getElementById("game.multiplier-schwarz").checked == true) {
                 multipliers.schwarz = true
                 multipliers.schneider = true
@@ -375,6 +375,11 @@
             }
             calculate_score()
             scorehandsummary = '<hr>'
+            if (winlose == 1) {
+                scorehandsummary += '<p>' + declarer.value + " won the hand" + '</p>'
+            } else {
+                scorehandsummary += '<p>' + declarer.value + " lost the hand" + '</p>'
+            }
             scorehandsummary += '<p>' + declarer.value + ' collected ' + cardpoints.value + ' cardpoints </p>'
                 + '<p> With/without: ' + matadors + '</p>'
             if (multipliers.schwarz == true) {
@@ -395,6 +400,8 @@
             scorehandsummary += '<button class="button button3" onclick="startNextHand()">Start next hand</button>'
             scorehandsummary += '<button class="button button3" onclick="rescoreHand()">Re-score the hand</button>'
             scorehandsummary += '<button class="button button3" onclick="endGame()">End the game</button>'
+            /// The following line is for testing
+            /// scorehandsummary += '<p>' + logtext + '</p>'
             document.getElementById("scorehand").innerHTML = scorehandsummary
         }
         function startNextHand() {
@@ -407,10 +414,142 @@
             handResults()
         }
         function endGame() {
-            document.write("Called endGame()")  /// Testing: Clears the page and just writes this line
+            /// document.write("Called endGame()")  /// Testing: Clears the page and just writes this line
+            /// document.getElementById("initgame").innerHTML=""
+            document.getElementById("bidhand").innerHTML=""
+            document.getElementById("scorehand").innerHTML=""
+
         }
         function calculate_score() {
+            winlose = 1  // Assume win at first, but calculate loss later
             handscore = 0
+            addedmultipliers = 1    // Always have a minumum of one multiplier, the "game" multiplier
+            basepoints = 0
+            // Calculate Null contract score
+            // It is up to the players to declare an overbid on NULL, since it is obvious before the hand starts play
+            if (contract == "Null") {
+                if (multipliers.open == true) {
+                    if (multipliers.hand == true) {
+                        handscore = 59
+                    } else {
+                        handscore = 46
+                    }
+                } else { // Not open
+                    if (multipliers.hand == true) {
+                        handscore = 35
+                    } else {
+                        handscore = 23
+                    }
+                }
+                if (cardpoints != 0) {
+                    handscore *= -2
+                }
+                if (kontrare.kontra == true) {
+                    handscore *= 2
+                }
+                if (kontrare.re == true) {
+                    handscore *= 2
+                }
+            } else {  // End of Null bid calculation
+                if (contract == "Ramsch") {  // Calculate Ramsch score
+                    /// Determine loser and calculate loss, Durchmarsch, Jungf
+                    /// Need different input fields for Ramsch
+
+                    /* C++ version below 
+                    // Calculate Ramsch contract score
+                    for (int i = 0; i < number_of_players; i++) hand[h].score[i] = 0;
+                    if (hand[h].ramsch == DURCHMARSCH) {
+                        hand[h].score[hand[h].declarer] = hand[h].bock * 120;
+                    } else {
+                        for (int i = 0; i < hand[h].number_of_losers; i++) {
+                        hand[h].score[hand[h].loser[i]] = hand[h].bock * hand[h].cardpoints * hand[h].ramsch;
+                        }
+                    }
+                    */
+
+                } else { // Calculate Suits/Grand score
+                    if (contract == "Grand") {
+                        basepoints = 24
+                    }
+                    if (contract == "Clubs") {
+                        basepoints = 12
+                    }
+                    if (contract == "Spades") {
+                        basepoints = 11
+                    }
+                    if (contract == "Hearts") {
+                        basepoints = 10
+                    }
+                    if (contract == "Diamonds") {
+                        basepoints == 9
+                    }
+                    // Calculate schneider/schwarz
+                    if (multipliers.open == true) {
+                        addedmultipliers += 6   // schneider, announce, schwarz, announce, open, hand
+                        multipliers.schneider = true
+                        if (multipliers.schwarz == false) {
+                            winlose = -2
+                        } else {
+                            cardpoints = 120
+                        }
+                    } else {
+                        if (multipliers.annc_schwarz == true) {
+                            addedmultipliers += 5   // schneider, announce, schwarz, announce, hand
+                            multipliers.schneider = true
+                            if (multipliers.schwarz == false) { // Announced schwartz, but failed
+                                winlose = -2
+                            } 
+                        } else {  // end annc_schwarz, begin annc_schneider
+                            if (multipliers.annc_schneider == true) {
+                                multipliers.schneider = true
+                                addedmultipliers += 3   // schneider, announce, hand
+                                if (cardpoints < 90) { // Announce schneider, but failed
+                                    winlose = -2
+                                }
+                            } else {  // end annc_schneider, begin other multipliers
+                                if (multipliers.schwarz == true) {
+                                    multiplers.schneider = true
+                                    addedmultipliers += 1  
+                                    cardpoints = 120
+                                }
+                                if (cardpoints >= 90) {
+                                    multipliers.schneider == true
+                                    addedmultipliers += 1
+                                }
+                                if (multipliers.hand == true) {
+                                    addedmultipliers += 1
+                                }
+                                // Don't need to check for open, since it is only allowed with Announce Schwarz
+                            }
+                            // Check if bid was made, and if declarer was Schneidered
+                            if (cardpoints < 61) {
+                                winlose = -2
+                                if (cardpoints <31) {
+                                    multipliers.schneider = true
+                                    addedmultipliers +=1
+                                }
+                            }
+                        }
+                        // Calculate preliminary hand score, and check for overbid
+                        handscore = basepoints * (Number(matadors) + Number(addedmultipliers))
+                        if (handscore < bid) {  // Check for overbid
+                            winlose = -2
+                            while (handscore < bid) {  // Adjust with/without until bid is reached
+                                matadors++
+                                handscore = basepoints * (matadors + addedmultipliers)
+                            }
+                        }
+                        // Adjust for Kontra/Re/Loss
+                        if (kontrare.kontra == true) {
+                            handscore *= 2
+                        }
+                        if (kontrare.re == true ) {
+                            handscore *= 2
+                        }
+                        handscore *= winlose
+                    }
+                }
+            }
         }
         function updateScoresheet() {
 
@@ -419,4 +558,3 @@
 
 </body>
 </html>
-
