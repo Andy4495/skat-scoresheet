@@ -15,16 +15,16 @@
 #include <string.h>
 #include <limits>
 
-enum CRME  {RESCOREHAND, CONTINUEGAME, MANUALSCORE, ENDTHEGAME};
+enum CRMBE  {RESCOREHAND, CONTINUEGAME, MANUALSCORE, NEWBOCK, ENDTHEGAME};
 enum State {INIT, NEW_HAND_BID, HAND_CONTRACT, HAND_SUMMARY, 
             SCORE_HAND, MANUALLY_SCORE_HAND, END_GAME, EDIT_GAME, 
             PRINT_GAME_STATUS, GAME_COMPLETED};
 
-int  yes();
-CRME crme();
-int  input_and_validate(int min, int max);
-void score_ramsch(int h);
-void manually_score_hand(int h);
+int   yes();
+CRMBE crmbe();
+int   input_and_validate(int min, int max);
+void  score_ramsch(int h);
+void  manually_score_hand(int h);
 
 
 State       state = INIT;
@@ -39,6 +39,7 @@ int main(int argc, char** argv) {
     string name;
     int h;
     int i;  // For use in for loops
+    CRMBE crmbe_result;
 
     while (state != GAME_COMPLETED) {
         switch (state) {
@@ -337,9 +338,11 @@ int main(int argc, char** argv) {
                 if ((game.bock_count > 0) && (game.ramsch_count == 0)) { 
                     cout << "This hand was Bock. " << endl;
                 }
-                cout << "Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): " << endl;
-                switch (crme()) {
+                cout << "Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): " << endl;
+                crmbe_result = crmbe();
+                switch (crmbe_result) {
                     case CONTINUEGAME:
+                    case NEWBOCK:
                         if (game.current_hand < game.number_of_hands - 1) {
                                 state = NEW_HAND_BID;
                                 if (game.ramsch_count > 0) {  // Check if this is a ramschround hand
@@ -390,18 +393,23 @@ int main(int argc, char** argv) {
                         } else { // We have exceeded MAX_NUMBER_OF_HANDS
                             state = END_GAME;
                         }
+                        if (crmbe_result == NEWBOCK) {
+                            cout << "Manually added a Bock round." << endl;
+                            game.bock_count += game.number_of_players;
+                            game.no_bock_count = 0;
+                        }
                         break;
 
+                    case MANUALSCORE:
+                        state = MANUALLY_SCORE_HAND;
+                        break;
+                        
                     case ENDTHEGAME:
                         state = END_GAME;
                         break;
 
                     case RESCOREHAND:
                         state = SCORE_HAND;
-                        break;
-
-                    case MANUALSCORE:
-                        state = MANUALLY_SCORE_HAND;
                         break;
                 }
                 break;
@@ -517,40 +525,46 @@ int yes() {
     return result;
 }
 
-CRME crme() {
-    CRME result;
+CRMBE crmbe() {
+    CRMBE result;
     char c;
     bool valid = false;
 
     while (valid == false) {
         cin >> c;
         switch (c) {
-            case 'R':
-            case 'r':
-                result = RESCOREHAND;
-                valid = true;
-                break;
-            
-            case 'e':
-            case 'E': 
-                result = ENDTHEGAME;
-                valid = true;
-                break;
-
             case 'c':
             case 'C':
                 result = CONTINUEGAME; 
                 valid = true;
                 break;
 
+            case 'R':
+            case 'r':
+                result = RESCOREHAND;
+                valid = true;
+                break;
+            
             case 'm':
             case 'M':
                 result = MANUALSCORE;
                 valid = true;
                 break;
 
+            case 'b':
+            case 'B':
+                result = NEWBOCK;
+                valid = true;
+                break;
+
+            case 'e':
+            case 'E': 
+                result = ENDTHEGAME;
+                valid = true;
+                break;
+
             default:
-                cout << "Invalid response. Enter r, c, or e: " << endl;
+                cout << "Invalid response. Enter c, r, m, b, or e: " << endl;
                 break;
         } 
         cin.clear(); // Clear the error flags
