@@ -5,6 +5,7 @@
 
    0.1  10-Feb-2025 Andy4495 Initial code
    1.0.0 21-Feb-2025 Andy4495 Version 1.0
+   1.1.0 02-Jun-2025 Andy4495 Version 1.1
 
 */
 
@@ -20,9 +21,21 @@ const char* const Skat_Game::contract_name[]={"Clubs", "Spades", "Hearts", "Diam
 
 Skat_Game::Skat_Game()
 {
-   current_hand = 0;
-   ramsch_count = 0;
-   bock_count = 0;
+   current_hand   = 0;
+   ramsch_count   = 0;
+   bock_count     = 0;
+   no_bock_count  = 0;
+   rules.ramschround_after_bockround                     = true;
+   rules.grand_hand_during_ramschround                   = true;
+   rules.bockround_for_60_60_tie                         = true;
+   rules.bockround_for_120_hand_score                    = true;
+   rules.bockround_for_lost_contra_or_rekontra           = true;
+   rules.bockround_for_schneider                         = true;
+   rules.bockround_for_schneider_only_if_not_bockround   = true;
+   rules.bockround_max_one_per_hand                      = true;
+   rules.bockround_can_be_created_in_grand_during_ramsch = false;
+   rules.bockround_if_two_rounds_without_bock            = false;
+
 }
 
 void Skat_Game::calculate_hand_score(int h) {
@@ -180,37 +193,59 @@ int Skat_Game::calculate_new_bocks(int h) {
    // Did this hand create more Bocks?
    int new_bocks = 0;
 
-   // Cannot create bocks from Grand Hand during Ramsch
-   if (!hand[h].grand_during_ramsch) {
+   // Check if bocks allowed from Grand Hand during Ramsch
+   if (!hand[h].grand_during_ramsch || rules.bockround_can_be_created_in_grand_during_ramsch) {
 
       // Raw points > 120 (before loss/bock/Kontra/Re)
-      if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
+      if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) && rules.bockround_for_120_hand_score) {
          if ((hand[h].matadors + 1) * hand[h].contract >= 120)
-            new_bocks = number_of_players;
+            new_bocks += number_of_players;
       }
 
       // 60/60 tie
-      if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) ) {
+      if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) && rules.bockround_for_60_60_tie) {
             if (hand[h].cardpoints == 60)
-               new_bocks = number_of_players;
+               new_bocks += number_of_players;
       }
 
-      // Successful Kontra (opponents win)
-      if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
-            new_bocks = number_of_players; 
+      // If bockround for Kontra/Re is enabled, then calculate bockround
+      if (rules.bockround_for_lost_contra_or_rekontra) {
+         // Any Rekontra --> Either opponents lose Kontra or declarer loses Re, so Re always creates a bock
+         if (hand[h].kontrare == RE) {
+               new_bocks += number_of_players;
+         } else {
+            // Successful Kontra (opponents win)
+            if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
+                  new_bocks += number_of_players; 
+            }
+         }
       }
 
-      // Any Rekontra (declarer wins) --> Either opponents lose Kontra or declarer loses Re, so Re always creates a bock
-      if (hand[h].kontrare == RE) {
-            new_bocks = number_of_players;
+      // Schneider
+      if (rules.bockround_for_schneider) {
+         if (rules.bockround_for_schneider_only_if_not_bockround) {
+            if (bock_count == 0 && (hand[current_hand].multipliers & SCHNEIDER) ) {
+               new_bocks += number_of_players;
+            }
+         } else {  // Bockround created for all Schneiders, even if there is already a Schneider
+            if ( (hand[current_hand].multipliers & SCHNEIDER)) {
+                  new_bocks += number_of_players;
+            }
+         }
       }
 
-      // Schneider (if there are currently no Bocks)
-      if ( (bock_count == 0) && (hand[current_hand].multipliers & SCHNEIDER) ) {
-                              new_bocks = number_of_players;
+      // Two rounds without Bock, but only if no bocks were created with this hand
+      if (rules.bockround_if_two_rounds_without_bock) {
+         if (no_bock_count == number_of_players * 2) {
+            if (new_bocks == 0) new_bocks = number_of_players;
+         }
       }
 
-   }
+      // Check if we created more than one bock round
+      if (rules.bockround_max_one_per_hand) {
+         if (new_bocks > number_of_players) new_bocks = number_of_players;
+      }
+   }  // End of if for grand hand during ramsch
 
    return new_bocks;
 }

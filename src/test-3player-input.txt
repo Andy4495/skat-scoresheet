@@ -16,6 +16,24 @@ n
 Player1
 Player-2
 Player-33
+# Play Ramsch after Bock
+y
+# Allow Grand Hand during Ramsch round 
+y
+# Bock for 60/60 tie 
+y
+# Bock for 120 raw hand score 
+y
+# Bock for lost Kontra/Rekontra 
+y
+# Bock for Schneider 
+y
+# Only create Bock for Schneider if there currently are no Bock 
+y
+# Bock for two rounds without Bock
+y
+# Only one Bock create per hand 
+y
 # Is game setup correct
 y
 #### Hand 1 ####

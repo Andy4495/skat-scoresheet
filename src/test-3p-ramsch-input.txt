@@ -16,6 +16,8 @@ y
 PlayerA
 PlayerBB
 PlayerCCC
+# Grand Hand allowed?
+y
 # Is game setup correct
 y
 #### Hand 1 ####

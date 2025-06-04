@@ -5,6 +5,7 @@
 
    0.1  10-Feb-2025 Andy4495 Initial code
    1.0.0 21-Feb-2025 Andy4495 Version 1.0
+   1.1.0 02-Jun-2025 Andy4495 Version 1.1
 
 */
 
@@ -25,6 +26,7 @@ public:
     bool    schieberamsch;
     int     ramsch_count;
     int     bock_count;
+    int     no_bock_count;  // Used for the "new bock if no bocks for 2 rounds case"
     static const char* const contract_name[7];
     enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1};
     enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 
@@ -33,6 +35,19 @@ public:
     enum    Ramsch_Special {PLAIN = -1, JUNGF = -2, DURCHMARSCH = 99};
     enum    Win_Lose {LOSE = -2, WIN = 1};
     enum    Bock_Type {NOBOCK = 1, BOCK = 2};
+    struct {
+        bool    ramschround_after_bockround;
+        bool    grand_hand_during_ramschround;
+        bool    bockround_for_60_60_tie;
+        bool    bockround_for_120_hand_score;
+        bool    bockround_for_lost_contra_or_rekontra;
+        bool    bockround_for_schneider;
+        bool    bockround_for_schneider_only_if_not_bockround;
+        bool    bockround_max_one_per_hand;
+        bool    bockround_can_be_created_in_grand_during_ramsch;
+        bool    bockround_if_two_rounds_without_bock;
+
+    } rules;
     struct  {
         int         declarer;       // Index to player_names[]
         int         bid;

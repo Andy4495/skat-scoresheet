@@ -10,41 +10,59 @@ A [web-based version][8] with similar functionality is in progress.
 
 ## House Rules
 
-This scoresheet is hard-coded with our particular house rules:
+### The following house rules are not configurable
 
 - Player #1 is the first dealer
 - In four player games, the dealer sits out play for that hand
+- Declaring
+  - Must play Hand in order to declare Schneider or Schwarz
+  - Suit or Grand Open bid only allowed with Hand bid and implies that Schneider and Schwarz announced
 - Scoring
   - Losses count double for non-Ramsch contracts
   - Grand base value is 24
   - Opponents must take 31 to avoid Schneider
-  - Declarer losing hand with less than 31 points is considered Schneider
-- Kontra and Rekontra allowed
-  - An opponent must not have passed on an 18 bid in order to say Kontra
-    - This is not enforced in the code
+  - Declarer must collect at least 31 points to avoid Schneider
+  - Null scores:
+    - Standard bid: 23
+    - Hand not Open: 35
+    - Open not Hand: 46
+    - Hand and Open: 59
 - Ramsch
-  - Play a Ramsch hand if nobody bids 18
-  - Play a Ramschround of 3 hands after playing a Bockround of 3 hands
   - There is no Bock during a Ramsch round
-    - Except a "nobody bids 18" Ramsch hand has Bock scoring apply
+    - Except a "nobody bids 18" Ramsch hand has Bock scoring during Bock round
   - A player taking all tricks (Durchmarsch) scores +120 points
   - If no single player takes all tricks, then the player who collects the most card points has those card points deducted
     - More than one player can lose points in the case of a tie
     - If a player takes zero tricks, the losing hand(s) score(s) double
-  - During a Ramschround, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract
+- Bock round
+  - Scores double during a Bock round
+
+### The following house rules are configurable
+
+- Ramsch
+  - Play a Ramsch round (3 or 4 hands, depending on number of players) after playing a Bock round
+  - During a Ramsch round, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract
     - No bock can be created in this case
   - Entire game can be played Ramsch ("Schieberamsch")
-- Bockround
-  - Scores double during a Bockround
-  - A new Bockround (3 hands) is created in the following cases:
+- Bock round
+  - A new Bock round (3 or 4 hands, depending on number of players) is created in the following cases:
     - For suit and Grand contracts:
       - Declarer and opponents each take 60 points
       - Raw hand score >= 120 (before Bock/Lose/Kontra/Re doubling)
     - Successful Kontra (declarer loses)
     - Any Rekontra (i.e. declarer says Re to opponent's Kontra)
     - The contract results in a Schneider (but only if current hand is not a Bock hand)
-  - A maximum of one Bockround (3 hands) can be created per hand
-    - For example, a 120 raw hand score with a Schneider only creates 1 Bockround
+  - A maximum of one Bock round can be created per hand
+    - For example, a 120 raw hand score with a Schneider only creates 1 Bock round
+
+### Player-enforced rules
+
+These rules are enforced by the players, not the scoresheet, so there is no code or configuration associated with them.
+
+- Kontra and Rekontra allowed
+  - An opponent must not have passed on an 18 bid in order to say Kontra
+- Ramsch
+  - Play a Ramsch hand if nobody bids 18
 
 ## To-Do
 
@@ -54,7 +72,6 @@ Create a web-based HTML/JavaScript version
 
 Features that may be added in a future release:
 
-- Allow an option to select whether to play a Ramsch round after a Bock round
 - Saving the game to a file
 - Configuration file with setup parameters (# of players, player names)
   - Default name; if it exists, use it. Add default name to .gitignore
@@ -87,7 +104,7 @@ This workflow builds the code and then runs several test input files (`test-*-in
 
 A web-based version is in progress (see [docs/index.html](docs/index.html)). This is a manual port of the C++ code over to JavaScript and uses HTML to provide a GUI. It is entirely run in the browser; there is no back-end processing involved.
 
-The web page is published using [GitHub Pages][9] and can be accessed [here][8].
+The web page is published using [GitHub Pages][9] and can be accessed [on github.io][8].
 
 ## References
 

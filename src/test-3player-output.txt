@@ -1,14 +1,33 @@
-Welcome to the Skat Scoresheet v1.0.0!
+Welcome to the Skat Scoresheet v1.1.0!
 The scoresheet supports up to 99 hands in a game
 Will this be a Ramsch-only (Schieberamsch) game? (y/n) 
 Enter number of players (3 or 4): 
 Enter Player 1 name (this is the first dealer): 
 Enter Player 2 name: 
 Enter Player 3 name: 
+Configure house rules for this game.
+Play a Ramsch round after a Bock round? (y/n) 
+Allow Grand Hand bid during Ramsch round? (y/n) 
+Create Bock round for 60/60 tie? (y/n) 
+Create Bock round for 120 raw hand score? (y/n) 
+Create Bock round for lost Kontra/Rekontra? (y/n) 
+Create Bock round for Schneider? (y/n) 
+Only have Schneider create Bock round if there are currently no Bock? (y/n) 
+Create Bock round if there are two full rounds starting with Player 1 without Bock? (y/n) 
+Limit each hand to create at most one Bock round? (y/n) 
 Game will consist of 3 players named: 
 Player1
 Player-2
 Player-3
+This will be a regular game with house rules of: 
+Ramsch round is played after a Bock round.
+  - Grand Hand bid allowed during Ramsch Round.
+Bock round created for 60/60 card points tie.
+Bock round created for 120 raw hand socre.
+Bock round created for lost Kontra/Rekontra.
+Bock round created for Schneider, but only if no Bocks currently.
+Bock round created if there are two full rounds without Bock.
+Maximum one Bock round created per hand.
 Is this correct? (y/n) 
 ======================
 Starting hand number 1
@@ -211,7 +230,7 @@ Invalid response. Enter y or n:
                                   Totals:      223 |       12 |     -924
 This hand was Bock. 
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
-End of a Bockround. Next hand starts a Ramschround
+End of a Bock round. Next hand starts a Ramsch round
 ======================
 Starting hand number 7
 ======================
@@ -330,7 +349,7 @@ Was there a Kontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      155 |      -33 |     -873
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, or 'e' to end game (c/r/m/e): 
-End of Ramschround
+End of Ramsch round
 =======================
 Starting hand number 10
 =======================
