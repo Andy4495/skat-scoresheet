@@ -27,7 +27,7 @@ jobs:
           make
       - name: Test runs
         env:
-          FILES: test-3player test-4player test-3p-ramsch test-3p-bockramsch
+          FILES: test-3player test-4player test-3p-ramsch test-3p-bockramsch test-3player-2roundsbock test-3player-no18ramsch
         run: |
           cd src
           for f in $FILES; do

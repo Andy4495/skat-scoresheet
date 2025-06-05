@@ -1,11 +1,10 @@
 # Test file for skat-scoresheet
 # Need to first parse this file and remove comment lines starting with '#':
 #
-#   sed '/^#/d' <test-3p-bockramsch-input.txt  | ./skat-scoresheet      
+#   sed '/^#/d' <test-3player-no18ramsch-input.txt  | ./skat-scoresheet      
 #   
 #***** 
-#       This file tests ramsch round in the middle of bock round
-#       - Create 6 bocks, then play 3 bocks, 3 ramsch, 3 bocks
+#       This test file focuses on game where nobody-bids-18 hand is thrown instead of Ramsch
 #*****
 #
 #### Game Setup ####
@@ -18,7 +17,7 @@ Player1
 Player-2
 Player-33
 # Play Ramsch if nobody bids 18
-y
+n
 # Play Ramsch after Bock
 y
 # Allow Grand Hand during Ramsch round 
@@ -40,7 +39,44 @@ y
 # Is game setup correct
 y
 #### Hand 1 ####
-# This hand creates 3 bocks
+# Bid
+23
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Will it be hand?
+n
+# Will it be open?
+n
+# Is hand play information correct?
+y
+# Did declarer win the hand?
+y
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 2 ####
+# Bid
+20
+# Player number that won the bid
+2
+# Contract -- DIAMONDS
+D
+# Will it be hand?
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect?
+89
+# With or without number
+1
+# Was there Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 3 ####
 # Bid
 48
 # Player number that won the bid
@@ -56,7 +92,7 @@ n
 # Is hand play information correct?
 y
 # How many card points did declarer collect
-91
+58
 # With or without number
 3
 # Was there a Kontra?
@@ -65,31 +101,15 @@ y
 y
 # c to continue game, r to rescore, e to end
 c
-#### Hand 2 ####
-# Start bock round
-# Bid
-35
-# Player number that won the bid
-1
-# Contract
-h
-# Will it be played Hand
-y
-# Will it be played open
-y
+#### Hand 4 ####
+# Start bock round (previous hand had Rekontra)
+# Bid - Nobody bids 18 - Hand thrown out
+0
 # Is hand play information correct?
 y
-# How many card points did declarer collect
-120
-# Did player take all tricks 
-y
-# With or without number
-3
-# Was there a Kontra?
-n
 # c to continue game, r to rescore, e to end
 c
-#### Hand 3 ####
+#### Hand 5 ####
 # Bid
 27
 # Player number that won the bid
@@ -110,8 +130,7 @@ y
 n
 # c to continue game, r to rescore, e to end
 c
-#### Hand 4 ####
-# This hand creates 3 more Bocks
+#### Hand 6 ####
 # Bid
 18
 # Player number that won the bid
@@ -123,7 +142,7 @@ n
 # Is hand play information correct/
 y
 # How many card points did declarer collect
-60
+72
 # With or without number
 1
 # Was there a Kontra?
@@ -132,7 +151,7 @@ x
 n
 # c to continue game, r to rescore, e to end
 c
-#### Hand 5 ####
+#### Hand 7 ####
 # End of Bock round, start Ramsch Round
 # Grand hand during ramsch round?
 n
@@ -160,9 +179,9 @@ n
 68
 # was there JungF
 n
-# c to continue game, r to rescore, e to end
+# c to continue game, r to rescore, e to end  ## Rescore in this case
 c
-#### Hand 6 ####
+#### Hand 8 ####
 # Grand hand during ramsch round?
 n
 # Is hand play information correct?
@@ -179,7 +198,7 @@ n
 45
 # c to continue game, r to rescore, e to end
 c
-#### Hand 7 ####
+#### Hand 9 ####
 # Grand hand during ramsch round?
 y
 # Who is declarer?
@@ -194,8 +213,8 @@ y
 n
 # c to continue game, r to rescore, e to end
 c
-#### Hand 8 ####
-# Back to regular hands (back to bock round)
+#### Hand 10 ####
+# Back to regular hands (no bock round, no ramsch round)
 # Bid
 35
 # Player number that won the bid
@@ -211,33 +230,50 @@ y
 # With or without number
 2
 # Was there a Kontra?
+y
+# Was there a Re?
 n
 # c to continue game, r to rescore, e to end
 c
-#### Hand 9 ####
+#### Hand 11 ####
+# Bid
+33
+# Player number that won the bid
+1
+# Contract
+g
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+98
+# With or without number
+4
+# Was there a Kontra?
+n
+# Continue, rescore, end
+c
+#### Hand 12 ####
 # Bid
 0
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-3
 # c to continue game, r to rescore, e to end
 e
 #### All hands have been played ####
 # Any hands that need to be corrected
 y
 # Which hand # needs to be udpated? 
-5
-# Is p1 score of -68 correct? (y/n)
-N
+8
+# Is p1 score of 0 correct? (y/n)
+y
+# Is p2 score of -45 correct? (y/n)
+y
+# Is p3 score of -45 correct? (y/n)
+n
 # Enter corrected score: 
--67
-# Is p2 score of 0 correct? (y/n)
-y
-# Is p3 score of 0 correct? (y/n)
-y
+0
 # Any more hands to update? (y/n) 
 n
 # Any hands that need to be corrected
@@ -245,14 +281,17 @@ n
 # Final Score Sheet: 
 # |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
 # | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-# |  1 |  48 | 3 | Grand    | H S    | KR |        0 |        0 |      576 |      |
-# |  2 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
-# |  3 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
-# |  4 |  18 | 1 | Diamonds |        |    |        0 |        0 |      -72 |  B   |
-# |  5 |   0 |   | Ramsch   |        |    |      -67 |        0 |        0 |      | ***
-# |  6 |   0 |   | Ramsch   |        |    |        0 |      -45 |      -45 |      |
-# |  7 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
-# |  8 |  35 | 2 | Clubs    |   S    |    |     -192 |        0 |        0 |  B   |
-# |  9 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
+# |  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
+# |  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
+# |  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+# |  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
+# |  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
+# |  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
+# |  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
+# |  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |        0 |      | ***
+# |  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
+# | 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
+# | 11 |  34 | 3 | Clubs    | H      |    |       48 |        0 |        0 |      | ***
+# | 12 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
 # | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-#                                   Totals:     -139 |      -59 |      475
+#                                   Totals:      -69 |     -113 |     -908

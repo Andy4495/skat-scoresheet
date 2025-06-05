@@ -6,6 +6,7 @@ Enter Player 1 name (this is the first dealer):
 Enter Player 2 name: 
 Enter Player 3 name: 
 Configure house rules for this game.
+Play a Ramsch hand if nobody bids 18? (y/n) 
 Play a Ramsch round after a Bock round? (y/n) 
 Allow Grand Hand bid during Ramsch round? (y/n) 
 Create Bock round for 60/60 tie? (y/n) 
@@ -20,6 +21,7 @@ Player1
 Player-2
 Player-3
 This will be a regular game with house rules of: 
+Play a Ramsch hand if nobody bids 18.
 Ramsch round is played after a Bock round.
   - Grand Hand bid allowed during Ramsch Round.
 Bock round created for 60/60 card points tie.

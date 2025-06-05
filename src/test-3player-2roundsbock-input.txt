@@ -1,10 +1,11 @@
 # Test file for skat-scoresheet
 # Need to first parse this file and remove comment lines starting with '#':
 #
-#   sed '/^#/d' <test-3player-input.txt  | ./skat-scoresheet      
+#   sed '/^#/d' <test-3player-2roundsbock-input.txt  | ./skat-scoresheet      
 #   
 #***** 
-#       This test file focuses on a regular (non Schieberamsch) 3-player game
+#       This test file focuses creating a Bock round when there are two rounds without Bock
+#       This also tests for disabling some Bock creators, but not all
 #*****
 #
 #### Game Setup ####
@@ -25,13 +26,11 @@ y
 # Bock for 60/60 tie 
 y
 # Bock for 120 raw hand score 
-y
+n
 # Bock for lost Kontra/Rekontra 
-y
+n
 # Bock for Schneider 
-y
-# Only create Bock for Schneider if there currently are no Bock 
-y
+n
 # Bock for two rounds without Bock
 y
 # Only one Bock create per hand 
@@ -39,25 +38,27 @@ y
 # Is game setup correct
 y
 #### Hand 1 ####
+# This hand will create a Bock round
 # Bid
 23
 # Player number that won the bid
-1
-# Contract -- NULL
-n
+2
+# Contract
+c
 # Will it be hand?
-n
-# Will it be open?
 n
 # Is hand play information correct?
 y
-# Did declarer win the hand?
-y
-# Was there a Kontra?
+# How many card points did declarer collect?
+60
+# With or without number
+1
+# Was there Kontra?
 n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 2 ####
+# Start of Bock round
 # Bid
 20
 # Player number that won the bid
@@ -102,7 +103,7 @@ y
 # c to continue game, r to rescore, e to end
 c
 #### Hand 4 ####
-# Start bock round (previous hand had Rekontra)
+# Last hand in Bock round
 # Bid
 35
 # Player number that won the bid
@@ -126,6 +127,57 @@ n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 5 ####
+# End of Bock round, start Ramsch Round
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+68
+# was there JungF
+y
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 6 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+2
+# Card points taken
+61
+# was there JungF
+n
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 7 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+49
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 8 ####
+# no Bock
 # Bid
 27
 # Player number that won the bid
@@ -146,7 +198,8 @@ y
 n
 # c to continue game, r to rescore, e to end
 c
-#### Hand 6 ####
+#### Hand 9 ####
+# no Bock
 # Bid
 18
 # Player number that won the bid
@@ -167,70 +220,68 @@ x
 n
 # c to continue game, r to rescore, e to end
 c
-#### Hand 7 ####
-# End of Bock round, start Ramsch Round
-# Grand hand during ramsch round?
-n
-# Is hand play information correct?
-y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-1
-# Card points taken
-68
-# was there JungF
-y
-# c to continue game, r to rescore, e to end  ## Rescore in this case
-r
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-1
-# Card points taken
-68
-# was there JungF
-n
-# c to continue game, r to rescore, e to end  ## Rescore in this case
-c
-#### Hand 8 ####
-# Grand hand during ramsch round?
-n
-# Is hand play information correct?
-y
-# Did player win Durchmarsh
-n
-# Number of players losing
-2
-# which player lost
-2
-# which player lost
-3
-# Card points taken
-45
-# c to continue game, r to rescore, e to end
-c
-#### Hand 9 ####
-# Grand hand during ramsch round?
-y
-# Who is declarer?
-3
-# Is hand play information correct?
-y
-# How many card points did declarer collect?
-89
-# With or without number
-2
-# Was there Kontra?
-n
-# c to continue game, r to rescore, e to end
-c
 #### Hand 10 ####
-# Back to regular hands (no bock round, no ramsch round)
+# no Bock, starting "2 rounds no bock"
+# Bid
+18
+# Player number that won the bid
+1
+# Contract
+h
+# Will it be played Hand
+n
+# Is hand play information correct/
+y
+# How many card points did declarer collect
+72
+# With or without number
+1
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 11 ####
+# "2 rounds no bock" hand 2
+# Bid
+18
+# Player number that won the bid
+2
+# Contract
+s
+# Will it be played Hand
+n
+# Is hand play information correct/
+y
+# How many card points did declarer collect
+72
+# With or without number
+1
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 12 ####
+# "2 rounds no bock" hand 3
+# Bid
+18
+# Player number that won the bid
+3
+# Contract
+g
+# Will it be played Hand
+n
+# Is hand play information correct/
+y
+# How many card points did declarer collect
+72
+# With or without number
+1
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 13 ####
+# "2 rounds no bock" hand 4
 # Bid
 35
 # Player number that won the bid
@@ -251,7 +302,8 @@ y
 n
 # c to continue game, r to rescore, e to end
 c
-#### Hand 11 ####
+#### Hand 14 ####
+# "2 rounds no bock" hand 5
 # Bid
 33
 # Player number that won the bid
@@ -268,54 +320,10 @@ y
 4
 # Was there a Kontra?
 n
-# m to manually correct hand data
-# Notice that the hand score entered below is inconsistent with the data entered
-# This is intentional, so show that this mode does not validate the score
-# It just updates the internal data structure with the data entered
-m
-# Bock count (was 3, change to 2)
-2
-# Ramsch count (keep at 0)
-0
-# Bid
-34
-# Contract
-c
-# Did player win?
-y
-# Played HAND?
-y
-# Played OPEN?
-N
-# Schnider announced?
-n
-# Schwarz announced?
-N
-# Was the hand won Schneider?
-N
-# Was the hand won Schwarz?
-N
-# With or without
-3
-# Overbid correction
-0
-# Cardpoints
-89
-# Kontra?
-N
-# Was hand played Bock?
-N
-# Player 1 score correct?
-N
-# Player 1 score
-48
-# Player 2 score correct?
-y
-# Player 3 score correct?
-y
 # Continue, rescore, end
 c
-#### Hand 12 ####
+#### Hand 15 ####
+# "2 rounds no bock" hand 6
 # Bid
 0
 # Is hand play information correct?
@@ -325,22 +333,28 @@ n
 # Number of players losing
 3
 # c to continue game, r to rescore, e to end
+c
+#### Hand 16 ####
+# Start of new Bock round, because 2 rounds without Bock
+# Bid
+33
+# Player number that won the bid
+1
+# Contract
+g
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+98
+# With or without number
+4
+# Was there a Kontra?
+n
+# Continue, rescore, end
 e
 #### All hands have been played ####
-# Any hands that need to be corrected
-y
-# Which hand # needs to be udpated? 
-8
-# Is p1 score of 0 correct? (y/n)
-y
-# Is p2 score of -45 correct? (y/n)
-y
-# Is p3 score of -45 correct? (y/n)
-n
-# Enter corrected score: 
-0
-# Any more hands to update? (y/n) 
-n
 # Any hands that need to be corrected
 n
 # Final Score Sheet: 

@@ -4,7 +4,7 @@
 
 Scoresheet for the card game [Skat][1]. Either three or four players are supported.
 
-The initial version is text-based and run from the command line.
+The initial version is text-based and is run from the command line.
 
 A [web-based version][8] with similar functionality is in progress.
 
@@ -16,20 +16,20 @@ A [web-based version][8] with similar functionality is in progress.
 - In four player games, the dealer sits out play for that hand
 - Declaring
   - Must play Hand in order to declare Schneider or Schwarz
-  - Suit or Grand Open bid only allowed with Hand bid and implies that Schneider and Schwarz announced
+  - Suit or Grand Open bid only allowed with Hand bid and implies that Schneider and Schwarz are announced
 - Scoring
   - Losses count double for non-Ramsch contracts
   - Grand base value is 24
   - Opponents must take 31 to avoid Schneider
   - Declarer must collect at least 31 points to avoid Schneider
-  - Null scores:
+  - Null scoring:
     - Standard bid: 23
     - Hand not Open: 35
     - Open not Hand: 46
     - Hand and Open: 59
 - Ramsch
   - There is no Bock during a Ramsch round
-    - Except a "nobody bids 18" Ramsch hand has Bock scoring during Bock round
+    - A "nobody bids 18" Ramsch hand has Bock scoring during Bock round
   - A player taking all tricks (Durchmarsch) scores +120 points
   - If no single player takes all tricks, then the player who collects the most card points has those card points deducted
     - More than one player can lose points in the case of a tie
@@ -52,6 +52,7 @@ A [web-based version][8] with similar functionality is in progress.
     - Successful Kontra (declarer loses)
     - Any Rekontra (i.e. declarer says Re to opponent's Kontra)
     - The contract results in a Schneider (but only if current hand is not a Bock hand)
+    - Two full non-Ramsch rounds of hands (starting with Player 1) without creating a Bock round
   - A maximum of one Bock round can be created per hand
     - For example, a 120 raw hand score with a Schneider only creates 1 Bock round
 
@@ -75,11 +76,6 @@ Features that may be added in a future release:
 - Saving the game to a file
 - Configuration file with setup parameters (# of players, player names)
   - Default name; if it exists, use it. Add default name to .gitignore
-- Check for declarer taking zero tricks on a non-null contract (opponents Schwarz the declarer)
-  - This would be an extremely rare occurrence
-- Add hands to an existing game (play longer than originally planned)
-  - This may not be necessary, since the program currently allocates 99 hands which can be ended early
-  - I don't think that I've ever played a game even close to 99 hands
 
 ## Building
 

@@ -5,6 +5,7 @@
 #   
 #***** 
 #       This test file focuses on a regular (non Schieberamsch) 4-player game
+#       This also tests adding bocks manually with the c/r/m/b/e question at end of a hand
 #*****
 #
 #### Game Setup ####
@@ -17,6 +18,8 @@ Player1
 Player-2
 Player-33
 Player-444
+# Play Ramsch if nobody bids 18
+y
 # Play Ramsch after Bock
 y
 # Allow Grand Hand during Ramsch round 
@@ -311,6 +314,373 @@ n
 # Number of players losing
 3
 # c to continue game, r to rescore, e to end
+c
+#### Hand 15 ####
+# Bid
+33
+# Player number that won the bid
+2
+# Contract
+g
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+89
+# With or without number
+3
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 16 ####
+# Last hand in bock round
+# Bid
+33
+# Player number that won the bid
+1
+# Contract
+c
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+77
+# With or without number
+1
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 17 ####
+# Ent of Bock round, start Ramsch Round
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+2
+# Card points taken
+68
+# was there JungF
+y
+# c to continue game, r to rescore, e to end
+c
+#### Hand 18 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+2
+# Card points taken
+68
+# was there JungF
+n
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 19 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+61
+# was there JungF
+n
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 20 ####
+# Ent of Bock round, start Ramsch Round
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+59
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 21 ####
+# Start of Bock round
+# Bid
+18
+# Player number that won the bid
+1
+# Contract
+c
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 22 ####
+# Bid
+18
+# Player number that won the bid
+2
+# Contract
+d
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 23 ####
+# Bid
+18
+# Player number that won the bid
+3
+# Contract
+h
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 24 ####
+# Bid
+18
+# Player number that won the bid
+4
+# Contract
+s
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 25 ####
+# Ent of Bock round, start Ramsch Round
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+2
+# Card points taken
+68
+# was there JungF
+y
+# c to continue game, r to rescore, e to end
+c
+#### Hand 26 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+2
+# Card points taken
+68
+# was there JungF
+n
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 27 ####
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+61
+# was there JungF
+n
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 28 ####
+# Ent of Bock round, start Ramsch Round
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+1
+# Card points taken
+59
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+c
+#### Hand 29 ####
+# End of Ramsch round; regular hand (no bock)
+# Bid
+18
+# Player number that won the bid
+1
+# Contract
+s
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end, b to manually add bock round
+b
+#### Hand 30 ####
+# Manually added a bock round at end of previous hand
+# Start new bock round
+# Bid
+18
+# Player number that won the bid
+2
+# Contract
+h
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 31 ####
+# Bid
+18
+# Player number that won the bid
+3
+# Contract
+d
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 32 ####
+# Bid
+18
+# Player number that won the bid
+4
+# Contract
+s
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 33 ####
+# Last hand in Bock round
+# Bid
+18
+# Player number that won the bid
+1
+# Contract
+g
+# Will it be played Hand
+n
+# Is hand play information correct?
+y
+# How many card points did declarer collect
+66
+# With or without number
+2
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 34 ####
+# Ent of Bock round, start Ramsch Round
+# Grand hand during ramsch round?
+n
+# Is hand play information correct?
+y
+# Did player win Durchmarsh
+n
+# Number of players losing
+1
+# which player lost
+2
+# Card points taken
+59
+# c to continue game, r to rescore, e to end  ## Rescore in this case
 e
 #### All hands have been played ####
 # Any hands that need to be corrected

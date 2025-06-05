@@ -16,7 +16,7 @@
 #include <limits>
 
 enum CRMBE  {RESCOREHAND, CONTINUEGAME, MANUALSCORE, NEWBOCK, ENDTHEGAME};
-enum State {INIT, NEW_HAND_BID, HAND_CONTRACT, HAND_SUMMARY, 
+enum State {INIT, NEW_HAND_BID, HAND_CONTRACT, HAND_SUMMARY, HAND_THROWN,
             SCORE_HAND, MANUALLY_SCORE_HAND, END_GAME, EDIT_GAME, 
             PRINT_GAME_STATUS, GAME_COMPLETED};
 
@@ -81,6 +81,9 @@ int main(int argc, char** argv) {
                     if (yes()) game.rules.grand_hand_during_ramschround = true;
                     else       game.rules.grand_hand_during_ramschround = false;
                 } else {  // Regular game
+                    cout << "Play a Ramsch hand if nobody bids 18? (y/n) " << endl;
+                    if (yes()) game.rules.nobody_bids_18_play_ramsch = true;
+                    else       game.rules.nobody_bids_18_play_ramsch = false;
                     cout << "Play a Ramsch round after a Bock round? (y/n) " << endl;
                     if (yes()) {
                         game.rules.ramschround_after_bockround = true;
@@ -108,10 +111,11 @@ int main(int argc, char** argv) {
                         else       game.rules.bockround_for_schneider_only_if_not_bockround = false;
                     } else {
                         game.rules.bockround_for_schneider = false;
+                        game.rules.bockround_for_schneider_only_if_not_bockround = false;
                     }  // Next question only applies if there are Bock round rules enabled
                     cout << "Create Bock round if there are two full rounds starting with Player 1 without Bock? (y/n) " << endl;
                     if (yes()) game.rules.bockround_if_two_rounds_without_bock = true;
-                    else       game.rules.bockround_if_two_rounds_without_bock = true;
+                    else       game.rules.bockround_if_two_rounds_without_bock = false;
                     if (game.rules.bockround_for_60_60_tie || game.rules.bockround_for_120_hand_score ||
                         game.rules.bockround_for_lost_contra_or_rekontra || game.rules.bockround_for_schneider) {
                             cout << "Limit each hand to create at most one Bock round? (y/n) " << endl;
@@ -128,24 +132,41 @@ int main(int argc, char** argv) {
                     if (game.rules.grand_hand_during_ramschround) cout << "Grand Hand bid allowed." << endl;
                     else cout << "Grand Hand bid is not allowed." << endl;
                 } else {
-                    cout << "This will be a regular game with house rules of: " << endl;
-                    if (game.rules.ramschround_after_bockround) {
-                        cout << "Ramsch round is played after a Bock round." << endl;
-                        if (game.rules.grand_hand_during_ramschround) {
-                            cout << "  - Grand Hand bid allowed during Ramsch Round." << endl;
-                        } else cout << "  - Grand Hand bid is not allowed during Ramsch Round." << endl;
+                    if (game.rules.nobody_bids_18_play_ramsch ||
+                        game.rules.ramschround_after_bockround ||
+                        game.rules.grand_hand_during_ramschround ||
+                        game.rules.bockround_for_60_60_tie ||
+                        game.rules.bockround_for_120_hand_score ||
+                        game.rules.bockround_for_lost_contra_or_rekontra ||
+                        game.rules.bockround_for_schneider ||
+                        game.rules.bockround_for_schneider_only_if_not_bockround ||
+                        game.rules.bockround_max_one_per_hand ||
+                        game.rules.bockround_can_be_created_in_grand_during_ramsch ||
+                        game.rules.bockround_if_two_rounds_without_bock   ) {
+                            cout << "This will be a regular game with house rules of: " << endl;
+                            if (game.rules.nobody_bids_18_play_ramsch) {
+                                cout << "Play a Ramsch hand if nobody bids 18." << endl;
+                            }
+                            if (game.rules.ramschround_after_bockround) {
+                                cout << "Ramsch round is played after a Bock round." << endl;
+                                if (game.rules.grand_hand_during_ramschround) {
+                                    cout << "  - Grand Hand bid allowed during Ramsch Round." << endl;
+                                } else cout << "  - Grand Hand bid is not allowed during Ramsch Round." << endl;
+                            }
+                            if (game.rules.bockround_for_60_60_tie) cout << "Bock round created for 60/60 card points tie." << endl;
+                            if (game.rules.bockround_for_120_hand_score) cout << "Bock round created for 120 raw hand socre." << endl;
+                            if (game.rules.bockround_for_lost_contra_or_rekontra) cout << "Bock round created for lost Kontra/Rekontra." << endl;
+                            if (game.rules.bockround_for_schneider) {
+                                cout << "Bock round created for Schneider"; 
+                                if (game.rules.bockround_for_schneider_only_if_not_bockround) cout << ", but only if no Bocks currently." << endl;
+                                else cout << "." << endl;
+                            }
+                            if (game.rules.bockround_if_two_rounds_without_bock) 
+                            cout << "Bock round created if there are two full rounds without Bock." << endl;
+                            if (game.rules.bockround_max_one_per_hand) cout << "Maximum one Bock round created per hand." << endl;
+                    } else {
+                        cout << "This will be a regular game with no configured house rules." << endl;
                     }
-                    if (game.rules.bockround_for_60_60_tie) cout << "Bock round created for 60/60 card points tie." << endl;
-                    if (game.rules.bockround_for_120_hand_score) cout << "Bock round created for 120 raw hand socre." << endl;
-                    if (game.rules.bockround_for_lost_contra_or_rekontra) cout << "Bock round created for lost Kontra/Rekontra." << endl;
-                    if (game.rules.bockround_for_schneider) {
-                        cout << "Bock round created for Schneider"; 
-                        if (game.rules.bockround_for_schneider_only_if_not_bockround) cout << ", but only if no Bocks currently." << endl;
-                        else cout << "." << endl;
-                    }
-                    if (game.rules.bockround_if_two_rounds_without_bock) 
-                      cout << "Bock round created if there are two full rounds without Bock." << endl;
-                    if (game.rules.bockround_max_one_per_hand) cout << "Maximum one Bock round created per hand." << endl;
                 }
                 cout << "Is this correct? (y/n) " << endl;
                 if (yes()) state = NEW_HAND_BID;
@@ -205,11 +226,19 @@ int main(int argc, char** argv) {
                     if (game.number_of_players == 4) {
                         cout << game.player_name[(game.current_hand + 3) % game.number_of_players] << " continues"  << endl;
                     }
-                    cout << "Enter winning bid (0 for Ramsch): " << endl; 
+                    if (game.rules.nobody_bids_18_play_ramsch) {
+                        cout << "Enter winning bid (0 for Ramsch): " << endl; 
+                    } else {
+                        cout << "Enter winning bid (0 if nobody bids 18): " << endl; 
+                    }
                     game.hand[game.current_hand].bid = input_and_validate(0, 264);
                     if (game.hand[game.current_hand].bid == 0) {
-                        game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
-                        state = HAND_SUMMARY;
+                        if (game.rules.nobody_bids_18_play_ramsch) {
+                            game.hand[game.current_hand].contract = Skat_Game::RAMSCH;
+                            state = HAND_SUMMARY;
+                        } else {
+                            state = HAND_THROWN;
+                        }
                     } else {
                         state = HAND_CONTRACT;
                     }
@@ -286,6 +315,17 @@ int main(int argc, char** argv) {
                     }
                     state = SCORE_HAND;
                 } else state = NEW_HAND_BID;
+                break;
+
+            case HAND_THROWN:
+                cout << "Nobody bid 18. Hand will be thrown out (everyone scores zero) and next player deals." << endl;
+                cout << "Is this correct? (y/n) " << endl;
+                if (yes()) {
+                    /// Update state variables as needed
+                    state = PRINT_GAME_STATUS;
+                } else {
+                    state = NEW_HAND_BID;
+                }
                 break;
 
             case SCORE_HAND:

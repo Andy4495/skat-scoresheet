@@ -27,8 +27,8 @@ public:
     int     ramsch_count;
     int     bock_count;
     int     no_bock_count;  // Used for the "new bock if no bocks for 2 rounds case"
-    static const char* const contract_name[7];
-    enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1};
+    static const char* const contract_name[8];
+    enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1, THROWN = 0};
     enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 
                                SCHN_ANNC = 8, SCHWARZ = 16, SCHW_ANNC = 32};
     enum    Kontra_Re {SINGLE = 1, KONTRA = 2, RE = 4};
@@ -36,6 +36,7 @@ public:
     enum    Win_Lose {LOSE = -2, WIN = 1};
     enum    Bock_Type {NOBOCK = 1, BOCK = 2};
     struct {
+        bool    nobody_bids_18_play_ramsch;
         bool    ramschround_after_bockround;
         bool    grand_hand_during_ramschround;
         bool    bockround_for_60_60_tie;

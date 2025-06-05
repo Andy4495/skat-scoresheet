@@ -17,7 +17,7 @@
 
 using namespace std;
 
-const char* const Skat_Game::contract_name[]={"Clubs", "Spades", "Hearts", "Diamonds", "Null", "Grand", "Ramsch"};
+const char* const Skat_Game::contract_name[]={"Clubs", "Spades", "Hearts", "Diamonds", "Null", "Grand", "Ramsch", "Thrown"};
 
 Skat_Game::Skat_Game()
 {
@@ -25,14 +25,15 @@ Skat_Game::Skat_Game()
    ramsch_count   = 0;
    bock_count     = 0;
    no_bock_count  = 0;
-   rules.ramschround_after_bockround                     = true;
-   rules.grand_hand_during_ramschround                   = true;
-   rules.bockround_for_60_60_tie                         = true;
-   rules.bockround_for_120_hand_score                    = true;
-   rules.bockround_for_lost_contra_or_rekontra           = true;
-   rules.bockround_for_schneider                         = true;
-   rules.bockround_for_schneider_only_if_not_bockround   = true;
-   rules.bockround_max_one_per_hand                      = true;
+   rules.nobody_bids_18_play_ramsch                      = false;
+   rules.ramschround_after_bockround                     = false;
+   rules.grand_hand_during_ramschround                   = false;
+   rules.bockround_for_60_60_tie                         = false;
+   rules.bockround_for_120_hand_score                    = false;
+   rules.bockround_for_lost_contra_or_rekontra           = false;
+   rules.bockround_for_schneider                         = false;
+   rules.bockround_for_schneider_only_if_not_bockround   = false;
+   rules.bockround_max_one_per_hand                      = false;
    rules.bockround_can_be_created_in_grand_during_ramsch = false;
    rules.bockround_if_two_rounds_without_bock            = false;
 
@@ -180,6 +181,9 @@ const char* const Skat_Game::get_contract_name(int h) {
         break;
       case RAMSCH:
         index = 6;
+        break;
+      case THROWN:
+        index = 7;
         break;
       default:
         cout << "Invalid contract type.";
