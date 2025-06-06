@@ -1,6 +1,8 @@
 # Skat Scoresheet
 
+[![Build](https://github.com/Andy4495/skat-scoresheet/actions/workflows/Build.yml/badge.svg)](https://github.com/Andy4495/skat-scoresheet/actions/workflows/Build.yml)
 [![Check Markdown Links](https://github.com/Andy4495/skat-scoresheet/actions/workflows/check-links.yml/badge.svg)](https://github.com/Andy4495/skat-scoresheet/actions/workflows/check-links.yml)
+[![Test](https://github.com/Andy4495/skat-scoresheet/actions/workflows/Test.yml/badge.svg)](https://github.com/Andy4495/skat-scoresheet/actions/workflows/Test.yml)
 
 Scoresheet for the card game [Skat][1]. Either three or four players are supported.
 
@@ -30,6 +32,9 @@ A [web-based version][8] with similar functionality is in progress.
 - Ramsch
   - There is no Bock during a Ramsch round
     - A "nobody bids 18" Ramsch hand has Bock scoring during Bock round
+    - If Grand Hand is allowed during a Ramsch round, then:
+      - No Bock can be created, regardless of other settings
+      - Kontra/Rekontra is not allowed, regardless of other settings
   - A player taking all tricks (Durchmarsch) scores +120 points
   - If no single player takes all tricks, then the player who collects the most card points has those card points deducted
     - More than one player can lose points in the case of a tie
@@ -37,13 +42,13 @@ A [web-based version][8] with similar functionality is in progress.
 - Bock round
   - Scores double during a Bock round
 
-### The following house rules are configurable
+### The following house rules are configurable at the start of the game
 
+- Kontra and Rekontra allowed
 - Ramsch
   - Play a Ramsch round (3 or 4 hands, depending on number of players) after playing a Bock round
-  - During a Ramsch round, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract
-    - No bock can be created in this case
-  - Entire game can be played Ramsch ("Schieberamsch")
+  - During a Ramsch round, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract (with Bock and Kontra exceptions noted above)
+  - Entire game can be played as Ramsch rounds
 - Bock round
   - A new Bock round (3 or 4 hands, depending on number of players) is created in the following cases:
     - For suit and Grand contracts:
@@ -51,19 +56,18 @@ A [web-based version][8] with similar functionality is in progress.
       - Raw hand score >= 120 (before Bock/Lose/Kontra/Re doubling)
     - Successful Kontra (declarer loses)
     - Any Rekontra (i.e. declarer says Re to opponent's Kontra)
-    - The contract results in a Schneider (but only if current hand is not a Bock hand)
+    - The contract results in a Schneider
+      - Only if current hand is not a Bock hand
     - Two full non-Ramsch rounds of hands (starting with Player 1) without creating a Bock round
   - A maximum of one Bock round can be created per hand
     - For example, a 120 raw hand score with a Schneider only creates 1 Bock round
+  - Ramsch hand is played if nobody bids 18
 
 ### Player-enforced rules
 
-These rules are enforced by the players, not the scoresheet, so there is no code or configuration associated with them.
+These rules are enforced by the players, not the scoresheet, so there is no code or configuration associated with them:
 
-- Kontra and Rekontra allowed
-  - An opponent must not have passed on an 18 bid in order to say Kontra
-- Ramsch
-  - Play a Ramsch hand if nobody bids 18
+- An opponent must not have passed on an 18 bid in order to say Kontra
 
 ## To-Do
 

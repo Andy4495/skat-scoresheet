@@ -26,6 +26,7 @@ Skat_Game::Skat_Game()
    bock_count     = 0;
    no_bock_count  = 0;
    rules.nobody_bids_18_play_ramsch                      = false;
+   rules.kontrare_allowed                                = false;
    rules.ramschround_after_bockround                     = false;
    rules.grand_hand_during_ramschround                   = false;
    rules.bockround_for_60_60_tie                         = false;

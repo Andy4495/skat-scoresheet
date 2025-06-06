@@ -1,6 +1,6 @@
 Welcome to the Skat Scoresheet v1.1.0!
 The scoresheet supports up to 99 hands in a game
-Will this be a Ramsch-only (Schieberamsch) game? (y/n) 
+Will this be a Ramsch-only game? (y/n) 
 Enter number of players (3 or 4): 
 Enter Player 1 name (this is the first dealer): 
 Enter Player 2 name: 
@@ -254,7 +254,6 @@ Scoring the hand after play...
 How many card points did PlayerA collect? 
 With or without how many? 
 +++ PlayerA won the hand. +++
-Was there a Kontra? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  PlayerA | PlayerBB | PlayerCC | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
 |  1 |   0 |   | Ramsch   |        |    |        0 |      -59 |      -59 |      |

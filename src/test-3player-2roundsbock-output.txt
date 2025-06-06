@@ -1,11 +1,12 @@
 Welcome to the Skat Scoresheet v1.1.0!
 The scoresheet supports up to 99 hands in a game
-Will this be a Ramsch-only (Schieberamsch) game? (y/n) 
+Will this be a Ramsch-only game? (y/n) 
 Enter number of players (3 or 4): 
 Enter Player 1 name (this is the first dealer): 
 Enter Player 2 name: 
 Enter Player 3 name: 
 Configure house rules for this game.
+Are Kontra and Rekontra allowed? (y/n) 
 Play a Ramsch hand if nobody bids 18? (y/n) 
 Play a Ramsch round after a Bock round? (y/n) 
 Allow Grand Hand bid during Ramsch round? (y/n) 
@@ -20,6 +21,7 @@ Player1
 Player-2
 Player-3
 This will be a regular game with house rules of: 
+Kontra and Rekontra are allowed.
 Play a Ramsch hand if nobody bids 18.
 Ramsch round is played after a Bock round.
   - Grand Hand bid allowed during Ramsch Round.

@@ -17,6 +17,8 @@ n
 Player1
 Player-2
 Player-33
+# Allow Kontra/Re
+y
 # Play Ramsch if nobody bids 18
 y
 # Play Ramsch after Bock

@@ -161,8 +161,6 @@ y
 61
 # With or without
 2
-# Kontra?
-n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 10 ####

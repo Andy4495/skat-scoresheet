@@ -23,7 +23,7 @@ public:
     int     current_hand;
     int     total_score[4];
     int     edited_score_note;
-    bool    schieberamsch;
+    bool    ramschonly;
     int     ramsch_count;
     int     bock_count;
     int     no_bock_count;  // Used for the "new bock if no bocks for 2 rounds case"
@@ -37,6 +37,7 @@ public:
     enum    Bock_Type {NOBOCK = 1, BOCK = 2};
     struct {
         bool    nobody_bids_18_play_ramsch;
+        bool    kontrare_allowed;
         bool    ramschround_after_bockround;
         bool    grand_hand_during_ramschround;
         bool    bockround_for_60_60_tie;
@@ -65,7 +66,7 @@ public:
         Bock_Type   bock;
         int         score[4];       // Index to player_names[]; Initialize to zero, updated per hand
         int         edited;         // Indicates if a score was edited for this hand at end of game
-        bool        grand_during_ramsch;    // Player bid Grand Hand during a Ramsch round or Schieberamsch game
+        bool        grand_during_ramsch;    // Player bid Grand Hand during a Ramsch round or Ramsch-only game
         bool        takealltricks;  // Flag for Schwarz to differentiate it from a 120 point hand w/o all tricks
     } hand[MAX_NUMBER_OF_HANDS];
 

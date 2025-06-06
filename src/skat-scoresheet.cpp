@@ -46,12 +46,12 @@ int main(int argc, char** argv) {
             case INIT:
                 cout << "Welcome to the Skat Scoresheet " << VERSION << "!" << endl;
                 cout << "The scoresheet supports up to " << MAX_NUMBER_OF_HANDS <<" hands in a game" << endl;
-                cout << "Will this be a Ramsch-only (Schieberamsch) game? (y/n) " << endl;
+                cout << "Will this be a Ramsch-only game? (y/n) " << endl;
                 if (yes()) {
-                    game.schieberamsch = true;
+                    game.ramschonly = true;
                 }
                 else {
-                    game.schieberamsch = false;
+                    game.ramschonly = false;
                     game.ramsch_count = 0;
                 }
                 cout << "Enter number of players (3 or 4): " << endl;
@@ -76,11 +76,14 @@ int main(int argc, char** argv) {
                 }
                 // Set up House Rules
                 cout << "Configure house rules for this game." << endl;
-                if (game.schieberamsch == true) {
+                if (game.ramschonly == true) {
                     cout << "Is a bid of Grand Hand allowed? (y/n) " << endl;
                     if (yes()) game.rules.grand_hand_during_ramschround = true;
                     else       game.rules.grand_hand_during_ramschround = false;
                 } else {  // Regular game
+                    cout << "Are Kontra and Rekontra allowed? (y/n) " << endl;
+                    if (yes()) game.rules.kontrare_allowed = true;
+                    else       game.rules.kontrare_allowed = false;
                     cout << "Play a Ramsch hand if nobody bids 18? (y/n) " << endl;
                     if (yes()) game.rules.nobody_bids_18_play_ramsch = true;
                     else       game.rules.nobody_bids_18_play_ramsch = false;
@@ -126,24 +129,28 @@ int main(int argc, char** argv) {
                 game.number_of_hands = MAX_NUMBER_OF_HANDS;
                 cout << "Game will consist of " << game.number_of_players << " players named: " << endl;
                 for (i = 0; i < game.number_of_players; i++) cout << game.player_name[i] << endl;
-                if (game.schieberamsch) {
+                if (game.ramschonly) {
                     cout << "This game will be all Ramsch (Scheiberamsch), " << endl;
                     cout << "with house rule of "; 
                     if (game.rules.grand_hand_during_ramschround) cout << "Grand Hand bid allowed." << endl;
                     else cout << "Grand Hand bid is not allowed." << endl;
                 } else {
-                    if (game.rules.nobody_bids_18_play_ramsch ||
-                        game.rules.ramschround_after_bockround ||
-                        game.rules.grand_hand_during_ramschround ||
-                        game.rules.bockround_for_60_60_tie ||
-                        game.rules.bockround_for_120_hand_score ||
-                        game.rules.bockround_for_lost_contra_or_rekontra ||
-                        game.rules.bockround_for_schneider ||
-                        game.rules.bockround_for_schneider_only_if_not_bockround ||
-                        game.rules.bockround_max_one_per_hand ||
+                    if (game.rules.kontrare_allowed                                ||
+                        game.rules.nobody_bids_18_play_ramsch                      ||
+                        game.rules.ramschround_after_bockround                     ||
+                        game.rules.grand_hand_during_ramschround                   ||
+                        game.rules.bockround_for_60_60_tie                         ||
+                        game.rules.bockround_for_120_hand_score                    ||
+                        game.rules.bockround_for_lost_contra_or_rekontra           ||
+                        game.rules.bockround_for_schneider                         ||
+                        game.rules.bockround_for_schneider_only_if_not_bockround   ||
+                        game.rules.bockround_max_one_per_hand                      ||
                         game.rules.bockround_can_be_created_in_grand_during_ramsch ||
                         game.rules.bockround_if_two_rounds_without_bock   ) {
                             cout << "This will be a regular game with house rules of: " << endl;
+                            if (game.rules.kontrare_allowed) {
+                                cout << "Kontra and Rekontra are allowed." << endl;
+                            }
                             if (game.rules.nobody_bids_18_play_ramsch) {
                                 cout << "Play a Ramsch hand if nobody bids 18." << endl;
                             }
@@ -183,7 +190,7 @@ int main(int argc, char** argv) {
                 cout << "======================";
                 if (game.current_hand + 1 > 9) cout << "=";
                 cout << endl;
-                if (game.schieberamsch || game.ramsch_count) {
+                if (game.ramschonly || game.ramsch_count) {
                     cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer" << endl;
                     if (game.rules.grand_hand_during_ramschround) {
                         cout << "This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) " << endl;
@@ -361,12 +368,15 @@ int main(int argc, char** argv) {
                             cout << " lost the hand. ---" << endl;
                         }
                     }
-                    cout << "Was there a Kontra? (y/n) " << endl;
-                    if (yes()) {
-                        game.hand[game.current_hand].kontrare = Skat_Game::KONTRA;
-                        cout << "Did declarer Rekontra? (y/n) " << endl;  // Only ask about Re if there was a Kontra
-                        if (yes()) game.hand[game.current_hand].kontrare = Skat_Game::RE;
-                    } else game.hand[game.current_hand].kontrare = game.SINGLE;
+                    game.hand[game.current_hand].kontrare = game.SINGLE;
+                    if (game.rules.kontrare_allowed) {
+                        cout << "Was there a Kontra? (y/n) " << endl;
+                        if (yes()) {
+                            game.hand[game.current_hand].kontrare = Skat_Game::KONTRA;
+                            cout << "Did declarer Rekontra? (y/n) " << endl;  // Only ask about Re if there was a Kontra
+                            if (yes()) game.hand[game.current_hand].kontrare = Skat_Game::RE;
+                        }
+                    }
                 }
                 game.calculate_hand_score(game.current_hand);
                 state = PRINT_GAME_STATUS;
@@ -727,6 +737,7 @@ void manually_score_hand(int h) {
     cout << "What was the bid (enter 0 for Ramch): " << endl;
     game.hand[h].bid = input_and_validate(0, 264);
     if (game.hand[h].bid > 0) {
+        game.hand[h].kontrare = Skat_Game::SINGLE;
         game.set_contract(h);  // This methods prompts, validates the imput, and assigns the member value
         cout << "Did " << game.player_name[game.hand[h].declarer] << " win? (y/n) " << endl;
         if (yes()) game.hand[h].winlose = Skat_Game::WIN;
@@ -750,12 +761,14 @@ void manually_score_hand(int h) {
         game.hand[h].overbid = input_and_validate(0, 9);
         cout << "Enter cardpoints collected: " << endl;
         game.hand[h].cardpoints = input_and_validate(0, 120);
-        cout << "Was there a Kontra? (y/n) " << endl;
-        if (yes()) {
-            game.hand[h].kontrare = Skat_Game::KONTRA;
-            cout << "was there a Rekontra? (y/n) " << endl;
-            if (yes()) game.hand[h].kontrare = Skat_Game::RE;
-        } else game.hand[h].kontrare = Skat_Game::SINGLE;
+        if (game.rules.kontrare_allowed) {
+            cout << "Was there a Kontra? (y/n) " << endl;
+            if (yes()) {
+                game.hand[h].kontrare = Skat_Game::KONTRA;
+                cout << "was there a Rekontra? (y/n) " << endl;
+                if (yes()) game.hand[h].kontrare = Skat_Game::RE;
+            }
+        }
     } else { // Ramsch
         game.hand[h].contract = Skat_Game::RAMSCH;
         game.hand[h].ramsch = Skat_Game::PLAIN;
