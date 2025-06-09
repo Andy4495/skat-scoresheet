@@ -11,7 +11,7 @@ Game will consist of 3 players named:
 PlayerA
 PlayerBB
 PlayerCC
-This game will be all Ramsch (Scheiberamsch), 
+This game will be all Ramsch.
 with house rule of Grand Hand bid allowed.
 Is this correct? (y/n) 
 ======================

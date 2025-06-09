@@ -250,8 +250,6 @@ y
 89
 # With or without number
 2
-# Was there Kontra?
-n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 11 ####

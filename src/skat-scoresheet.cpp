@@ -130,7 +130,7 @@ int main(int argc, char** argv) {
                 cout << "Game will consist of " << game.number_of_players << " players named: " << endl;
                 for (i = 0; i < game.number_of_players; i++) cout << game.player_name[i] << endl;
                 if (game.ramschonly) {
-                    cout << "This game will be all Ramsch (Scheiberamsch), " << endl;
+                    cout << "This game will be all Ramsch." << endl;
                     cout << "with house rule of "; 
                     if (game.rules.grand_hand_during_ramschround) cout << "Grand Hand bid allowed." << endl;
                     else cout << "Grand Hand bid is not allowed." << endl;
@@ -369,7 +369,7 @@ int main(int argc, char** argv) {
                         }
                     }
                     game.hand[game.current_hand].kontrare = game.SINGLE;
-                    if (game.rules.kontrare_allowed) {
+                    if (game.rules.kontrare_allowed && !game.hand[game.current_hand].grand_during_ramsch) {
                         cout << "Was there a Kontra? (y/n) " << endl;
                         if (yes()) {
                             game.hand[game.current_hand].kontrare = Skat_Game::KONTRA;

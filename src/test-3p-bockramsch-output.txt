@@ -269,7 +269,6 @@ Scoring the hand after play...
 How many card points did Player-3 collect? 
 With or without how many? 
 +++ Player-3 won the hand. +++
-Was there a Kontra? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
 |  1 |  48 | 3 | Grand    | H S    | KR |        0 |        0 |      576 |      |
