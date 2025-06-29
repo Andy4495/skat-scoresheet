@@ -134,16 +134,12 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-1
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 y
+# which player lost
+1
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 6 ####
@@ -151,16 +147,12 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-2
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 61
 # was there JungF
 n
+# which player lost
+2
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 7 ####
@@ -168,14 +160,12 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+# cout << "Highest card points collected? " << endl;
+49
 # Number of players losing
 1
 # which player lost
 1
-# Card points taken
-49
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 8 ####
@@ -330,10 +320,8 @@ c
 0
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-3
+# cout << "Highest card points collected? " << endl;
+40
 # c to continue game, r to rescore, e to end
 c
 #### Hand 16 ####
@@ -362,17 +350,21 @@ n
 # Final Score Sheet: 
 # |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
 # | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-# |  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
-# |  2 |  20 | 1 | Diamonds |        |    |        0 |      -54 |        0 |      |
-# |  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |     -960 |      |
+# |  1 |  23 | 1 | Clubs    |        |    |        0 |      -48 |        0 |      |
+# |  2 |  20 | 1 | Diamonds |        |    |        0 |     -108 |        0 |  B   |
+# |  3 |  48 | 3 | Grand    | H      | KR |        0 |        0 |    -1920 |  B   |
 # |  4 |  35 | 3 | Hearts   | HOSAZA |    |      200 |        0 |        0 |  B   |
-# |  5 |  27 | 1 | Spades   |   S    |    |        0 |       66 |        0 |  B   |
-# |  6 |  18 | 1 | Diamonds |        |    |        0 |        0 |       36 |  B   |
-# |  7 |   0 |   | Ramsch   |        |    |      -68 |        0 |        0 |      |
-# |  8 |   0 |   | Ramsch   |        |    |        0 |      -45 |        0 |      | ***
-# |  9 |   0 | 2 | Grand    | H      |    |        0 |        0 |       96 |      |
-# | 10 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
-# | 11 |  34 | 3 | Clubs    | H      |    |       48 |        0 |        0 |      | ***
-# | 12 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
+# |  5 |   0 |   | Ramsch   | JUNGF  |    |     -136 |        0 |        0 |      |
+# |  6 |   0 |   | Ramsch   |        |    |        0 |      -61 |        0 |      |
+# |  7 |   0 |   | Ramsch   |        |    |      -49 |        0 |        0 |      |
+# |  8 |  27 | 1 | Spades   |   S    |    |        0 |       33 |        0 |      |
+# |  9 |  18 | 1 | Diamonds |        |    |        0 |        0 |       18 |      |
+# | 10 |  18 | 1 | Hearts   |        |    |       20 |        0 |        0 |      |
+# | 11 |  18 | 1 | Spades   |        |    |        0 |       22 |        0 |      |
+# | 12 |  18 | 1 | Grand    |        |    |        0 |        0 |       48 |      |
+# | 13 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
+# | 14 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
+# | 15 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
+# | 16 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
 # | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-#                                   Totals:      -69 |     -113 |     -908
+#                                   Totals:      339 |     -242 |    -1934

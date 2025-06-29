@@ -193,33 +193,25 @@ n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 8 ####
-# Ent of Bock round, start Ramsch Round
+# End of Bock round, start Ramsch Round
 # Grand hand during ramsch round?
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-1
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 y
-# c to continue game, r to rescore, e to end  ## Rescore in this case
-r
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
 # which player lost
 1
-# Card points taken
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+r
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 n
+# which player lost
+1
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 9 ####
@@ -227,16 +219,14 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+# cout << "Highest card points collected? " << endl;
+45
 # Number of players losing
 2
 # which player lost
 2
 # which player lost
 3
-# Card points taken
-45
 # c to continue game, r to rescore, e to end
 c
 #### Hand 10 ####
@@ -257,10 +247,8 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-3
+# cout << "Highest card points collected? " << endl;
+40
 # c to continue game, r to rescore, e to end
 c
 #### Hand 12 ####
@@ -309,10 +297,8 @@ c
 0
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-3
+# cout << "Highest card points collected? " << endl;
+40
 # c to continue game, r to rescore, e to end
 c
 #### Hand 15 ####
@@ -355,21 +341,17 @@ n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 17 ####
-# Ent of Bock round, start Ramsch Round
+# End of Bock round, start Ramsch Round
 # Grand hand during ramsch round?
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-2
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 y
+# which player lost
+2
 # c to continue game, r to rescore, e to end
 c
 #### Hand 18 ####
@@ -377,16 +359,12 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-2
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 n
+# which player lost
+2
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 19 ####
@@ -394,32 +372,25 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-1
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 61
 # was there JungF
 n
+# which player lost
+1
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 20 ####
-# Ent of Bock round, start Ramsch Round
 # Grand hand during ramsch round?
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+# cout << "Highest card points collected? " << endl;
+59
 # Number of players losing
 1
 # which player lost
 1
-# Card points taken
-59
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 21 ####
@@ -500,21 +471,17 @@ n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 25 ####
-# Ent of Bock round, start Ramsch Round
+# End of Bock round, start Ramsch Round
 # Grand hand during ramsch round?
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-2
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 y
+# which player lost
+2
 # c to continue game, r to rescore, e to end
 c
 #### Hand 26 ####
@@ -522,16 +489,12 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-2
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 n
+# which player lost
+2
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 27 ####
@@ -539,32 +502,25 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-1
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 61
 # was there JungF
 n
+# which player lost
+1
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 28 ####
-# Ent of Bock round, start Ramsch Round
 # Grand hand during ramsch round?
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+# cout << "Highest card points collected? " << endl;
+59
 # Number of players losing
 1
 # which player lost
 1
-# Card points taken
-59
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 29 ####
@@ -667,19 +623,17 @@ n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 34 ####
-# Ent of Bock round, start Ramsch Round
+# End of Bock round, start Ramsch Round
 # Grand hand during ramsch round?
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+# cout << "Highest card points collected? " << endl;
+59
 # Number of players losing
 1
 # which player lost
 2
-# Card points taken
-59
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 e
 #### All hands have been played ####
@@ -718,5 +672,25 @@ n
 # | 12 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |        0 |      |
 # | 13 |  33 | 4 | Grand    |   S    |    |        0 |      288 |        0 |        0 |  B   |
 # | 14 |   0 |   | Ramsch   |        |    |      -80 |        0 |      -80 |      -80 |  B   |
+# | 15 |  33 | 3 | Grand    |        |    |        0 |      192 |        0 |        0 |  B   |
+# | 16 |  33 | 1 | Clubs    |        |    |     -144 |        0 |        0 |        0 |  B   |
+# | 17 |   0 |   | Ramsch   | JUNGF  |    |        0 |     -136 |        0 |        0 |      |
+# | 18 |   0 |   | Ramsch   |        |    |        0 |      -68 |        0 |        0 |      |
+# | 19 |   0 |   | Ramsch   |        |    |      -61 |        0 |        0 |        0 |      |
+# | 20 |   0 |   | Ramsch   |        |    |      -59 |        0 |        0 |        0 |      |
+# | 21 |  18 | 2 | Clubs    |        |    |       72 |        0 |        0 |        0 |  B   |
+# | 22 |  18 | 2 | Diamonds |        |    |        0 |       54 |        0 |        0 |  B   |
+# | 23 |  18 | 2 | Hearts   |        |    |        0 |        0 |       60 |        0 |  B   |
+# | 24 |  18 | 2 | Spades   |        |    |        0 |        0 |        0 |       66 |  B   |
+# | 25 |   0 |   | Ramsch   | JUNGF  |    |        0 |     -136 |        0 |        0 |      |
+# | 26 |   0 |   | Ramsch   |        |    |        0 |      -68 |        0 |        0 |      |
+# | 27 |   0 |   | Ramsch   |        |    |      -61 |        0 |        0 |        0 |      |
+# | 28 |   0 |   | Ramsch   |        |    |      -59 |        0 |        0 |        0 |      |
+# | 29 |  18 | 2 | Spades   |        |    |       33 |        0 |        0 |        0 |      |
+# | 30 |  18 | 2 | Hearts   |        |    |        0 |       60 |        0 |        0 |  B   |
+# | 31 |  18 | 2 | Diamonds |        |    |        0 |        0 |       54 |        0 |  B   |
+# | 32 |  18 | 2 | Spades   |        |    |        0 |        0 |        0 |       66 |  B   |
+# | 33 |  18 | 2 | Grand    |        |    |      144 |        0 |        0 |        0 |  B   |
+# | 34 |   0 |   | Ramsch   |        |    |        0 |      -59 |        0 |        0 |      |
 # | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
-#                                   Totals:     -157 |      292 |      -47 |    -1044
+#                                   Totals:     -292 |      131 |       67 |     -912

@@ -175,28 +175,20 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-1
-# Card points taken
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 y
-# c to continue game, r to rescore, e to end  ## Rescore in this case
-r
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
 # which player lost
 1
-# Card points taken
+# c to continue game, r to rescore, e to end  ## Rescore in this case
+r
+# cout << "Highest card points collected? " << endl;
 68
 # was there JungF
 n
+# which player lost
+1
 # c to continue game, r to rescore, e to end  ## Rescore in this case
 c
 #### Hand 8 ####
@@ -204,16 +196,14 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+# cout << "Highest card points collected? " << endl;
+45
 # Number of players losing
 2
 # which player lost
 2
 # which player lost
 3
-# Card points taken
-45
 # c to continue game, r to rescore, e to end
 c
 #### Hand 9 ####
@@ -320,10 +310,8 @@ c
 0
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-3
+# cout << "Highest card points collected? " << endl;
+40
 # c to continue game, r to rescore, e to end
 e
 #### All hands have been played ####

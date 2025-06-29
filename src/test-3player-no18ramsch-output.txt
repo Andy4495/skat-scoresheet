@@ -228,14 +228,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-2 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   1: Player1
   2: Player-2
   3: Player-3
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
@@ -249,14 +247,12 @@ Was there a Jungf? (y/n)
                                   Totals:     -113 |       12 |     -924
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   1: Player1
   2: Player-2
   3: Player-3
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |
@@ -280,16 +276,13 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-3 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
-First player to lose the Ramsch? 
+Highest card points collected? 
+How many players lost the Ramsch? (1 or 2) 
+Who lost the Ramsch? 
   1: Player1
   2: Player-2
   3: Player-3
-Other player to lose the Ramsch? 
-  1: Player1
-  3: Player-3
-How many points taken? 
+Who else lost the Ramsch? 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |       23 |        0 |        0 |      |

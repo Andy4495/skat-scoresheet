@@ -25,16 +25,14 @@ y
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+#  cout << "Highest card points collected? " << endl;
+59
 # Number of players losing
 2
 # which player lost
 2
 # which player lost
 3
-# Card points taken
-59
 # c to continue game, r to rescore, e to end
 c
 #### Hand 2 ####
@@ -42,10 +40,8 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-3
+#  cout << "Highest card points collected? " << endl;
+40
 # c to continue game, r to rescore, e to end
 c
 #### Hand 3 ####
@@ -53,16 +49,12 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
-# which player lost
-1
-# Card points taken
+#  cout << "Highest card points collected? " << endl;
 72
 # Jungf?
 n
+# which player lost
+1
 # c to continue game, r to rescore, e to end
 c
 #### Hand 4 ####
@@ -70,16 +62,12 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-1
+#  cout << "Highest card points collected? " << endl;
+99
+# JUNGF
+y
 # which player lost
 1
-# Card points taken
-99
-# Jungf?
-y
 # c to continue game, r to rescore, e to end
 c
 #### Hand 5 ####
@@ -87,14 +75,12 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+#  cout << "Highest card points collected? " << endl;
+49
 # Number of players losing
 1
 # which player lost
 1
-# Card points taken
-49
 # c to continue game, r to rescore, e to end
 c
 #### Hand 6 ####
@@ -102,16 +88,14 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
-# Number of players losing
-2
+#  cout << "Highest card points collected? " << endl;
+60
+# Was there JUNGF
+y
 # which player lost
 1
 # other player lost
 2
-# Card points taken
-60
 # c to continue game, r to rescore, e to end
 c
 #### Hand 7 ####
@@ -119,16 +103,14 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+#  cout << "Highest card points collected? " << endl;
+45
 # Number of players losing
 2
 # which player lost
 3
 # other player lost
 2
-# Card points taken
-45
 # c to continue game, r to rescore, e to end
 c
 #### Hand 8 ####
@@ -136,18 +118,14 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
-n
+#  cout << "Highest card points collected? " << endl;
+41
 # Number of players losing
 2
 # which player lost
 1
 # other player lost
 2
-# Card points taken
-61
-# Invalid input, enter 41 - 60
-41
 # c to continue game, r to rescore, e to end
 c
 #### Hand 9 ####
@@ -168,7 +146,9 @@ c
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
+#  cout << "Highest card points collected? " << endl;
+120
+# cout << "Did a player take all the tricks? (y/n) " << endl;
 y
 # who won Durchmarch
 3
@@ -183,22 +163,22 @@ n
 n
 # Is hand play information correct?
 y
-# Did player win Durchmarsh
+#  cout << "Highest card points collected? " << endl;
+120
+# cout << "Did a player take all the tricks? (y/n) " << endl;
 y
 # Who won
 3
 # c to continue game, r to rescore, e to end
 r
-# Did player win Durchmarsh
-n
+#  cout << "Highest card points collected? " << endl;
+41
 # Number of players losing
 2
 # which player lost
 1
 # other player lost
 2
-# Card points taken
-41
 # c to continue game, r to rescore, e to end
 e
 #### All hands have been played ####

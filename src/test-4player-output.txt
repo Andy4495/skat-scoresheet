@@ -292,14 +292,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player1 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   1: Player1
   2: Player-2
   3: Player-3
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -314,14 +312,12 @@ Was there a Jungf? (y/n)
                                   Totals:       64 |       89 |      -18 |     -924
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   1: Player1
   2: Player-2
   3: Player-3
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -346,16 +342,13 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-2 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
-First player to lose the Ramsch? 
+Highest card points collected? 
+How many players lost the Ramsch? (1 or 2) 
+Who lost the Ramsch? 
   2: Player-2
   3: Player-3
   4: Player-4
-Other player to lose the Ramsch? 
-  3: Player-3
-  4: Player-4
-How many points taken? 
+Who else lost the Ramsch? 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -414,8 +407,7 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-4 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
 40/40/40 Ramch.
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
@@ -536,8 +528,7 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-3 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
 40/40/40 Ramch.
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
@@ -665,14 +656,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-2 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   2: Player-2
   3: Player-3
   4: Player-4
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -706,14 +695,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-3 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   1: Player1
   3: Player-3
   4: Player-4
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -748,14 +735,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-4 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   1: Player1
   2: Player-2
   4: Player-4
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -791,13 +776,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player1 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+How many players lost the Ramsch? (1 or 2) 
 Who lost the Ramsch? 
   1: Player1
   2: Player-2
   3: Player-3
-How many points taken? 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -1048,14 +1032,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-2 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   2: Player-2
   3: Player-3
   4: Player-4
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -1097,14 +1079,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-3 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   1: Player1
   3: Player-3
   4: Player-4
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -1147,14 +1127,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-4 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+Was there a Jungf? (y/n) 
 Who lost the Ramsch? 
   1: Player1
   2: Player-2
   4: Player-4
-How many points taken? 
-Was there a Jungf? (y/n) 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -1198,13 +1176,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player1 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+How many players lost the Ramsch? (1 or 2) 
 Who lost the Ramsch? 
   1: Player1
   2: Player-2
   3: Player-3
-How many points taken? 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |
@@ -1557,13 +1534,12 @@ This hand will be played Ramsch.
 Is this correct? (y/n) 
 >>> Player-3 leads. <<<
 Scoring the hand after play...
-Did a player win Durchmarsch? (y/n) 
-How many players lost the Ramsch? (1, 2, 3)  
+Highest card points collected? 
+How many players lost the Ramsch? (1 or 2) 
 Who lost the Ramsch? 
   1: Player1
   3: Player-3
   4: Player-4
-How many points taken? 
 |  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Player-4 | Bock |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
 |  1 |  23 |   | Null     |        |    |        0 |       23 |        0 |        0 |      |

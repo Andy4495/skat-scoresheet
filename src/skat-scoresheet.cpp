@@ -637,73 +637,81 @@ void score_ramsch(int h) {
     int i;
 
     game.hand[h].ramsch = Skat_Game::PLAIN;
-    cout << "Did a player win Durchmarsch? (y/n) " << endl;
-    if (yes()) {
-        game.hand[h].ramsch = Skat_Game::DURCHMARSCH;
-        game.hand[h].winlose = Skat_Game::WIN;
-        game.hand[h].number_of_losers = 0;
-        cout << "Who won the Durchmarsch? " << endl;
+    game.hand[h].number_of_losers = 1;
+    cout << "Highest card points collected? " << endl;
+    game.hand[h].cardpoints = input_and_validate(40, 120);
+    if (game.hand[h].cardpoints == 120) {
+        cout << "Did a player take all the tricks? (y/n) " << endl;
+        if (yes()) {
+            cout << "Durchmarsch" << endl;
+            game.hand[h].ramsch = Skat_Game::DURCHMARSCH;
+            game.hand[h].winlose = Skat_Game::WIN;
+            game.hand[h].number_of_losers = 0;
+            cout << "Who won the Durchmarsch? " << endl;
+            list_player_names_this_hand(game.current_hand);
+            game.hand[h].declarer = input_and_validate(1, game.number_of_players) - 1;
+        } else {
+            cout << "Was there a Jungf? (y/n) " << endl;
+            if (yes()) game.hand[h].ramsch = Skat_Game::JUNGF;    
+            cout << "Who lost the Ramsch? " << endl;
+            list_player_names_this_hand(game.current_hand);
+            game.hand[h].loser[0] = input_and_validate(1, game.number_of_players) - 1;
+        }
+    }
+    // Can only have JUNGF if >= 60 points collected
+    if ((game.hand[h].cardpoints > 60) && (game.hand[h].cardpoints < 120)) {
+        cout << "Was there a Jungf? (y/n) " << endl;
+        if (yes()) game.hand[h].ramsch = Skat_Game::JUNGF;    
+        cout << "Who lost the Ramsch? " << endl;
         list_player_names_this_hand(game.current_hand);
-        game.hand[h].declarer = input_and_validate(1, game.number_of_players) - 1;
-    } else { // Not a Durchmarsch
-        cout << "How many players lost the Ramsch? (1, 2, 3)  " << endl;
-        switch (input_and_validate(1, 3)) {
-            case 1: 
-                game.hand[h].winlose = Skat_Game::LOSE;
-                game.hand[h].number_of_losers = 1;
-                cout << "Who lost the Ramsch? " << endl;
-                list_player_names_this_hand(game.current_hand);
-                game.hand[h].loser[0] = input_and_validate(1, game.number_of_players) - 1;
-                cout << "How many points taken? " << endl;
-                game.hand[h].cardpoints = input_and_validate(41, 120); 
-                if (game.hand[h].cardpoints > 60) {
-                    cout << "Was there a Jungf? (y/n) " << endl;
-                    if (yes()) game.hand[h].ramsch = Skat_Game::JUNGF;
-                } 
-                break;
+        game.hand[h].loser[0] = input_and_validate(1, game.number_of_players) - 1;
+    }
+    if (game.hand[h].cardpoints == 60) {
+        // If there was a JUNGF with 60 points, then there must be two losers with 60 points
+        cout << "Was there a Jungf? (y/n) " << endl;
+        if (yes()) {
+            game.hand[h].ramsch = Skat_Game::JUNGF;
+            game.hand[h].number_of_losers = 2;
+        } else {
+            cout << "How many players lost the Ramsch? (1 or 2) " << endl;
+            game.hand[h].number_of_losers = input_and_validate(1, 2);
+        }
+        cout << "Who lost the Ramsch? " << endl;
+        list_player_names_this_hand(game.current_hand);
+        game.hand[h].loser[0] = input_and_validate(1, game.number_of_players) - 1;
+        if (game.hand[h].number_of_losers == 2) {
+            cout << "Who else lost the Ramsch? " << endl;
+            game.hand[h].loser[1] = input_and_validate(1, game.number_of_players) - 1;
+        }
+    }
+    // Between 41 and 59 points collected. No JUNGF or DURCH. Either 1 or 2 players lost.
+    if ((game.hand[h].cardpoints > 40) && (game.hand[h].cardpoints < 60)) {
+        cout << "How many players lost the Ramsch? (1 or 2) " << endl;
+        game.hand[h].number_of_losers = input_and_validate(1, 2);
+        game.hand[h].winlose = Skat_Game::LOSE;
+        cout << "Who lost the Ramsch? " << endl;
+        list_player_names_this_hand(game.current_hand);
+        game.hand[h].loser[0] = input_and_validate(1, game.number_of_players) - 1;
+        if (game.hand[h].number_of_losers == 2) {
+            cout << "Who else lost the Ramsch? " << endl;
+            game.hand[h].loser[1] = input_and_validate(1, game.number_of_players) - 1;
+        } 
+    }
+    // 40 points collected mean that there were 3 losers, each at 40 points
+    if (game.hand[h].cardpoints == 40) {
+        cout << "40/40/40 Ramch." << endl;
+        game.hand[h].winlose = Skat_Game::LOSE;
+        game.hand[h].number_of_losers = 3;
+        i = 0;
+        for (int j = 0; j < 3; j++) {
+            if (game.number_of_players == 4) {  // In 4 player game, dealer didn't play
+                if (h % game.number_of_players == i) i++;
+            }
+            game.hand[h].loser[j] = i++;
+        }
+        game.hand[h].ramsch = Skat_Game::PLAIN;   
+    }
 
-            case 2: 
-                game.hand[h].winlose = Skat_Game::LOSE;
-                game.hand[h].number_of_losers = 2;
-                cout << "First player to lose the Ramsch? " << endl;
-                list_player_names_this_hand(game.current_hand);
-                game.hand[h].loser[0] = input_and_validate(1, game.number_of_players) - 1;
-                cout << "Other player to lose the Ramsch? " << endl;
-                // In 4 player games, dealer doesn't play, so don't list the dealer name
-                // Also, don't list the player name that was selected above
-                for (i = 0; i < game.number_of_players; i++) {
-                    if ( ((h % game.number_of_players != i) || (game.number_of_players == 3)) && 
-                          (game.hand[h].loser[0] != i ) )
-                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
-                }
-                game.hand[h].loser[1] = input_and_validate(1, game.number_of_players) - 1;
-                cout << "How many points taken? " << endl;
-                game.hand[h].cardpoints = input_and_validate(41, 60); 
-                if (game.hand[h].cardpoints == 60) {
-                    game.hand[h].ramsch = Skat_Game::JUNGF;
-                }
-                break;
-
-            case 3: 
-                cout << "40/40/40 Ramch." << endl;
-                game.hand[h].winlose = Skat_Game::LOSE;
-                game.hand[h].number_of_losers = 3;
-                game.hand[h].cardpoints = 40;
-                i = 0;
-                for (int j = 0; j < 3; j++) {
-                    if (game.number_of_players == 4) {  // In 4 player game, dealer didn't play
-                        if (h % game.number_of_players == i) i++;
-                    }
-                    game.hand[h].loser[j] = i++;
-                }
-                game.hand[h].ramsch = Skat_Game::PLAIN;                                
-                break;
-
-            default:
-                cout << "Invalid number of Ramsch losers." << endl;
-                break;
-        }  // How many players lost
-    }  // Not a Durchmarsch
 } // score_ramsch()
 
 void manually_score_hand(int h) {
