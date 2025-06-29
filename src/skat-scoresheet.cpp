@@ -25,6 +25,7 @@ CRMBE crmbe();
 int   input_and_validate(int min, int max);
 void  score_ramsch(int h);
 void  manually_score_hand(int h);
+void  list_player_names_this_hand(int h);
 
 
 State       state = INIT;
@@ -199,11 +200,7 @@ int main(int argc, char** argv) {
                             game.hand[game.current_hand].multipliers = Skat_Game::HAND;
                             game.hand[game.current_hand].grand_during_ramsch = true;
                             cout << "Who is the declarer? " << endl;
-                            // In 4 player games, dealer doesn't play, so don't list the dealer name
-                            for (i = 0; i < game.number_of_players; i++) {
-                                if ( (game.current_hand % game.number_of_players != i) || (game.number_of_players == 3) )
-                                    cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
-                            }
+                            list_player_names_this_hand(game.current_hand);
                             game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
                             game.hand[game.current_hand].bock = Skat_Game::NOBOCK;
                             state = HAND_SUMMARY;
@@ -254,11 +251,7 @@ int main(int argc, char** argv) {
             
             case HAND_CONTRACT:
                 cout << "Who is the declarer? " << endl;
-                // In 4 player games, dealer doesn't play, so don't list the dealer name
-                for (i = 0; i < game.number_of_players; i++) {
-                    if ( (game.current_hand % game.number_of_players != i) || (game.number_of_players == 3) )
-                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
-                }
+                list_player_names_this_hand(game.current_hand);
                 game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
                 game.set_contract(game.current_hand);
                 if (game.hand[game.current_hand].contract == Skat_Game::Skat_Game::NULLL) {
@@ -650,11 +643,7 @@ void score_ramsch(int h) {
         game.hand[h].winlose = Skat_Game::WIN;
         game.hand[h].number_of_losers = 0;
         cout << "Who won the Durchmarsch? " << endl;
-        // In 4 player games, dealer doesn't play, so don't list the dealer name
-        for (i = 0; i < game.number_of_players; i++) {
-            if ( (h % game.number_of_players != i) || (game.number_of_players == 3) )
-                cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
-        }
+        list_player_names_this_hand(game.current_hand);
         game.hand[h].declarer = input_and_validate(1, game.number_of_players) - 1;
     } else { // Not a Durchmarsch
         cout << "How many players lost the Ramsch? (1, 2, 3)  " << endl;
@@ -663,11 +652,7 @@ void score_ramsch(int h) {
                 game.hand[h].winlose = Skat_Game::LOSE;
                 game.hand[h].number_of_losers = 1;
                 cout << "Who lost the Ramsch? " << endl;
-                // In 4 player games, dealer doesn't play, so don't list the dealer name
-                for (i = 0; i < game.number_of_players; i++) {
-                    if ( (h % game.number_of_players != i) || (game.number_of_players == 3) )
-                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
-                }
+                list_player_names_this_hand(game.current_hand);
                 game.hand[h].loser[0] = input_and_validate(1, game.number_of_players) - 1;
                 cout << "How many points taken? " << endl;
                 game.hand[h].cardpoints = input_and_validate(41, 120); 
@@ -681,11 +666,7 @@ void score_ramsch(int h) {
                 game.hand[h].winlose = Skat_Game::LOSE;
                 game.hand[h].number_of_losers = 2;
                 cout << "First player to lose the Ramsch? " << endl;
-                // In 4 player games, dealer doesn't play, so don't list the dealer name
-                for (i = 0; i < game.number_of_players; i++) {
-                    if ( (h % game.number_of_players != i) || (game.number_of_players == 3) )
-                        cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
-                }
+                list_player_names_this_hand(game.current_hand);
                 game.hand[h].loser[0] = input_and_validate(1, game.number_of_players) - 1;
                 cout << "Other player to lose the Ramsch? " << endl;
                 // In 4 player games, dealer doesn't play, so don't list the dealer name
@@ -793,4 +774,13 @@ void manually_score_hand(int h) {
 
     game.hand[h].edited = 1;
 
+}
+
+void  list_player_names_this_hand(int h) {
+    int i;
+    // In 4 player games, dealer doesn't play, so don't list the dealer name
+    for (i = 0; i < game.number_of_players; i++) {
+        if ( (h % game.number_of_players != i) || (game.number_of_players == 3) )
+            cout << "  " << i + 1 << ": " << game.player_name[i] << endl;
+    }
 }
