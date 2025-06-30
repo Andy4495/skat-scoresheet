@@ -36,8 +36,8 @@ jobs:
           # zip skat-scoresheet-${{ matrix.arch }}.zip skat-scoresheet
       - uses: actions/upload-artifact@v4
         with:
-          name: skat-scoresheet-${{ matrix.arch }}.zip
-          path: ${{ github.workspace }}/src/skat-scoresheet-${{ matrix.arch }}.zip
+          name: skat-scoresheet-${{ matrix.arch }}
+          path: ${{ github.workspace }}/src/skat-scoresheet-${{ matrix.arch }}
           # compression-level: 0
       - name: Print the job summary
         if: ${{ inputs.message }}
