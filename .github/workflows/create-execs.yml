@@ -17,6 +17,10 @@ jobs:
         include:
           - runner-name: ubuntu-latest
             arch: linux-x86_64
+          - runner-name: macos-13
+            arch: macos-x86_64
+          - runner-name: macos-latest
+            arch: macos-arm64
     runs-on: ${{ matrix.runner-name }}
     steps:
       - uses: actions/checkout@v4
