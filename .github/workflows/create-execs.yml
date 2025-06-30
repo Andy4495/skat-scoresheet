@@ -1,0 +1,44 @@
+# Build the program across the supported platforms
+
+name: Create-Executables
+
+on: 
+  workflow_dispatch:
+    inputs:
+      message:
+        description: Message to display in job summary
+        required: false
+        type: string
+
+jobs:
+  create-execs: 
+    strategy:
+      matrix:
+        include:
+          - runner-name: ubuntu-latest
+            arch: linux-x86_64
+    runs-on: ${{ matrix.runner-name }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: print the platform
+        run: |
+          uname -a
+          uname -a >>$GITHUB_STEP_SUMMARY
+      - name: make clean
+        run: | 
+          cd src
+          make clean
+      - name:  make verbose
+        run: |
+          cd src
+          make verbose
+          zip skat-scoresheet-${{ matrix.arch }}.zip skat-scoresheet
+      - uses: actions/upload-artifact@v4
+        with:
+          name: skat-scoresheet-${{ matrix.arch }}.zip
+          path: ${{ github.workspace }}/src/skat-scoresheet-${{ matrix.arch }}.zip
+          compression-level: 0
+      - name: Print the job summary
+        if: ${{ inputs.message }}
+        run: |
+          echo ${{ inputs.message }} >>$GITHUB_STEP_SUMMARY
