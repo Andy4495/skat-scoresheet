@@ -36,12 +36,12 @@ jobs:
         run: |
           cd src
           make verbose
-          mv skat-scoresheet skat-scoresheet-${{ matrix.arch }}
+          # mv skat-scoresheet skat-scoresheet-${{ matrix.arch }}
           # zip skat-scoresheet-${{ matrix.arch }}.zip skat-scoresheet
       - uses: actions/upload-artifact@v4
         with:
           name: skat-scoresheet-${{ matrix.arch }}
-          path: ${{ github.workspace }}/src/skat-scoresheet-${{ matrix.arch }}
+          path: ${{ github.workspace }}/src/skat-scoresheet
           # compression-level: 0
       - name: Print the job summary
         if: ${{ inputs.message }}
