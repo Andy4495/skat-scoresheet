@@ -71,7 +71,7 @@ These rules are enforced by the players, not the scoresheet, so there is no code
 
 ## To-Do
 
-Create a web-based HTML/JavaScript version
+Create a GUI version.
 
 ## Future Features
 
@@ -83,7 +83,7 @@ Features that may be added in a future release:
 
 ## Building
 
-The code is fully text-based and should work on any modern Unix/Linux-based system. I have compiled and tested it on MacOS (clang version 12.0.0) and Ubuntu 24 (GNU version 13.3.0).
+The code is fully text-based and should work on any modern Unix/Linux-based system. I have compiled and tested it on MacOS (clang versions 15.0.0 and 17.0.0) and Ubuntu 24 (GNU version 13.3.0).
 
 To build:
 
