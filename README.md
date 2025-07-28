@@ -17,8 +17,8 @@ A [web-based version][8] with similar functionality is in progress.
 - Player #1 is the first dealer
 - In four player games, the dealer sits out play for that hand
 - Declaring
-  - Must play Hand in order to declare Schneider or Schwarz
-  - Suit or Grand Open bid only allowed with Hand bid and implies that Schneider and Schwarz are announced
+  - Must play Hand in order to announce Schneider or Schwarz
+  - Suit Open or Grand Open bid only allowed with Hand bid and implies that Schneider and Schwarz are announced
 - Scoring
   - Losses count double for non-Ramsch contracts
   - Grand base value is 24
