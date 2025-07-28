@@ -1,0 +1,206 @@
+# Test file for skat-scoresheet
+# Need to first parse this file and remove comment lines starting with '#':
+#
+#   sed '/^#/d' <test-3player-null-input.txt  | ./skat-scoresheet      
+#   
+#***** 
+#       This test file focuses on null bids in a 3-player game
+#*****
+#
+#### Game Setup ####
+# Ramsch-only
+n
+# Number of players
+3
+# Player names
+Player1
+Player-2
+Player-33
+# Bock for lost Kontra/Rekontra 
+y
+# Play Ramsch if nobody bids 18
+y
+# Play Ramsch after Bock
+y
+# Allow Grand Hand during Ramsch round 
+y
+# Bock for 60/60 tie 
+y
+# Bock for 120 raw hand score 
+y
+# Bock for lost Kontra/Rekontra 
+y
+# Bock for Schneider 
+y
+# Only create Bock for Schneider if there currently are no Bock 
+y
+# Bock for two rounds without Bock
+y
+# Only one Bock create per hand 
+y
+# Is game setup correct
+y
+#### Hand 1 ####
+# Bid
+24
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Will it be hand?
+n
+# Will it be open?
+y
+# Is hand play information correct?
+y
+# Did declarer win the hand?
+y
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 2 ####
+# Bid
+24
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Will it be hand?
+y
+# Will it be open?
+n
+# Is hand play information correct?
+y
+# Did declarer win the hand?
+y
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 3 ####
+# Bid
+24
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Will it be hand?
+y
+# Will it be open?
+y
+# Is hand play information correct?
+y
+# Did declarer win the hand?
+y
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 4 ####
+# Start bock round (previous hand had Rekontra)
+# Bid
+35
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Will it be hand?
+n
+# Will it be open?
+n
+# Overbid. Need to play Hand or Open with Null bid of 35.
+# Re-enter bid and Contract
+# Bid
+36
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Must be played open
+# Will it be hand?
+n
+# Is hand play information correct?
+y
+# Did declarer win the hand?
+y
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 5 ####
+# Bid
+47
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Must be Open and Hand
+# Is hand play information correct?
+y
+# Did declarer win the hand?
+y
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 6 ####
+# Bid
+60
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Overbid. Re-enter bid and Contract
+# Bid
+20
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Will it be hand?
+n
+# Will it be open?
+n
+# Is hand play information correct?
+y
+# Did declarer win the hand?
+y
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+c
+#### Hand 7 ####
+# Bid
+27
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Will it be hand?
+n
+# Will it be open?
+n
+# Overbid. Re-enter bid and contract.
+# Bid
+27
+# Player number that won the bid
+1
+# Contract -- NULL
+n
+# Will it be hand?
+n
+# Will it be open?
+y
+# Is hand play information correct?
+y
+# Did declarer win the hand?
+y
+# Was there a Kontra?
+n
+# c to continue game, r to rescore, e to end
+e
+#### All hands have been played ####
+# Any hands that need to be corrected
+n
+# Final Score Sheet: 

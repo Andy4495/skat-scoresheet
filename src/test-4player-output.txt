@@ -396,7 +396,7 @@ With or without how many?
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
                                   Totals:      132 |       44 |       33 |     -924
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-There is 1 Ramsch hand  remaining.
+There is 1 Ramsch hand remaining.
 =======================
 Starting hand number 11
 =======================
@@ -765,7 +765,7 @@ Who lost the Ramsch?
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
                                   Totals:     -385 |      280 |      -47 |    -1044
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-There is 1 Ramsch hand  remaining.
+There is 1 Ramsch hand remaining.
 =======================
 Starting hand number 20
 =======================
@@ -1165,7 +1165,7 @@ Who lost the Ramsch?
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | -------- | ---- |
                                   Totals:     -433 |      130 |       13 |     -978
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-There is 1 Ramsch hand  remaining.
+There is 1 Ramsch hand remaining.
 =======================
 Starting hand number 28
 =======================

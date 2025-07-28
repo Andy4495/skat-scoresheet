@@ -4,7 +4,7 @@
 #   sed '/^#/d' <test-4player-input.txt  | ./skat-scoresheet      
 #   
 #***** 
-#       This test file focuses on a regular (non Schieberamsch) 4-player game
+#       This test file focuses on a regular 4-player game
 #       This also tests adding bocks manually with the c/r/m/b/e question at end of a hand
 #*****
 #

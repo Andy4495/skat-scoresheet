@@ -255,13 +255,63 @@ int main(int argc, char** argv) {
                 game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
                 game.set_contract(game.current_hand);
                 if (game.hand[game.current_hand].contract == Skat_Game::Skat_Game::NULLL) {
-                    cout << "Will it be played Hand? (y/n) " << endl;
-                    if (yes()) {
-                        game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
+                    if (game.hand[game.current_hand].bid <= 23) {
+                        cout << "Will it be played Hand? (y/n) " << endl;
+                        if (yes()) {
+                            game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
+                        }
+                        cout << "Will it be played Open? (y/n) " << endl;
+                        if (yes()) {
+                            game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
+                        }
+                        state = HAND_SUMMARY;
+                        break;
                     }
-                    cout << "Will it be played Open? (y/n) " << endl;
-                    if (yes()) {
+                    if (game.hand[game.current_hand].bid <= 35) {
+                        cout << "Will it be played Hand? (y/n) " << endl;
+                        if (yes()) {
+                            game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
+                        }
+                        cout << "Will it be played Open? (y/n) " << endl;
+                        if (yes()) {
+                            game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
+                        }
+                        // Bid from 24 to 35 needs to be Hand or Open
+                        if ( (game.hand[game.current_hand].multipliers & Skat_Game::HAND) ||
+                             (game.hand[game.current_hand].multipliers & Skat_Game::OPEN) ) {
+                                state = HAND_SUMMARY;
+                                break;
+                        } else {
+                            cout << "Overbid. Need to play Hand or Open with Null bid of "
+                                 << game.hand[game.current_hand].bid 
+                                 << ".  Re-enter bid and contract." << endl;
+                            state = NEW_HAND_BID;
+                            break;
+                        }
+                    }
+                    if (game.hand[game.current_hand].bid <= 46) {
+                        cout << "Null bid of " << game.hand[game.current_hand].bid
+                             << " must be played Open." << endl;
                         game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
+                        cout << "Will it be played Hand? (y/n) " << endl;
+                        if (yes()) {
+                            game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
+                        }
+                        state = HAND_SUMMARY;
+                        break;
+                    }
+                    if (game.hand[game.current_hand].bid <= 59) {
+                        cout << "Null bid of " << game.hand[game.current_hand].bid
+                        << " must be played Hand and Open." << endl;
+                        game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
+                        game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
+                        state = HAND_SUMMARY;
+                        break;
+                    }
+                    if (game.hand[game.current_hand].bid > 59) {
+                        cout << "Cannot play Null with a bid > 59. Re-enter bid and contract." << endl; 
+                        state = NEW_HAND_BID;
+                        break;
                     }
                 } else { // Suit or Grand
                     cout << "Will it be played Hand? (y/n) " << endl;
@@ -394,7 +444,7 @@ int main(int argc, char** argv) {
                                     } else {
                                             cout << "There ";
                                             if (game.ramsch_count == 1) {
-                                                cout << "is 1 Ramsch hand  ";
+                                                cout << "is 1 Ramsch hand ";
                                             } else {
                                                 cout << "are " << game.ramsch_count << " Ramsch hands ";
                                             }

@@ -244,7 +244,7 @@ Who else lost the Ramsch?
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      132 |       21 |      459
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-There is 1 Ramsch hand  remaining.
+There is 1 Ramsch hand remaining.
 ======================
 Starting hand number 7
 ======================

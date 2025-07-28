@@ -4,7 +4,7 @@
 #   sed '/^#/d' <test-3player-input.txt  | ./skat-scoresheet      
 #   
 #***** 
-#       This test file focuses on a regular (non Schieberamsch) 3-player game
+#       This test file focuses on a regular 3-player game
 #*****
 #
 #### Game Setup ####

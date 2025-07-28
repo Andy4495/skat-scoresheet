@@ -1,0 +1,301 @@
+Welcome to the Skat Scoresheet v1.1.1!
+The scoresheet supports up to 99 hands in a game
+Will this be a Ramsch-only game? (y/n) 
+Enter number of players (3 or 4): 
+Enter Player 1 name (this is the first dealer): 
+Enter Player 2 name: 
+Enter Player 3 name: 
+Configure house rules for this game.
+Are Kontra and Rekontra allowed? (y/n) 
+Play a Ramsch hand if nobody bids 18? (y/n) 
+Play a Ramsch round after a Bock round? (y/n) 
+Allow Grand Hand bid during Ramsch round? (y/n) 
+Create Bock round for 60/60 tie? (y/n) 
+Create Bock round for 120 raw hand score? (y/n) 
+Create Bock round for lost Kontra/Rekontra? (y/n) 
+Create Bock round for Schneider? (y/n) 
+Only have Schneider create Bock round if there are currently no Bock? (y/n) 
+Create Bock round if there are two full rounds starting with Player 1 without Bock? (y/n) 
+Limit each hand to create at most one Bock round? (y/n) 
+Game will consist of 3 players named: 
+Player1
+Player-2
+Player-3
+This will be a regular game with house rules of: 
+Kontra and Rekontra are allowed.
+Play a Ramsch hand if nobody bids 18.
+Ramsch round is played after a Bock round.
+  - Grand Hand bid allowed during Ramsch Round.
+Bock round created for 60/60 card points tie.
+Bock round created for 120 raw hand socre.
+Bock round created for lost Kontra/Rekontra.
+Bock round created for Schneider, but only if no Bocks currently.
+Bock round created if there are two full rounds without Bock.
+Maximum one Bock round created per hand.
+Is this correct? (y/n) 
+======================
+Starting hand number 1
+======================
+Player1 is the dealer
+Player-2 listens and will lead
+Player-3 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Will it be played Hand? (y/n) 
+Will it be played Open? (y/n) 
+Hand summary: 
+Player1 plays Null Open on a bid of 24
+Is this correct? (y/n) 
+>>> Player-2 leads. <<<
+Scoring the hand after play...
+Did Player1 win the Null? (y/n) 
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  24 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:       46 |        0 |        0
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
+======================
+Starting hand number 2
+======================
+Player-2 is the dealer
+Player-3 listens and will lead
+Player1 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Will it be played Hand? (y/n) 
+Will it be played Open? (y/n) 
+Hand summary: 
+Player1 plays Null Hand on a bid of 24
+Is this correct? (y/n) 
+>>> Player-3 leads. <<<
+Scoring the hand after play...
+Did Player1 win the Null? (y/n) 
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  24 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  2 |  24 |   | Null     | H      |    |       35 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:       81 |        0 |        0
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
+======================
+Starting hand number 3
+======================
+Player-3 is the dealer
+Player1 listens and will lead
+Player-2 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Will it be played Hand? (y/n) 
+Will it be played Open? (y/n) 
+Hand summary: 
+Player1 plays Null Hand Open on a bid of 24
+Is this correct? (y/n) 
+>>> Player1 leads. <<<
+Scoring the hand after play...
+Did Player1 win the Null? (y/n) 
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  24 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  2 |  24 |   | Null     | H      |    |       35 |        0 |        0 |      |
+|  3 |  24 |   | Null     | HO     |    |       59 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      140 |        0 |        0
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
+======================
+Starting hand number 4
+======================
+Player1 is the dealer
+Player-2 listens and will lead
+Player-3 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Will it be played Hand? (y/n) 
+Will it be played Open? (y/n) 
+Overbid. Need to play Hand or Open with Null bid of 35.  Re-enter bid and contract.
+======================
+Starting hand number 4
+======================
+Player1 is the dealer
+Player-2 listens and will lead
+Player-3 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Null bid of 36 must be played Open.
+Will it be played Hand? (y/n) 
+Hand summary: 
+Player1 plays Null Open on a bid of 36
+Is this correct? (y/n) 
+>>> Player-2 leads. <<<
+Scoring the hand after play...
+Did Player1 win the Null? (y/n) 
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  24 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  2 |  24 |   | Null     | H      |    |       35 |        0 |        0 |      |
+|  3 |  24 |   | Null     | HO     |    |       59 |        0 |        0 |      |
+|  4 |  36 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      186 |        0 |        0
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
+======================
+Starting hand number 5
+======================
+Player-2 is the dealer
+Player-3 listens and will lead
+Player1 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Null bid of 47 must be played Hand and Open.
+Hand summary: 
+Player1 plays Null Hand Open on a bid of 47
+Is this correct? (y/n) 
+>>> Player-3 leads. <<<
+Scoring the hand after play...
+Did Player1 win the Null? (y/n) 
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  24 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  2 |  24 |   | Null     | H      |    |       35 |        0 |        0 |      |
+|  3 |  24 |   | Null     | HO     |    |       59 |        0 |        0 |      |
+|  4 |  36 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  5 |  47 |   | Null     | HO     |    |       59 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      245 |        0 |        0
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
+======================
+Starting hand number 6
+======================
+Player-3 is the dealer
+Player1 listens and will lead
+Player-2 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Cannot play Null with a bid > 59. Re-enter bid and contract.
+======================
+Starting hand number 6
+======================
+Player-3 is the dealer
+Player1 listens and will lead
+Player-2 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Will it be played Hand? (y/n) 
+Will it be played Open? (y/n) 
+Hand summary: 
+Player1 plays Null on a bid of 20
+Is this correct? (y/n) 
+>>> Player1 leads. <<<
+Scoring the hand after play...
+Did Player1 win the Null? (y/n) 
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  24 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  2 |  24 |   | Null     | H      |    |       35 |        0 |        0 |      |
+|  3 |  24 |   | Null     | HO     |    |       59 |        0 |        0 |      |
+|  4 |  36 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  5 |  47 |   | Null     | HO     |    |       59 |        0 |        0 |      |
+|  6 |  20 |   | Null     |        |    |       23 |        0 |        0 |      |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      268 |        0 |        0
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
+This hand created new Bocks.
+There are 3 Bocks remaining.
+======================
+Starting hand number 7
+======================
+This hand is Bock. Scores double.
+Player1 is the dealer
+Player-2 listens and will lead
+Player-3 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Will it be played Hand? (y/n) 
+Will it be played Open? (y/n) 
+Overbid. Need to play Hand or Open with Null bid of 27.  Re-enter bid and contract.
+======================
+Starting hand number 7
+======================
+This hand is Bock. Scores double.
+Player1 is the dealer
+Player-2 listens and will lead
+Player-3 speaks
+Enter winning bid (0 for Ramsch): 
+Who is the declarer? 
+  1: Player1
+  2: Player-2
+  3: Player-3
+Enter contract (C, S, H, D, G, N): 
+Will it be played Hand? (y/n) 
+Will it be played Open? (y/n) 
+Hand summary: 
+Player1 plays Null Open on a bid of 27
+Is this correct? (y/n) 
+>>> Player-2 leads. <<<
+Scoring the hand after play...
+Did Player1 win the Null? (y/n) 
+Was there a Kontra? (y/n) 
+|  # | Bid | M | Contract | HOSAZA | KR |  Player1 | Player-2 | Player-3 | Bock |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+|  1 |  24 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  2 |  24 |   | Null     | H      |    |       35 |        0 |        0 |      |
+|  3 |  24 |   | Null     | HO     |    |       59 |        0 |        0 |      |
+|  4 |  36 |   | Null     |  O     |    |       46 |        0 |        0 |      |
+|  5 |  47 |   | Null     | HO     |    |       59 |        0 |        0 |      |
+|  6 |  20 |   | Null     |        |    |       23 |        0 |        0 |      |
+|  7 |  27 |   | Null     |  O     |    |       92 |        0 |        0 |  B   |
+| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
+                                  Totals:      360 |        0 |        0
+This hand was Bock. 
+Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
+***************************
+All hands have been played.
+Are there any hand scores that need to be corrected? (y/n) 
+Congratulations -- game has completed.
+Final Scoring...
+Player1: 360
+Player-2: 0
+Player-3: 0
+Player Player1 won.
