@@ -22,7 +22,7 @@ y
 y
 #### Hand 1 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -37,7 +37,7 @@ y
 c
 #### Hand 2 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -46,7 +46,7 @@ y
 c
 #### Hand 3 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -59,7 +59,7 @@ n
 c
 #### Hand 4 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -72,7 +72,7 @@ y
 c
 #### Hand 5 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -85,7 +85,7 @@ y
 c
 #### Hand 6 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -100,7 +100,7 @@ y
 c
 #### Hand 7 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -115,7 +115,7 @@ y
 c
 #### Hand 8 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -130,7 +130,7 @@ y
 c
 #### Hand 9 ####
 # Grand hand during ramsch round?
-y
+g
 # Declarer?
 1
 # Is hand play information correct?
@@ -143,7 +143,7 @@ y
 c
 #### Hand 10 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;
@@ -156,11 +156,11 @@ y
 c
 #### Hand 11 ####
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 n
 # Grand hand during ramsch round?
-n
+r
 # Is hand play information correct?
 y
 #  cout << "Highest card points collected? " << endl;

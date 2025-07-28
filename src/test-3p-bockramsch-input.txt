@@ -136,8 +136,8 @@ n
 c
 #### Hand 5 ####
 # End of Bock round, start Ramsch Round
-# Grand hand during ramsch round?
-n
+# Ramsch or Grand hand during ramsch round?
+r
 # Is hand play information correct?
 y
 # cout << "Highest card points collected? " << endl;
@@ -157,8 +157,8 @@ n
 # c to continue game, r to rescore, e to end
 c
 #### Hand 6 ####
-# Grand hand during ramsch round?
-n
+# Ramsch or Grand hand during ramsch round?
+r
 # Is hand play information correct?
 y
 # cout << "Highest card points collected? " << endl;
@@ -172,8 +172,8 @@ y
 # c to continue game, r to rescore, e to end
 c
 #### Hand 7 ####
-# Grand hand during ramsch round?
-y
+# Ramsch or Grand hand during ramsch round?
+g
 # Who is declarer?
 3
 # Is hand play information correct?

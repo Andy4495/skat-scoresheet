@@ -176,7 +176,7 @@ There are 3 Bocks remaining.
 Starting hand number 5
 ======================
 Player-2 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -220,7 +220,7 @@ There are 2 Ramsch hands remaining.
 Starting hand number 6
 ======================
 Player-3 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -249,7 +249,7 @@ There is 1 Ramsch hand remaining.
 Starting hand number 7
 ======================
 Player1 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Who is the declarer? 
   1: Player1
   2: Player-2

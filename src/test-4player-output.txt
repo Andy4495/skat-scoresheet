@@ -286,7 +286,7 @@ End of a Bock round. Next hand starts a Ramsch round
 Starting hand number 8
 ======================
 Player-4 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -336,7 +336,7 @@ There are 3 Ramsch hands remaining.
 Starting hand number 9
 ======================
 Player1 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -368,7 +368,7 @@ There are 2 Ramsch hands remaining.
 Starting hand number 10
 =======================
 Player-2 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Who is the declarer? 
   1: Player1
   3: Player-3
@@ -401,7 +401,7 @@ There is 1 Ramsch hand remaining.
 Starting hand number 11
 =======================
 Player-3 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -650,7 +650,7 @@ There are 4 Bocks remaining.
 Starting hand number 17
 =======================
 Player1 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -689,7 +689,7 @@ There are 3 Ramsch hands remaining.
 Starting hand number 18
 =======================
 Player-2 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -729,7 +729,7 @@ There are 2 Ramsch hands remaining.
 Starting hand number 19
 =======================
 Player-3 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -770,7 +770,7 @@ There is 1 Ramsch hand remaining.
 Starting hand number 20
 =======================
 Player-4 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -1026,7 +1026,7 @@ End of a Bock round. Next hand starts a Ramsch round
 Starting hand number 25
 =======================
 Player1 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -1073,7 +1073,7 @@ There are 3 Ramsch hands remaining.
 Starting hand number 26
 =======================
 Player-2 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -1121,7 +1121,7 @@ There are 2 Ramsch hands remaining.
 Starting hand number 27
 =======================
 Player-3 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -1170,7 +1170,7 @@ There is 1 Ramsch hand remaining.
 Starting hand number 28
 =======================
 Player-4 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -1528,7 +1528,7 @@ End of a Bock round. Next hand starts a Ramsch round
 Starting hand number 34
 =======================
 Player-2 is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 

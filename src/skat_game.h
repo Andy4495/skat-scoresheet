@@ -35,6 +35,10 @@ public:
     enum    Ramsch_Special {PLAIN = -1, JUNGF = -2, DURCHMARSCH = 99};
     enum    Win_Lose {LOSE = -2, WIN = 1};
     enum    Bock_Type {NOBOCK = 1, BOCK = 2};
+    int     SCORE_NULL_PLAIN     = 23;
+    int     SCORE_NULL_HAND      = 35;
+    int     SCORE_NULL_OPEN      = 46;
+    int     SCORE_NULL_HAND_OPEN = 59; 
     struct {
         bool    nobody_bids_18_play_ramsch;
         bool    kontrare_allowed;

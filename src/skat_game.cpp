@@ -45,13 +45,13 @@ void Skat_Game::calculate_hand_score(int h) {
    // It is up to the players to declare an overbid on NULL, since it is obvious before the hand starts play
    if (hand[h].contract == NULLL) {
       if (hand[h].multipliers == OPEN) 
-        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 46;
+        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * SCORE_NULL_OPEN;
       else if (hand[h].multipliers == HAND) 
-        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 35;
+        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * SCORE_NULL_HAND;
       else if (hand[h].multipliers == (OPEN | HAND)) 
-        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 59;
+        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * SCORE_NULL_HAND_OPEN;
       else 
-        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * 23;
+        hand[h].score[hand[h].declarer] = hand[h].bock * hand[h].kontrare * hand[h].winlose * SCORE_NULL_PLAIN;
    } else {
       // Calculate Suit and Grand contracts score
       if (hand[h].contract != RAMSCH) { 

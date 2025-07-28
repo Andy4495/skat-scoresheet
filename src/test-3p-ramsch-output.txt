@@ -18,7 +18,7 @@ Is this correct? (y/n)
 Starting hand number 1
 ======================
 PlayerA is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -41,7 +41,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 2
 ======================
 PlayerBB is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -60,7 +60,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 3
 ======================
 PlayerCC is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -84,7 +84,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 4
 ======================
 PlayerA is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -109,7 +109,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 5
 ======================
 PlayerBB is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -135,7 +135,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 6
 ======================
 PlayerCC is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -163,7 +163,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 7
 ======================
 PlayerA is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -192,7 +192,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 8
 ======================
 PlayerBB is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -222,7 +222,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 9
 ======================
 PlayerCC is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Who is the declarer? 
   1: PlayerA
   2: PlayerBB
@@ -253,7 +253,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 10
 =======================
 PlayerA is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -285,7 +285,7 @@ Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand
 Starting hand number 11
 =======================
 PlayerBB is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 
@@ -293,7 +293,7 @@ Is this correct? (y/n)
 Starting hand number 11
 =======================
 PlayerBB is the dealer
-This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) 
+Will this be Ramsch or Grand Hand? (r/g) 
 Hand summary: 
 This hand will be played Ramsch.
 Is this correct? (y/n) 

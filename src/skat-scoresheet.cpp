@@ -15,12 +15,13 @@
 #include <string.h>
 #include <limits>
 
-enum CRMBE  {RESCOREHAND, CONTINUEGAME, MANUALSCORE, NEWBOCK, ENDTHEGAME};
+enum CRMBE  {CONTINUEGAME, RESCOREHAND, MANUALSCORE, NEWBOCK, ENDTHEGAME};
 enum State {INIT, NEW_HAND_BID, HAND_CONTRACT, HAND_SUMMARY, HAND_THROWN,
             SCORE_HAND, MANUALLY_SCORE_HAND, END_GAME, EDIT_GAME, 
             PRINT_GAME_STATUS, GAME_COMPLETED};
+enum YESNOTYPE {YESNO, GRANDRAMSCH};
 
-int   yes();
+int   yes(YESNOTYPE t = YESNO);
 CRMBE crmbe();
 int   input_and_validate(int min, int max);
 void  score_ramsch(int h);
@@ -194,8 +195,8 @@ int main(int argc, char** argv) {
                 if (game.ramschonly || game.ramsch_count) {
                     cout << game.player_name[game.current_hand % game.number_of_players] << " is the dealer" << endl;
                     if (game.rules.grand_hand_during_ramschround) {
-                        cout << "This is normally a Ramsch hand. Does anyone bid Grand Hand instead? (y/n) " << endl;
-                        if (yes()) {  // Grand Hand during Ramsch
+                        cout << "Will this be Ramsch or Grand Hand? (r/g) " << endl;
+                        if (yes(GRANDRAMSCH)) {  // Grand Hand during Ramsch
                             game.hand[game.current_hand].contract = Skat_Game::GRAND;
                             game.hand[game.current_hand].multipliers = Skat_Game::HAND;
                             game.hand[game.current_hand].grand_during_ramsch = true;
@@ -255,7 +256,7 @@ int main(int argc, char** argv) {
                 game.hand[game.current_hand].declarer = input_and_validate(1, game.number_of_players) - 1;
                 game.set_contract(game.current_hand);
                 if (game.hand[game.current_hand].contract == Skat_Game::Skat_Game::NULLL) {
-                    if (game.hand[game.current_hand].bid <= 23) {
+                    if (game.hand[game.current_hand].bid <= game.SCORE_NULL_PLAIN) {
                         cout << "Will it be played Hand? (y/n) " << endl;
                         if (yes()) {
                             game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
@@ -267,7 +268,7 @@ int main(int argc, char** argv) {
                         state = HAND_SUMMARY;
                         break;
                     }
-                    if (game.hand[game.current_hand].bid <= 35) {
+                    if (game.hand[game.current_hand].bid <= game.SCORE_NULL_HAND) {
                         cout << "Will it be played Hand? (y/n) " << endl;
                         if (yes()) {
                             game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
@@ -276,7 +277,7 @@ int main(int argc, char** argv) {
                         if (yes()) {
                             game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
                         }
-                        // Bid from 24 to 35 needs to be Hand or Open
+                        // Bid greater than SCORE_NULL_PLAIN to SCORE_NULL_HAND needs to be Hand or Open
                         if ( (game.hand[game.current_hand].multipliers & Skat_Game::HAND) ||
                              (game.hand[game.current_hand].multipliers & Skat_Game::OPEN) ) {
                                 state = HAND_SUMMARY;
@@ -289,7 +290,7 @@ int main(int argc, char** argv) {
                             break;
                         }
                     }
-                    if (game.hand[game.current_hand].bid <= 46) {
+                    if (game.hand[game.current_hand].bid <= game.SCORE_NULL_OPEN) {
                         cout << "Null bid of " << game.hand[game.current_hand].bid
                              << " must be played Open." << endl;
                         game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
@@ -300,16 +301,17 @@ int main(int argc, char** argv) {
                         state = HAND_SUMMARY;
                         break;
                     }
-                    if (game.hand[game.current_hand].bid <= 59) {
+                    if (game.hand[game.current_hand].bid <= game.SCORE_NULL_HAND_OPEN) {
                         cout << "Null bid of " << game.hand[game.current_hand].bid
-                        << " must be played Hand and Open." << endl;
+                             << " must be played Hand and Open." << endl;
                         game.hand[game.current_hand].multipliers |= Skat_Game::HAND;
                         game.hand[game.current_hand].multipliers |= Skat_Game::OPEN;
                         state = HAND_SUMMARY;
                         break;
                     }
-                    if (game.hand[game.current_hand].bid > 59) {
-                        cout << "Cannot play Null with a bid > 59. Re-enter bid and contract." << endl; 
+                    if (game.hand[game.current_hand].bid > game.SCORE_NULL_HAND_OPEN) {
+                        cout << "Cannot play Null with a bid > " << game.SCORE_NULL_HAND_OPEN 
+                             << ". Re-enter bid and contract." << endl; 
                         state = NEW_HAND_BID;
                         break;
                     }
@@ -587,7 +589,10 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-int yes() {
+int yes(YESNOTYPE t) {
+    // result of 1 indicates the first option
+    // 1 -> Yes for Yes/No
+    // 1 -> Grand for Grand/Ramsch
     int result = 0;
     char c;
     bool valid = false;
@@ -597,22 +602,41 @@ int yes() {
         cin.clear(); // Clear the error flags
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
 
-        switch (c) {
-            case 'Y':
-            case 'y':
-              result = 1;
-              valid = true;
-              break;
-            
-            case 'N':
-            case 'n': 
-                valid = true;
-              break;
-    
-            default:
-              cout << "Invalid response. Enter y or n: " << endl;
-              break;
-        } 
+        if (t == YESNO) {
+            switch (c) {
+                case 'Y':
+                case 'y':
+                    result = 1;
+                    valid = true;
+                    break;
+                
+                case 'N':
+                case 'n': 
+                    valid = true;
+                    break;
+        
+                default:
+                    cout << "Invalid response. Enter y or n: " << endl;
+                    break;
+            } 
+        } else {  // GRANDRAMSCH
+            switch (c) {
+                case 'G':
+                case 'g': 
+                    result = 1;
+                    valid = true;
+                    break;
+                    
+                case 'R':
+                case 'r':
+                    valid = true;
+                    break;
+
+                default:
+                    cout << "Invalid response. Enter r or g: " << endl;
+                    break;
+            }             
+        }
     }
 
     return result;
