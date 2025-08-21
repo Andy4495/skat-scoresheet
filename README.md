@@ -18,12 +18,13 @@ A [web-based version][8] with similar functionality is in progress.
 - In four player games, the dealer sits out play for that hand
 - Declaring
   - Must play Hand in order to announce Schneider or Schwarz
-  - Suit Open or Grand Open bid only allowed with Hand bid and implies that Schneider and Schwarz are announced
+  - An Open bid (Suit or Grand) is only allowed with Hand bid and implies that Schneider and Schwarz are announced
+    - Null Open does not require Hand bid (see Null scoring below)
 - Scoring
   - Losses count double for non-Ramsch contracts
   - Grand base value is 24
-  - Opponents must take 31 to avoid Schneider
-  - Declarer must collect at least 31 points to avoid Schneider
+  - Opponents must collect at least 31 card points to avoid Schneider
+  - Declarer must collect at least 31 card points to avoid Schneider
   - Null scoring:
     - Standard bid: 23
     - Hand not Open: 35
@@ -46,13 +47,14 @@ A [web-based version][8] with similar functionality is in progress.
 
 - Kontra and Rekontra allowed
 - Ramsch
+  - Ramsch hand is played if nobody bids 18
   - Play a Ramsch round (3 or 4 hands, depending on number of players) after playing a Bock round
   - During a Ramsch round, each player has a chance to bid a Grand Hand, in which case the declarer leads and the hand is scored as if it were a regular Grand Hand contract (with Bock and Kontra exceptions noted above)
   - Entire game can be played as Ramsch rounds
 - Bock round
   - A new Bock round (3 or 4 hands, depending on number of players) is created in the following cases:
     - For suit and Grand contracts:
-      - Declarer and opponents each take 60 points
+      - Declarer and opponents each collect 60 card points
       - Raw hand score >= 120 (before Bock/Lose/Kontra/Re doubling)
     - Successful Kontra (declarer loses)
     - Any Rekontra (i.e. declarer says Re to opponent's Kontra)
@@ -61,7 +63,6 @@ A [web-based version][8] with similar functionality is in progress.
     - Two full non-Ramsch rounds of hands (starting with Player 1) without creating a Bock round
   - A maximum of one Bock round can be created per hand
     - For example, a 120 raw hand score with a Schneider only creates 1 Bock round
-  - Ramsch hand is played if nobody bids 18
 
 ### Player-enforced rules
 
@@ -87,7 +88,7 @@ The code is fully text-based and should work on any modern Unix/Linux-based syst
 
 To build:
 
-``` shell
+```shell
 cd src
 make
 ```
