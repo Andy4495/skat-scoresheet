@@ -23,7 +23,7 @@ jobs:
             arch: macos-arm64
     runs-on: ${{ matrix.runner-name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: print the platform
         run: |
           uname -a
