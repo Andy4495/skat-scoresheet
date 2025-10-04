@@ -1,4 +1,4 @@
-Welcome to the Skat Scoresheet v1.1.1!
+Welcome to the Skat Scoresheet v1.1.3!
 The scoresheet supports up to 99 hands in a game
 Will this be a Ramsch-only game? (y/n) 
 Enter number of players (3 or 4): 
