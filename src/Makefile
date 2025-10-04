@@ -31,7 +31,7 @@ verbose: all
 skat_game.o: skat_game.cpp skat_game.h
 	$(CC) $(FLAGS) skat_game.cpp 
 
-skat-scoresheet.o: skat-scoresheet.cpp skat_game.o
+skat-scoresheet.o: skat-scoresheet.cpp skat_game.o version.h
 	$(CC) $(FLAGS) skat-scoresheet.cpp 
 
 clean:
