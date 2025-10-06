@@ -5,6 +5,10 @@ name: Create-Executables
 on: 
   workflow_dispatch:
     inputs:
+      version:
+        description: Version number to release (e.g. v1.1.1)
+        required: true
+        type: string
       message:
         description: Message to display in job summary
         required: false
@@ -24,6 +28,14 @@ jobs:
     runs-on: ${{ matrix.runner-name }}
     steps:
       - uses: actions/checkout@v5
+      - run: |
+          cd src
+          cat {{ inputs.version }} >version.txt
+          grep 'VERSION =' version.h | awk '{print $5}' | sed 's/\"//;s/\"//;s/;//' >version2.txt
+          diff version.txt version2.txt
+          if [ $? -ne 0 ] ; then
+            exit 1
+          fi
       - name: print the platform
         run: |
           uname -a
