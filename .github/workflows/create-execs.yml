@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v5
       - run: |
           cd src
-          echo {{ inputs.version }} >version.txt
+          echo ${{ inputs.version }} >version.txt
           grep 'VERSION =' version.h | awk '{print $5}' | sed 's/\"//;s/\"//;s/;//' >version2.txt
           diff version.txt version2.txt
           if [ $? -ne 0 ] ; then
