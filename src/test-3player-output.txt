@@ -1,4 +1,4 @@
-Welcome to the Skat Scoresheet v1.1.3!
+Welcome to the Skat Scoresheet v1.1.4!
 The scoresheet supports up to 99 hands in a game
 Will this be a Ramsch-only game? (y/n) 
 Enter number of players (3 or 4): 
@@ -27,7 +27,7 @@ Play a Ramsch hand if nobody bids 18.
 Ramsch round is played after a Bock round.
   - Grand Hand bid allowed during Ramsch Round.
 Bock round created for 60/60 card points tie.
-Bock round created for 120 raw hand socre.
+Bock round created for 120 raw hand score.
 Bock round created for lost Kontra/Rekontra.
 Bock round created for Schneider, but only if no Bocks currently.
 Bock round created if there are two full rounds without Bock.
@@ -234,7 +234,7 @@ Invalid response. Enter y or n:
                                   Totals:      223 |       12 |     -924
 This hand was Bock. 
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-End of a Bock round. Next hand starts a Ramsch round
+End of a Bock round. Next hand starts a Ramsch round.
 ======================
 Starting hand number 7
 ======================
@@ -345,7 +345,7 @@ With or without how many?
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      155 |      -33 |     -873
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-End of Ramsch round
+End of Ramsch round.
 =======================
 Starting hand number 10
 =======================

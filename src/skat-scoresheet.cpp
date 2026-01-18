@@ -163,7 +163,7 @@ int main(int argc, char** argv) {
                                 } else cout << "  - Grand Hand bid is not allowed during Ramsch Round." << endl;
                             }
                             if (game.rules.bockround_for_60_60_tie) cout << "Bock round created for 60/60 card points tie." << endl;
-                            if (game.rules.bockround_for_120_hand_score) cout << "Bock round created for 120 raw hand socre." << endl;
+                            if (game.rules.bockround_for_120_hand_score) cout << "Bock round created for 120 raw hand score." << endl;
                             if (game.rules.bockround_for_lost_contra_or_rekontra) cout << "Bock round created for lost Kontra/Rekontra." << endl;
                             if (game.rules.bockround_for_schneider) {
                                 cout << "Bock round created for Schneider"; 
@@ -442,7 +442,7 @@ int main(int argc, char** argv) {
                                 state = NEW_HAND_BID;
                                 if (game.ramsch_count > 0) {  // Check if this is a ramschround hand
                                     if (--game.ramsch_count == 0) {
-                                        cout << "End of Ramsch round" << endl;
+                                        cout << "End of Ramsch round." << endl;
                                     } else {
                                             cout << "There ";
                                             if (game.ramsch_count == 1) {
@@ -466,7 +466,7 @@ int main(int argc, char** argv) {
                                     if ( (game.hand[game.current_hand].bock == Skat_Game::BOCK) &&
                                         (game.bock_count % game.number_of_players == 0) &&
                                         (game.rules.ramschround_after_bockround)) {
-                                            cout << "End of a Bock round. Next hand starts a Ramsch round" << endl;
+                                            cout << "End of a Bock round. Next hand starts a Ramsch round." << endl;
                                             game.ramsch_count = game.number_of_players;
                                     }
                                     if (h > 0) {

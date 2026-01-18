@@ -1,4 +1,4 @@
-Welcome to the Skat Scoresheet v1.1.3!
+Welcome to the Skat Scoresheet v1.1.4!
 The scoresheet supports up to 99 hands in a game
 Will this be a Ramsch-only game? (y/n) 
 Enter number of players (3 or 4): 
@@ -164,7 +164,7 @@ Was there a Kontra? (y/n)
                                   Totals:      200 |     -156 |    -1920
 This hand was Bock. 
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-End of a Bock round. Next hand starts a Ramsch round
+End of a Bock round. Next hand starts a Ramsch round.
 ======================
 Starting hand number 5
 ======================
@@ -248,7 +248,7 @@ Who lost the Ramsch?
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:       15 |     -217 |    -1920
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-End of Ramsch round
+End of Ramsch round.
 ======================
 Starting hand number 8
 ======================
