@@ -21,7 +21,7 @@ jobs:
         include:
           - runner-name: ubuntu-latest
             arch: linux-x86_64
-          - runner-name: macos-13
+          - runner-name: macos-15-intel
             arch: macos-x86_64
           - runner-name: macos-latest
             arch: macos-arm64
