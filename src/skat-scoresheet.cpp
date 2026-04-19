@@ -3,9 +3,10 @@
    https://github.com/Andy4495/skat-scoresheet
    MIT License
 
-   0.1  10-Feb-2025 Andy4495 Initial code
-   1.0.0 21-Feb-2025 Andy4495 Version 1.0
-   1.1.0 02-Jun-2025 Andy4495 Version 1.1
+     0.1 10-Feb-2025 Andy4495 Initial code
+   1.0.0 21-Feb-2025 Andy4495 Version 1.0.0
+   1.1.0 02-Jun-2025 Andy4495 Version 1.1.0
+   1.1.5 19-Apr-2026 Andy4495 Version 1.1.5
 
 */
 
@@ -185,6 +186,7 @@ int main(int argc, char** argv) {
 
             case NEW_HAND_BID:
                 game.hand[game.current_hand].grand_during_ramsch = false;
+                game.hand[game.current_hand].multipliers = Skat_Game::NO_MULTIPLIERS;
                 cout << "======================";
                 if (game.current_hand + 1 > 9) cout << "=";
                 cout << endl;
@@ -791,6 +793,7 @@ void score_ramsch(int h) {
 void manually_score_hand(int h) {
     // Edit every hand data value manually; nothing is computed
     // Also edit bockround and ramschround counts
+    game.hand[h].multipliers = Skat_Game::NO_MULTIPLIERS;
     cout << "This mode allows correction of all the hand data." << endl;
     cout << "However, this requires you to score the hand manually; it is not checked for correctness." << endl;
     cout << "Bock count at beginning of hand (current value: " << game.bock_count << "): " << endl;
