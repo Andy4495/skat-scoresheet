@@ -1,560 +1,404 @@
-<!DOCTYPE html>
+<!doctype html>
 <!-- 
    Skat Card Game Scoring Sheet
-   Copyright 2025 Andreas Taylor
+   Copyright 2026 Andreas Taylor
    https://github.com/Andy4495/skat-scoresheet
    MIT License
 
-   0.1  10-Feb-2025 Andy4495 Initial code
-   1.0.0 21-Feb-2025 Andy4495 Version 1.0
-   1.1.0a1 16-Mar-2025 Andy4495 Porting to HTML/JavaScript
+   0.1 2026-Sep-03 Andy4495 Initial web version based on CLI version 1.1.5 using GitHub Copilot
 -->
-<html>
-<!-- 
-    To Do:
-        - Save game state, read back if requested
--->
-<head>
-    <title>Skat Scoresheet</title> <!-- Add type of game (Regular, Ramsch after Bock, Scheiberamsch here) -->
-    <link rel="shortcut icon" href="https://andy4495.github.io/skat-scoresheet/favicon.ico" /> 
-    <style>
-        p {
-            line-height: 0.7;
-        }
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            font-family: "Courier New";
-        }   
-        .button {
-            background-color: #04AA6D; /* Green */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-        .button1 {font-size: 10px;}
-        .button2 {font-size: 12px;}
-        .button3 {font-size: 16px;}
-        .button4 {font-size: 20px;}
-        .button5 {font-size: 24px;}
-    </style>
-</head>
-<body>
-    <h1 id="mainheading">Skat Scoresheet</h1>
-
-    <!-- Use hyphen in html id's to indicate array from cpp variables -->
-
-    <!-- Start of game layout should be removed once game started. -->
-    <div id="initgame">
-        <br>
-        <label for="player1" id="player1namelabel">Player 1 Name (first dealer):</label><input type="text" id="game.player_name-1" value=""><br>
-        <label for="player2" id="player2namelabel">Player 2 Name:</label><input type="text" id="game.player_name-2" value=""><br>
-        <label for="player3" id="player3namelabel">Player 3 Name:</label><input type="text" id="game.player_name-3" value=""><br>
-        <!-- Player 4 not implemented yet
-        <label for="player4" id="player4namelabel">Player 4 Name:</label><input type="text" id="game.player_name-4" value=""><br>
-        -->
-
-        <p>What type of game will you be playing today:</p>
-        <input type="radio" id="Regular" name="game_type" value="regular" onclick="gameType(this.value)">
-        <label for="Regular">Regular</label><br>
-        <input type="radio" id="RamschAfterBock" name="game_type" value="ramschafterbock" onclick="gameType(this.value)">
-        <label for="RamchAfterBock">Ramsch After Bock</label><br>
-        <input type="radio" id="Scheiberamsch" name="game_type" value="scheiberamsch" onclick="gameType(this.value)">
-        <label for="Scheiberamsch">Scheiberamsch</label>
-        <br>  
-
-        <br>
-        <button class="button button3" onclick="startGame()">Start the Game</button>
-        <br> <br>
-
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Skat Scoresheet</title><style>body{font-family:Arial,Helvetica,sans-serif;margin:12px}label{display:block;margin:6px 0 2px}input,select,button{padding:6px;margin:4px}#out{white-space:pre;font-family:monospace;background:#f7f7f7;padding:10px;border-radius:6px;min-height:160px}table{border-collapse:collapse;width:100%;margin-bottom:8px}th,td{border:1px solid #ddd;padding:6px;text-align:left}thead th{background:#f0f0f0;font-weight:700}tbody tr:nth-child(odd){background:#fafafa}.hand-grid{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}.hand-col{flex:1 1 48%;min-width:260px}.hand-row{display:flex;gap:8px;align-items:center}.hand-row label{margin:0 8px 0 0;min-width:110px}input[type=number],select,input[type=text]{width:120px}/* hide numeric spinners */input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}#hand .controls{margin-top:8px}.muted{color:#666}#houseRules{display:grid;grid-template-columns:repeat(3,minmax(220px,1fr));gap:8px 16px;margin:8px 0 12px}#houseRules label{display:flex;align-items:flex-start;gap:8px;margin:0;min-height:24px}#houseRules input{margin:2px 0 0}</style></head><body><h2>Skat Scoresheet</h2><div id="initArea">
+  <div id="setupFields">
+    <label>Players</label><select id="players"><option>3</option><option selected>4</option></select>
+    <div id="names"><input id="n0" maxlength="8" value="P1"><input id="n1" maxlength="8" value="P2"><input id="n2" maxlength="8" value="P3"><input id="n3" maxlength="8" value="P4"></div>
+  </div>
+  <div id="houseRules">
+    <label><input type="checkbox" id="ramsch"> Ramsch-only</label>
+    <label><input type="checkbox" id="hr_kontrare"> Allow Kontra/Re</label>
+    <label><input type="checkbox" id="hr_nobody_bids_18"> Play Ramsch if nobody bids 18</label>
+    <label><input type="checkbox" id="hr_ramsch_after_bock"> Play Ramsch round after Bock round</label>
+    <label><input type="checkbox" id="hr_grand_during_ramsch"> Allow Grand Hand during Ramsch round</label>
+    <label><input type="checkbox" id="hr_bock_60_60"> Create Bock round for 60/60 tie</label>
+    <label><input type="checkbox" id="hr_bock_120"> Create Bock round for 120 hand score</label>
+    <label><input type="checkbox" id="hr_bock_lost_kontra"> Create Bock round for lost Kontra/Rekontra</label>
+    <label><input type="checkbox" id="hr_bock_schneider"> Create Bock round for Schneider</label>
+    <label><input type="checkbox" id="hr_bock_schneider_only_if_not_bock"> Only create Schneider Bock if not currently a Bock</label>
+    <label><input type="checkbox" id="hr_bock_max_one"> Limit 1 Bock creation per hand</label>
+    <label><input type="checkbox" id="hr_bock_two_rounds_without_bock"> Create Bock if two rounds without Bock</label>
+  </div>
+  <div><button id="init">Init Game</button></div>
+</div>
+<div><button id="add">Add Hand</button></div><hr><div id="hand" style="display:none" class="hand-section">
+  <div id="handHeader" style="margin-bottom:8px">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div><strong id="handTitle">Hand 1</strong></div>
+      <div id="handInfo" class="muted" style="white-space:pre-line"></div>
     </div>
-    <hr>
-
-    <div id="bidhand">
+  </div>
+  <div class="hand-grid">
+    <div class="hand-col">
+      <div class="hand-row"><label for="bid">Bid (0=Ramsch)</label><input type="number" id="bid" min="0" max="264" placeholder="" inputmode="numeric" pattern="\d*"></div>
+      <div class="hand-row"><label>Contract</label><div id="ct" style="display:flex;flex-wrap:wrap;gap:8px">
+        <label><input type="radio" name="ct" value="12"> Clubs</label>
+        <label><input type="radio" name="ct" value="11"> Spades</label>
+        <label><input type="radio" name="ct" value="10"> Hearts</label>
+        <label><input type="radio" name="ct" value="9"> Diamonds</label>
+        <label><input type="radio" name="ct" value="23"> Null</label>
+        <label><input type="radio" name="ct" value="24"> Grand</label>
+        <label id="ct_ramsch_lbl" style="display:none"><input type="radio" name="ct" value="1"> Ramsch</label>
+      </div></div>
+      <div class="hand-row"><label>Declarer</label><div id="dec" style="display:flex;gap:8px;flex-wrap:wrap"></div></div>
+      <div class="hand-row"><label>Kontra/Re</label><div id="kr" style="display:flex;gap:8px"><label><input type="radio" name="kr" value="1"> None</label><label><input type="radio" name="kr" value="2"> Kontra</label><label><input type="radio" name="kr" value="4"> Re</label></div></div>
+      <div class="controls hand-row" style="margin-top:12px">
+        <button id="score">Score Hand</button>
+        <button id="prev">Prev</button>
+        <button id="next">Next</button>
+      </div>
     </div>
-<!--
-      /// Scoring the Hand
--->
-    <div id="scorehand">
+    <div class="hand-col">
+      <div class="hand-row"><label>Matadors</label><div id="mat" style="display:flex;gap:8px;flex-wrap:wrap"><label><input type="radio" name="mat" value="1">1</label><label><input type="radio" name="mat" value="2">2</label><label><input type="radio" name="mat" value="3">3</label><label><input type="radio" name="mat" value="4">4</label><label><input type="radio" name="mat" value="5">5</label><label><input type="radio" name="mat" value="6">6</label></div></div>
+      <div class="hand-row"><label>Multipliers</label><div style="display:flex;flex-wrap:wrap;gap:8px"><label><input type="checkbox" id="mH">Hand</label><label><input type="checkbox" id="mO">Open</label><label id="mS_label"><input type="checkbox" id="mS">Announce Schneider</label><label id="mZ_label"><input type="checkbox" id="mZ">Announce Schwarz</label></div></div>
+      <div class="hand-row"><label for="pts">Card points</label><input type="number" id="pts" min="0" max="120" value="0"></div>
+      <div class="hand-row" id="allTricksRow" style="display:none"><label for="allTricks">All tricks taken?</label><input type="checkbox" id="allTricks"></div>
+      <div class="hand-row" id="ramsch-special-row" style="display:none"><label>Ramsch special</label><div id="rs" style="display:flex;gap:8px"><label><input type="radio" name="rs" value="-1"> Plain</label><label><input type="radio" name="rs" value="-2"> Jungf</label><label><input type="radio" name="rs" value="99"> Durchmarsch</label></div></div>
+      <div class="hand-row"><label for="losers">Losers (comma idx)</label><input id="losers" value="0"></div>
     </div>
+  </div>
+</div>
+<hr>
+  <div style="margin-bottom:8px;">
+    <button id="exportCsv">Export CSV</button>
+    <button id="printBtn">Print</button>
+  </div>
+  <div id="tableContainer" style="overflow:auto;margin-bottom:8px"></div>
+  <div id="gameControls" style="margin:8px 0">
+    <button id="endGameBtn">End Game</button>
+    <button id="newGameBtn">New Game</button>
+    <button id="addBockBtn">Add a Bock Round</button>
+  </div>
+  <div id="gameStatus" class="muted" style="margin-bottom:8px"></div>
+  <div id="out" style="display:none">No output</div>
+  <script>class G{constructor(){this.Contract={CLUBS:12,SPADES:11,HEARTS:10,DIAMONDS:9,NULLL:23,GRAND:24,RAMSCH:1};this.Other={NO:0,HAND:1,OPEN:2,SCHNEIDER:4,SCHN_ANNC:8,SCHWARZ:16,SCHW_ANNC:32};this.KR={SINGLE:1,KONTRA:2,RE:4};this.RS={PLAIN:-1,JUNGF:-2,DURCHMARSCH:99};this.Win={LOSE:-2,WIN:1};this.Bock={NO:1,BOCK:2};this.SCORE_NULL_PLAIN=23;this.SCORE_NULL_HAND=35;this.SCORE_NULL_OPEN=46;this.SCORE_NULL_HAND_OPEN=59;this.numPlayers=4;this.names=["P1","P2","P3","P4"];this.hand=[];this.current=0;this.total=[0,0,0,0];this.bock_count=0;this.bock_active=0;this.no_bock_count=0;this.ramsch_count=0;this.bock_starts=[];this.rules={kontrare_allowed:false,nobody_bids_18_play_ramsch:false,ramschround_after_bockround:false,grand_hand_during_ramschround:false,bockround_for_60_60_tie:false,bockround_for_120_hand_score:false,bockround_for_lost_contra_or_rekontra:false,bockround_for_schneider:false,bockround_for_schneider_only_if_not_bockround:false,bockround_max_one_per_hand:false,bockround_if_two_rounds_without_bock:false,bockround_can_be_created_in_grand_during_ramsch:false};}make(){return{declarer:0,bid:0,contract:this.Contract.RAMSCH,winlose:this.Win.LOSE,multipliers:0,matadors:1,overbid:0,loser:[0,0,0],number_of_losers:0,cardpoints:0,kontrare:this.KR.SINGLE,ramsch:this.RS.PLAIN,bock:this.Bock.NO,score:[0,0,0,0],edited:0,grand_during_ramsch:false,takealltricks:false}}refreshBockFlags(){let active=0;for(let i=0;i<this.hand.length;i++){let isBock=false;for(const start of this.bock_starts){if(i>start && i<=start+3){isBock=true;break;}}this.hand[i].bock=isBock?this.Bock.BOCK:this.Bock.NO;if(isBock) active++;}this.bock_active=active;}markNextBockRound(baseIndex){this.bock_starts.push(baseIndex);this.refreshBockFlags();}calculate_suit_grand_score(i){let m=this.hand[i].multipliers;let bits=(m>>>0).toString(2).replace(/0/g,'').length;return this.hand[i].contract*(this.hand[i].matadors+this.hand[i].overbid+bits+1);}calculate_new_bocks(h){let new_bocks=0;if(!this.hand[h].grand_during_ramsch || this.rules.bockround_can_be_created_in_grand_during_ramsch){if((this.hand[h].contract!==this.Contract.RAMSCH)&&(this.hand[h].contract!==this.Contract.NULLL)&&this.rules.bockround_for_120_hand_score){if((this.hand[h].matadors+1)*this.hand[h].contract>=120) new_bocks+=this.numPlayers;}if((this.hand[h].contract!==this.Contract.RAMSCH)&&(this.hand[h].contract!==this.Contract.NULLL)&&this.rules.bockround_for_60_60_tie){if(this.hand[h].cardpoints===60) new_bocks+=this.numPlayers;}if(this.rules.bockround_for_lost_contra_or_rekontra){if(this.hand[h].kontrare===this.KR.RE) new_bocks+=this.numPlayers; else if((this.hand[h].kontrare===this.KR.KONTRA)&&(this.hand[h].winlose===this.Win.LOSE)) new_bocks+=this.numPlayers;}if(this.rules.bockround_for_schneider){if(this.rules.bockround_for_schneider_only_if_not_bockround){if(this.bock_active===0 && (this.hand[h].multipliers & this.Other.SCHNEIDER)) new_bocks+=this.numPlayers;} else if(this.hand[h].multipliers & this.Other.SCHNEIDER) new_bocks+=this.numPlayers;}if(this.rules.bockround_if_two_rounds_without_bock){if(this.no_bock_count===this.numPlayers*2 && new_bocks===0) new_bocks=this.numPlayers;}if(this.rules.bockround_max_one_per_hand && new_bocks>this.numPlayers) new_bocks=this.numPlayers;}
+  return new_bocks;}calculate_win_lose(i){let h=this.hand[i];if(h.takealltricks) h.multipliers|=this.Other.SCHWARZ; else h.multipliers&=~this.Other.SCHWARZ;if(h.cardpoints>89) h.multipliers|=this.Other.SCHNEIDER; else h.multipliers&=~this.Other.SCHNEIDER;if(h.multipliers&this.Other.SCHW_ANNC){ if(h.takealltricks) h.winlose=this.Win.WIN; else{h.winlose=this.Win.LOSE;h.multipliers|=this.Other.SCHWARZ|this.Other.SCHNEIDER;}} else if(h.multipliers&this.Other.SCHN_ANNC){ if(h.cardpoints>89) h.winlose=this.Win.WIN; else{h.winlose=this.Win.LOSE;h.multipliers|=this.Other.SCHNEIDER;}} if(!(h.multipliers&(this.Other.SCHW_ANNC|this.Other.SCHN_ANNC))){ h.winlose=(h.cardpoints>60?this.Win.WIN:this.Win.LOSE);} if(!(h.multipliers&(this.Other.SCHW_ANNC|this.Other.SCHN_ANNC))){ if(h.cardpoints<31) h.multipliers|=this.Other.SCHNEIDER;}h.overbid=0;let attempts=0;while(this.calculate_suit_grand_score(i)<h.bid&&attempts<20){h.overbid++;attempts++;}if(this.calculate_suit_grand_score(i)<h.bid) h.winlose=this.Win.LOSE;if(h.overbid>0) h.winlose=this.Win.LOSE;}calculate_hand_score(i){let h=this.hand[i];this.refreshBockFlags();h.bock=(this.bock_starts.some(start=>i>start&&i<=start+3))?this.Bock.BOCK:this.Bock.NO;h.score=[0,0,0,0]; if(h.contract===this.Contract.NULLL){let mult=h.multipliers;let base; if(mult===this.Other.OPEN) base=this.SCORE_NULL_OPEN; else if(mult===this.Other.HAND) base=this.SCORE_NULL_HAND; else if((mult&this.Other.OPEN)&&(mult&this.Other.HAND)) base=this.SCORE_NULL_HAND_OPEN; else base=this.SCORE_NULL_PLAIN; h.score[h.declarer]=h.bock*h.kontrare*h.winlose*base;} else{ if(h.contract!==this.Contract.RAMSCH){let base=this.calculate_suit_grand_score(i);h.score[h.declarer]=base*h.winlose*h.bock*h.kontrare;} else{ if(h.ramsch===this.RS.DURCHMARSCH) h.score[h.declarer]=h.bock*120; else{ for(let k=0;k<h.number_of_losers;k++){let li=h.loser[k]; if(typeof li==='number') h.score[li]=h.bock*h.cardpoints*h.ramsch; } } } } }calculate_game_score(){this.refreshBockFlags();this.total=[0,0,0,0];for(let i=0;i<=this.current;i++) for(let j=0;j<this.numPlayers;j++) this.total[j]+=this.hand[i].score[j]||0;}render(){let s="| # | Bid | M | Contract | HOSAZA | KR | "+pad(this.names[0],8)+" | "+pad(this.names[1],8)+" | "+pad(this.names[2],8); if(this.numPlayers===4) s+=" | "+pad(this.names[3],8); s+=" | Bock |\n"; s+="| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- |"+(this.numPlayers===4?" -------- |":" ---- |")+"\n"; for(let i=0;i<=this.current;i++){let h=this.hand[i];let row="| "+pad((i+1),2)+" | "+pad(h.bid||0,3)+" | "; if(h.contract===this.Contract.NULLL||h.contract===this.Contract.RAMSCH) row+="  | "; else row+=pad(h.matadors||0,1)+" | "; row+=pad(this.get_contract_name(h.contract),8)+" | "; if(h.contract===this.Contract.RAMSCH){ if(h.ramsch===this.RS.JUNGF) row+="JUNGF "; else if(h.ramsch===this.RS.DURCHMARSCH) row+="DURCH "; else row+="      "; } else{ row+=((h.multipliers&this.Other.HAND)?"H":" ")+((h.multipliers&this.Other.OPEN)?"O":" ")+((h.multipliers&this.Other.SCHNEIDER)?"S":" ")+((h.multipliers&this.Other.SCHN_ANNC)?"A":" ")+((h.multipliers&this.Other.SCHWARZ)?"Z":" ")+((h.multipliers&this.Other.SCHW_ANNC)?"A":" "); } row+=" | "; if(h.kontrare===this.KR.RE) row+="KR | "; else if(h.kontrare===this.KR.KONTRA) row+="K  | "; else row+="   | "; row+=pad(h.score[0]||0,8)+" | "+pad(h.score[1]||0,8)+" | "+pad(h.score[2]||0,8); if(this.numPlayers===4) row+=" | "+pad(h.score[3]||0,8); row+=" | "+(h.bock===this.Bock.BOCK?" B  ":"    ")+" |"; if(h.edited) row+=" ***"; s+=row+"\n";} s+="| -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- |"+(this.numPlayers===4?" -------- |":" ---- |")+"\n"; s+="Totals: "+pad(this.total[0]||0,8)+" | "+pad(this.total[1]||0,8)+" | "+pad(this.total[2]||0,8); if(this.numPlayers===4) s+=" | "+pad(this.total[3]||0,8); return s;}get_contract_name(v){switch(v){case this.Contract.CLUBS:return"Clubs";case this.Contract.SPADES:return"Spades";case this.Contract.HEARTS:return"Hearts";case this.Contract.DIAMONDS:return"Diamonds";case this.Contract.NULLL:return"Null";case this.Contract.GRAND:return"Grand";case this.Contract.RAMSCH:return"Ramsch";default:return"?";}}}function pad(s,w){s=String(s);return s.length<w?" ".repeat(w-s.length)+s:s}let game=null;const out=document.getElementById('out');  document.getElementById('init').addEventListener('click',()=>{game=new G();game.numPlayers=parseInt(document.getElementById('players').value,10);for(let i=0;i<game.numPlayers;i++) game.names[i]=document.getElementById('n'+i).value||('P'+(i+1));game.hand=[game.make()];game.current=0;document.getElementById('hand').style.display='block';
+  const setupFields = document.getElementById('setupFields'); if(setupFields){ setupFields.style.display='none'; }
+  const initBtn = document.getElementById('init'); if(initBtn){ initBtn.style.display='none'; }
+  rebuildDec();  // read house rules and apply to game  game.ramschonly = document.getElementById('ramsch').checked;
+  game.rules.kontrare_allowed = document.getElementById('hr_kontrare').checked;
+  game.rules.nobody_bids_18_play_ramsch = document.getElementById('hr_nobody_bids_18').checked;
+  game.rules.ramschround_after_bockround = document.getElementById('hr_ramsch_after_bock').checked;
+  game.rules.grand_hand_during_ramschround = document.getElementById('hr_grand_during_ramsch').checked;
+  game.rules.bockround_for_60_60_tie = document.getElementById('hr_bock_60_60').checked;
+  game.rules.bockround_for_120_hand_score = document.getElementById('hr_bock_120').checked;
+  game.rules.bockround_for_lost_contra_or_rekontra = document.getElementById('hr_bock_lost_kontra').checked;
+  game.rules.bockround_for_schneider = document.getElementById('hr_bock_schneider').checked;
+  game.rules.bockround_for_schneider_only_if_not_bockround = document.getElementById('hr_bock_schneider_only_if_not_bock').checked;
+  game.rules.bockround_max_one_per_hand = document.getElementById('hr_bock_max_one').checked;
+  game.rules.bockround_if_two_rounds_without_bock = document.getElementById('hr_bock_two_rounds_without_bock').checked;
+  // replace houseRules UI with a 3-column summary of the selected rules
+  const hrDiv = document.getElementById('houseRules');
+  if (hrDiv) {
+    const sel = [];
+    function addIf(cond, text){ if(cond) sel.push(text); }
+    addIf(game.ramschonly, 'Ramsch-only');
+    addIf(game.rules.kontrare_allowed, 'Kontra/Re allowed');
+    addIf(game.rules.nobody_bids_18_play_ramsch, 'Play Ramsch if nobody bids 18');
+    addIf(game.rules.ramschround_after_bockround, 'Ramsch round after Bock');
+    addIf(game.rules.grand_hand_during_ramschround, 'Grand Hand allowed during Ramsch');
+    addIf(game.rules.bockround_for_60_60_tie, 'Bock for 60/60 tie');
+    addIf(game.rules.bockround_for_120_hand_score, 'Bock for 120 hand score');
+    addIf(game.rules.bockround_for_lost_contra_or_rekontra, 'Bock for lost Kontra/Re');
+    addIf(game.rules.bockround_for_schneider, 'Bock for Schneider');
+    addIf(game.rules.bockround_for_schneider_only_if_not_bockround, 'Only create Schneider Bock if not already Bock');
+    addIf(game.rules.bockround_max_one_per_hand, 'Max 1 Bock per hand');
+    addIf(game.rules.bockround_if_two_rounds_without_bock, 'Create Bock if two rounds without Bock');
+    hrDiv.style.display = 'grid';
+    hrDiv.style.gridTemplateColumns = 'repeat(3, minmax(220px, 1fr))';
+    hrDiv.innerHTML = '<div class="muted" style="grid-column:1/-1"><strong>House rules:</strong></div>' + (sel.length ? sel.map(text => '<div class="muted">' + escapeHtml(text) + '</div>').join('') : '<div class="muted" style="grid-column:1/-1"><em>Default (no rules selected)</em></div>');
+  }
+  // update hand header/info immediately (do not render scores table yet)
+  const handTitleInit = document.getElementById('handTitle'); if(handTitleInit) handTitleInit.textContent = 'Hand '+ (game.current+1);
+  const infoInit = document.getElementById('handInfo'); if(infoInit){ const dealerIndex = game.current % game.numPlayers; const dealer = game.names[dealerIndex] || ('P'+(dealerIndex+1)); const listens = game.names[(game.current+1)%game.numPlayers] || ('P'+(((game.current+1)%game.numPlayers)+1)); const speaks = game.names[(game.current+2)%game.numPlayers] || ('P'+(((game.current+2)%game.numPlayers)+1)); const leads = listens; let txt = 'Dealer: '+dealer+'\nSpeaks: '+speaks+'\nListens: '+listens+'\nLeads: '+leads; if(game.numPlayers===4){ const cont = game.names[(game.current+3)%game.numPlayers] || ('P'+(((game.current+3)%game.numPlayers)+1)); txt += '\nContinues: '+cont; } infoInit.textContent = txt; }
+  // Set sensible defaults for the editor (Kontra/Re = None, Ramsch special = Plain, Contract = Ramsch)
+  setRadioValue('ct', '12');
+  setRadioValue('kr', String(game.KR.SINGLE));
+  setRadioValue('rs', String(game.RS.PLAIN));
+  setRadioValue('mat', '1');
+  // leave bid empty by default
+  setRadioValue('mat', '1');
+  updateMultipliersVisibility();
+  document.getElementById('pts').value = 0;
+  const allTricks = document.getElementById('allTricks'); if(allTricks) allTricks.checked = false;
+  const allTricksRow = document.getElementById('allTricksRow'); if(allTricksRow) allTricksRow.style.display='none';
+  document.getElementById('mH').checked = false; document.getElementById('mO').checked = false; document.getElementById('mS').checked = false; document.getElementById('mZ').checked = false;
+  // hide Ramsch option and Ramsch special until bid is explicitly 0
+  const rlbl = document.getElementById('ct_ramsch_lbl'); if(rlbl) rlbl.style.display='none'; const rsRow = document.getElementById('ramsch-special-row'); if(rsRow) rsRow.style.display='none'; const rsDiv = document.getElementById('rs'); if(rsDiv) rsDiv.style.display='none';
+  // Do not render the score table yet — wait until at least one hand is scored
+  document.getElementById('tableContainer').innerHTML = '<div class="muted">No scored hands yet</div>';
+});document.getElementById('add').addEventListener('click',()=>{
+  if(!game) return alert('Init first');
+  // Add a blank hand and switch editor to it, but DO NOT update the score table until the hand is scored
+  game.hand.push(game.make());
+  game.current = game.hand.length - 1;
+  rebuildDec();
+  // Reset hand editor inputs to the new hand defaults
+  // leave bid empty for the new hand
+  // Set default radio values and inputs for the new hand
+  setRadioValue('ct', '12');
+  setRadioValue('mat', '1');
+  updateMultipliersVisibility();
+  // rebuildDec creates the dec radios; first non-dealer is checked by rebuildDec
+  document.getElementById('pts').value = 0;
+  const allTricks = document.getElementById('allTricks'); if(allTricks) allTricks.checked = false;
+  const allTricksRow = document.getElementById('allTricksRow'); if(allTricksRow) allTricksRow.style.display='none';
+  document.getElementById('mH').checked = false;
+  document.getElementById('mO').checked = false;
+  document.getElementById('mS').checked = false;
+  document.getElementById('mZ').checked = false;
+  setRadioValue('kr', String(game.KR.SINGLE));
+  setRadioValue('rs', String(game.RS.PLAIN));
+  document.getElementById('losers').value = '';
+  // hide ramsch option and ramsch special until bid is 0
+  const rlbl2 = document.getElementById('ct_ramsch_lbl'); if(rlbl2) rlbl2.style.display='none'; const rsRow2 = document.getElementById('ramsch-special-row'); if(rsRow2) rsRow2.style.display='none'; const rsDiv2 = document.getElementById('rs'); if(rsDiv2) rsDiv2.style.display='none';
+  // update hand header/info for this new blank hand (do not render table)
+  const handTitleAdd = document.getElementById('handTitle'); if(handTitleAdd) handTitleAdd.textContent = 'Hand '+ (game.current+1);
+  const infoAdd = document.getElementById('handInfo'); if(infoAdd){ const dealerIndex = game.current % game.numPlayers; const dealer = game.names[dealerIndex] || ('P'+(dealerIndex+1)); const listens = game.names[(game.current+1)%game.numPlayers] || ('P'+(((game.current+1)%game.numPlayers)+1)); const speaks = game.names[(game.current+2)%game.numPlayers] || ('P'+(((game.current+2)%game.numPlayers)+1)); const leads = listens; let txt = 'Dealer: '+dealer+'\nSpeaks: '+speaks+'\nListens: '+listens+'\nLeads: '+leads; if(game.numPlayers===4){ const cont = game.names[(game.current+3)%game.numPlayers] || ('P'+(((game.current+3)%game.numPlayers)+1)); txt += '\nContinues: '+cont; } infoAdd.textContent = txt; }
+  // Do not call render() here to avoid changing the displayed score table until scoring occurs
+});function rebuildDec(){const container=document.getElementById('dec');container.innerHTML='';let first=false;const dealerIndex = game.current % game.numPlayers;for(let i=0;i<game.numPlayers;i++){ // In 4-player games, dealer doesn't play
+    if(game.numPlayers===4 && dealerIndex===i) continue;const id='dec'+i;const label=document.createElement('label');label.style.marginRight='8px';const radio=document.createElement('input');radio.type='radio';radio.name='dec';radio.value=i;radio.id=id;label.appendChild(radio);label.appendChild(document.createTextNode(' '+game.names[i]));container.appendChild(label);if(!first){radio.checked=true;first=true;}}}document.getElementById('score').addEventListener('click',()=>{if(!game) return alert('Init first');let h=game.hand[game.current];{const bidRaw = document.getElementById('bid').value; if(bidRaw===''){ alert('Enter bid (0 for Ramsch)'); return; } h.bid = parseInt(bidRaw,10);} h.contract=parseInt(getRadioValue('ct')||game.Contract.RAMSCH,10);h.declarer=parseInt(getRadioValue('dec')||0,10);    h.matadors=parseInt(getRadioValue('mat')||'1',10);h.cardpoints=parseInt(document.getElementById('pts').value||0,10);h.takealltricks = document.getElementById('allTricks') && document.getElementById('allTricks').checked;let m=0; if(document.getElementById('mH').checked) m|=game.Other.HAND; if(document.getElementById('mO').checked) m|=game.Other.OPEN; if(document.getElementById('mS').checked) m|=game.Other.SCHNEIDER; if(document.getElementById('mZ').checked) m|=game.Other.SCHWARZ; h.multipliers=m;h.kontrare=parseInt(getRadioValue('kr')||game.KR.SINGLE,10);h.ramsch=parseInt(getRadioValue('rs')||game.RS.PLAIN,10);h.number_of_losers=(document.getElementById('losers').value==='')?0:document.getElementById('losers').value.split(',').map(x=>parseInt(x,10)).length; if(h.number_of_losers>0) h.loser=document.getElementById('losers').value.split(',').map(x=>parseInt(x,10));    h.bock = game.Bock.NO; if(h.contract!==game.Contract.RAMSCH && h.contract!==game.Contract.NULLL) game.calculate_win_lose(game.current); game.calculate_hand_score(game.current); const bockCreated = game.calculate_new_bocks(game.current); if (bockCreated > 0) { game.bock_count += bockCreated; game.markNextBockRound(game.current); game.no_bock_count = 0; } else { if (game.bock_active === 0) { game.no_bock_count++; } else { game.no_bock_count = 0; } }
+    if (game.rules.bockround_if_two_rounds_without_bock && game.no_bock_count >= game.numPlayers * 2 && bockCreated === 0) {
+      game.bock_count += game.numPlayers;
+      game.markNextBockRound(game.current);
+      game.no_bock_count = 0;
+    }
+    game.refreshBockFlags();
+    game.calculate_game_score(); render();});document.getElementById('prev').addEventListener('click',()=>{if(!game) return; if(game.current>0) game.current--; render();});document.getElementById('next').addEventListener('click',()=>{if(!game) return; if(game.current<game.hand.length-1) game.current++; render();});function render(){out.textContent=game.render(); rebuildDec(); setRadioValue('dec', game.hand[game.current].declarer); // update hand title and info
+  const handTitle = document.getElementById('handTitle'); if(handTitle) handTitle.textContent = 'Hand '+ (game.current+1);
+  const info = document.getElementById('handInfo'); if(info){
+    const dealerIndex = game.current % game.numPlayers;
+    const dealer = game.names[dealerIndex] || ('P'+(dealerIndex+1));
+    const listens = game.names[(game.current+1)%game.numPlayers] || ('P'+(((game.current+1)%game.numPlayers)+1));
+    const speaks = game.names[(game.current+2)%game.numPlayers] || ('P'+(((game.current+2)%game.numPlayers)+1));
+    const leads = listens; // per original rules listens also leads
+    let txt = 'Dealer: '+dealer+'\nSpeaks: '+speaks+'\nListens: '+listens+'\nLeads: '+leads;
+    if(game.numPlayers===4){ const cont = game.names[(game.current+3)%game.numPlayers] || ('P'+(((game.current+3)%game.numPlayers)+1)); txt += '\nContinues: '+cont; }
+    info.textContent = txt;
+  }
+  // update multipliers visibility for the currently selected contract
+  try{ updateMultipliersVisibility(); }catch(e){}
+  renderTable();}
 
-<!-- Score table -->    
-    <div id="scoretable">
-        <hr>
-        <table id="scoreTable">
-        <tr>
-            <th>&nbsp;#&nbsp;</th>
-            <th>&nbsp;Bid&nbsp;</th>
-            <th>&nbsp;M&nbsp;</th>
-            <th>&nbsp;Contract&nbsp;</th>
-            <th>&nbsp;HOSAZA&nbsp;</th>
-            <th>&nbsp;KR&nbsp;</th>
-            <th id="player1">Player1</th>
-            <th id="player2">Player2</th>
-            <th id="player3">Player3</th>
-            <th>&nbsp;Bock&nbsp;</th>
-        </tr>
-        </table>
-    </div>
+function getRadioValue(name){const el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:null}
+function setRadioValue(name, value){const el=document.querySelector('input[name="'+name+'"][value="'+value+'"]'); if(el) el.checked = true}
 
-    <script>
-        const date = new Date()
-        let number_of_players
-        const player_name = []
-        let number_of_hands
-        let current_hand;
-        const total_score = []
-        let edited_score_note
-        let schieberamsch
-        let ramsch_count
-        let bock_count
-        let gametype
-        let gametypename
-        let declarer
-        let cardpoints
-        let handscore
-        let matadors = 0
-        let addedmultipliers = 0
-        let bockmultiplier = 1
-        let basepoints
-        let winlose
-        let logtext = "Logtext: "     /// For testing
-        const multipliers = {
-            hand: false,
-            open: false,
-            schneider: false,
-            schwarz: false,
-            annc_schneider: false,
-            annc_schwarz: false
-        }
-        const kontrare = {
-            kontra: false,
-            re: false
-        }
-        function gameType(gt) {
-            gametype = gt;
-        }
-        function getDeclarer(decl) {
-            declarer = decl
-        }
-        function getContract(contr) {
-            contract = contr
-        }
-        function startGame() {
-            // document.write("Called startGame()")  /// Testing: Clears the page and just writes this line
-            current_hand = 0
-            number_of_players = 3; /// This needs to be updated to support 4 players
-            if (gametype == "scheiberamsch") {
-                scheiberamsch = true;
-                gametypename = "Scheiberamsch"
-            } else {
-                if (gametype == "ramschafterbock") {
-                    scheiberamsch = false;
-                    ramsch_count = 0;
-                    gametypename = "Ramsch After Bock"
-                } else {
-                    gametype = "RegularByDefault"
-                    gametypename = "Regular"
-                    scheiberamsch = false;
-                    ramsch_count = 0;
-                }
-            }
-            /// Add handling for a "regular" game -- no ramsch after bock
-            number_of_players = 3   /// Need to add code to check for 4th player
-            player_name[0] = document.getElementById("game.player_name-1")
-            player_name[1] = document.getElementById("game.player_name-2")
-            player_name[2] = document.getElementById("game.player_name-3")
-            playernametext = "<p>Players: " + player_name[0].value + ", " + player_name[1].value + ", " + player_name[2].value + "</p>"
-                + "<p>Date: " + date + "</p"
-            document.getElementById("mainheading").innerText="Skat Game Type: " + gametypename
-            document.getElementById("initgame").innerHTML=playernametext
-            /// Clear out the initgame div
-            /// Print out game summary: names, type (schieberamsch, ramsch after bock, regular)
-            /// Print out the bidhand div
-            bidHand()
-        }
-        function displayBidHand() {
-            document.getElementById("bidhand").innerHTML = '\
-                <h2 id="bidheader"> </h2>\
-                <p id="handinfo"></p>\
-                <p>Who is the declarer:</p>\
-                <!-- Need to put this in a script so that specific player name can be displayed -->\
-                <input type="radio" id="game.declarer-player1" name="declarer" onclick="getDeclarer(player_name[0])">\
-                <label for="Player1declare">' + player_name[0].value
-                + '</label><br>\
-                <input type="radio" id="game.declarer-player2" name="declarer" onclick="getDeclarer(player_name[1])">\
-                <label for="Player2declare">' + player_name[1].value
-                + '</label><br>\
-                <input type="radio" id="game.declarer-player3" name="declarer" onclick="getDeclarer(player_name[2])">\
-                <label for="Player3declare">' + player_name[2].value
-                + '</label><br>\
-                <br>\
-                <label for="Bid">What was the bid (leave empty for Ramsch)?:</label><input type="number" align="right" id="game.bid" value=""><br><br>\
-                <p>What is the contract:</p>\
-                <input type="radio" id="game.contract-grand" name="contract" value="Grand" onclick="getContract(this.value)">\
-                <label for="grand">Grand</label><br>\
-                <input type="radio" id="game.contract-clubs" name="contract" value="Clubs" onclick="getContract(this.value)">\
-                <label for="clubs">Clubs</label><br>\
-                <input type="radio" id="game.contract-spades" name="contract" value="Spades" onclick="getContract(this.value)">\
-                <label for="spades">Spades</label><br>\
-                <input type="radio" id="game.contract-hearts" name="contract" value="Hearts" onclick="getContract(this.value)">\
-                <label for="hearts">Hearts</label><br>\
-                <input type="radio" id="game.contract-diamonds" name="contract" value="Diamonds" onclick="getContract(this.value)">\
-                <label for="diamonds">Diamonds</label><br>\
-                <input type="radio" id="game.contract-null" name="contract" value="Null" onclick="getContract(this.value)">\
-                <label for="null">Null</label><br>\
-                <!-- Ramssch should not be needed, since a bid of 0 is same as Ramsch, but leaving in for now -->\
-                <input type="radio" id="game.contract-ramsch" name="contract" value="Ramsch" onclick="getContract(this.value)"> \
-                <label for="ramsch">Ramsch</label><br>\
-                <p>Pre-play multipliers:</p> \
-                <input type="checkbox" id="game.multiplier-hand" name="hand" value="">\
-                <label for="hand">Hand</label><br>\
-                <input type="checkbox" id="game.multiplier-open" name="open" value="">  <!-- For non-Null, implies Announce Schwarz -->\
-                <label for="open">Open</label><br> \
-                <input type="checkbox" id="game.multiplier-annSchn" name="schn_annc" value=""> <!-- Only if Hand -->\
-                <label for="annSchn">Announce Schneider</label><br>\
-                <input type="checkbox" id="game.multiplier-annSchw" name="schw_annc" value=""> <!-- Only if Hand -->\
-                <label for="annSchw">Announce Schwarz</label><br>\
-                <br>  <br>\
-                <button class="button button3" onclick="confirmBid()">Confirm the bid</button>\
-            '
-        }
-        function bidHand() {
-            displayBidHand()
-            /// document.write("Called bidHand()")  /// Testing: Clears the page and just writes this line
-            document.getElementById("bidheader").innerHTML = "Bidding hand number: " + (current_hand+1) + " "
-            document.getElementById("handinfo").innerHTML = player_name[current_hand%number_of_players].value + " is the dealer, "
-            + player_name[current_hand%number_of_players+1].value + " listens, "
-            + player_name[current_hand%number_of_players+2].value + " speaks"
-        }
-        function confirmBid() {
-            bid = document.getElementById("game.bid")
-            if (contract == "Null") {
-                if (document.getElementById("game.multiplier-hand").checked == true) {
-                    multipliers.hand = true
-                } else {
-                    multipliers.hand = false
-                    multipliers.annc_schneider = false
-                    multipliers.annc_schwarz = false
-                }
-                if (document.getElementById("game.multiplier-open").checked == true) {
-                    multipliers.open = true
-                } else {
-                    multipliers.open = false
-                    multipliers.annc_schneider = false
-                    multipliers.annc_schwarz = false                
-                }
-            } else {    // Not a Null contract
-                if (contract == "Ramsch") {
-                    multipliers.hand = false
-                    multipliers.open = false
-                    multipliers.annc_schneider = false
-                    multipliers.annc_schwarz = false
-                } else {    // Not a Null or Ramsch contract
-                    if (document.getElementById("game.multiplier-hand").checked == true) {
-                        multipliers.hand = true
-                        if (document.getElementById("game.multiplier-open").checked == true) {
-                            multipliers.open = true
-                            // Playing open implies Schwarz
-                            multipliers.annc_schneider = true
-                            multipliers.annc_schwarz = true
-                        } else { // Not an Open contract
-                            multipliers.open = false
-                            if (document.getElementById("game.multiplier-annSchn").checked == true) {
-                                multipliers.annc_schneider = true
-                            } else {
-                                multipliers.annc_schneider = false
-                            }
-                            if (document.getElementById("game.multiplier-annSchw").checked == true) {
-                                multipliers.annc_schwarz = true
-                                multipliers.annc_schneider = true  // Announcing Schneider implies Schneider
-                            } else {
-                                multipliers.annc_schwarz = false
-                            }
-                        }
-                    } else { // Not a Hand contract
-                        multipliers.hand = false
-                        multipliers.open = false
-                        multipliers.annc_schneider = false
-                        multipliers.annc_schwarz = false                
-                    }
-                }
-            }
+// hide Schneider/Schwarz checkboxes when Null contract is selected
+function updateMultipliersVisibility(){
+  const ct = getRadioValue('ct');
+  const mS_lbl = document.getElementById('mS_label');
+  const mZ_lbl = document.getElementById('mZ_label');
+  const isNull = (ct === String((game&&game.Contract&&game.Contract.NULLL)?game.Contract.NULLL:'23')) || ct==='23';
+  if(isNull){
+    if(mS_lbl) mS_lbl.style.display='none';
+    if(mZ_lbl) mZ_lbl.style.display='none';
+    try{ document.getElementById('mS').checked=false; }catch(e){}
+    try{ document.getElementById('mZ').checked=false; }catch(e){}
+  } else {
+    if(mS_lbl) mS_lbl.style.display='inline-block';
+    if(mZ_lbl) mZ_lbl.style.display='inline-block';
+  }
+}
+// attach change listeners to contract radios
+document.querySelectorAll('input[name="ct"]').forEach(r=>r.addEventListener('change', ()=>{ updateMultipliersVisibility(); }));
 
-            multipliersnone = true
-            multiplierstext = ""
-            if (multipliers.hand == true) {
-                multiplierstext += "Hand "
-                multipliersnone = false
-            }
-            if (multipliers.open == true) { 
-                multiplierstext += "Open "
-                multipliersnone = false
-            }
-            if (multipliers.annc_schneider == true) {
-                multiplierstext += "Announce-Schneider "
-                multipliersnone = false
-            }
-            if ((multipliers.annc_schwarz == true)) {
-                multiplierstext += "Announce-Schwarz"
-                multipliers.annc_schneider = true
-                multipliersnone = false
-            }
-            if (multipliersnone == true) {
-                multiplierstext = "None"
-            }
-            bidhandsummary = "<h2>Hand #" + (current_hand+1)
-            bidhandsummary += " summary:</h2>" + "<ul>"
-            if (contract != "Ramsch") {
-                bidhandsummary += "<li>Declarer: " +  declarer.value + "</li>"
-                + "<li>Contract: " + contract + "</li>"
-                + "<li>Bid: " + bid.value + "</li>"
-                + "<li>Multipliers: " 
-                + multiplierstext
-                + "</li>"
-            } else {
-                bidhandsummary += "<li>Contract: " + contract + "</li>"
-            }
-            bidhandsummary += "</ul>"
-                + "<p>" 
-                + player_name[current_hand%number_of_players].value + " dealt and "
-                + player_name[current_hand%number_of_players+1].value + " leads </p>"
-            bidhandsummary += '<button class="button button3" onclick="handResults()">Play the hand</button>'
-            bidhandsummary += '<button class="button button3" onclick="rebidHand()">Re-bid the hand</button>'
+// show/hide ramsch contract and ramsch special based on bid value
+document.getElementById('bid').addEventListener('input', ()=>{
+  const val = document.getElementById('bid').value;
+  const rlbl = document.getElementById('ct_ramsch_lbl');
+  const rsRow = document.getElementById('ramsch-special-row');
+  const rsDiv = document.getElementById('rs');
+  if(val==='0'){
+    if(rlbl) rlbl.style.display='inline-block';
+    if(rsRow) rsRow.style.display='flex';
+    if(rsDiv) rsDiv.style.display='flex';
+  } else {
+    if(rlbl) rlbl.style.display='none';
+    if(rsRow) rsRow.style.display='none';
+    if(rsDiv) rsDiv.style.display='none';
+    // if Ramsch was selected, switch to Clubs
+    if(getRadioValue('ct')==='1') setRadioValue('ct','12');
+  }
+});
+document.getElementById('pts').addEventListener('input', ()=>{
+  const pts = parseInt(document.getElementById('pts').value || '0', 10);
+  const row = document.getElementById('allTricksRow');
+  const box = document.getElementById('allTricks');
+  const show = pts === 120;
+  if(row) row.style.display = show ? 'flex' : 'none';
+  if(!show && box) box.checked = false;
+});
 
-            document.getElementById("bidhand").innerHTML=bidhandsummary
+function renderTable(){
+  const container = document.getElementById('tableContainer');
+  if(!game) { container.innerHTML = '<div class="muted">No game initialized</div>'; return; }
+  // build table
+  let html = '<table><thead><tr>' +
+    '<th>#</th><th>Bid</th><th>M</th><th>Contract</th><th>HOSAZA</th><th>KR</th>';
+  for(let p=0;p<game.numPlayers;p++) html += '<th>'+escapeHtml(game.names[p]||('P'+(p+1)))+'</th>';
+  html += '<th>Bock</th><th>Edited</th></tr></thead><tbody>';
 
-        }
-        function rebidHand() {
-            displayBidHand()
-        }
-        function displayHandResults() {
-            document.getElementById("scorehand").innerHTML = '\
-                <hr>\
-                <h2>Scoring the hand</h2>\
-                <label for="cardpoints">How many card points collected by declarer?:</label><input type="number" align="right" id="game.cardpoints" value=""><br><br>\
-                <p>Post-play multipliers:</p>\
-                <input type="checkbox" id="game.multiplier-schwarz" name="schwarz" value="">\
-                <label for="schwarz">Schwarz</label><br> \
-                <input type="checkbox" id="game.multiplier-kontra" name="kontra" value="">\
-                <label for="kontra">Kontra</label><br>\
-                <input type="checkbox" id="game.multiplier-re" name="re" value="">\
-                <label for="rekontra">Rekontra</label><br>\
-                <br> \
-                <label for="matadors">With or without how many?:</label><input type="range" value="1" min="1" max="7" id="game.matadors" oninput="this.nextElementSibling.value = this.value">\
-                <output>1</output> <br> <br>\
-                <button class="button button3" onclick="scoreHand()">Score the hand</button>\
-                '
-        }
-        function handResults() {
-            displayHandResults()
-        }
-        function scoreHand(){
-            cardpoints = document.getElementById("game.cardpoints")
-            matadors = document.getElementById("game.matadors").value
-            if (document.getElementById("game.multiplier-schwarz").checked == true) {
-                multipliers.schwarz = true
-                multipliers.schneider = true
-            } else {
-                multipliers.schwarz = false
-            }
-            if (document.getElementById("game.multiplier-kontra").checked == true) {
-                kontrare.kontra = true
-            } else {
-                kontrare.kontra = false
-            }
-            if (document.getElementById("game.multiplier-re").checked == true) {
-                kontrare.re = true
-            } else {
-                kontrare.re = false
-            }
-            calculate_score()
-            scorehandsummary = '<hr>'
-            if (winlose == 1) {
-                scorehandsummary += '<p>' + declarer.value + " won the hand" + '</p>'
-            } else {
-                scorehandsummary += '<p>' + declarer.value + " lost the hand" + '</p>'
-            }
-            scorehandsummary += '<p>' + declarer.value + ' collected ' + cardpoints.value + ' cardpoints </p>'
-                + '<p> With/without: ' + matadors + '</p>'
-            if (multipliers.schwarz == true) {
-                scorehandsummary += '<p>Schneider and Schwarz<\p>'
-            } else {
-                if (multipliers.schneider == true) {
-                    scorehandsummary += '<p>Schneider<\p>'
-                }
-            }
-            if (kontrare.re == true) {
-                scorehandsummary += '<p>Kontra and Re<\p>'
-            } else {
-                if (kontrare.kontra == true) {
-                    scorehandsummary += '<p>Kontra<\p>'
-                }
-            }
-            scorehandsummary += '<p>Game points earned: ' + handscore + '</p>'
-            scorehandsummary += '<button class="button button3" onclick="startNextHand()">Start next hand</button>'
-            scorehandsummary += '<button class="button button3" onclick="rescoreHand()">Re-score the hand</button>'
-            scorehandsummary += '<button class="button button3" onclick="endGame()">End the game</button>'
-            /// The following line is for testing
-            /// scorehandsummary += '<p>' + logtext + '</p>'
-            document.getElementById("scorehand").innerHTML = scorehandsummary
-        }
-        function startNextHand() {
-            updateScoresheet()
-            current_hand++
-            document.getElementById("scorehand").innerHTML = '<p> </p>'
-            bidHand()
-        }
-        function rescoreHand() {
-            handResults()
-        }
-        function endGame() {
-            /// document.write("Called endGame()")  /// Testing: Clears the page and just writes this line
-            /// document.getElementById("initgame").innerHTML=""
-            document.getElementById("bidhand").innerHTML=""
-            document.getElementById("scorehand").innerHTML=""
+  for(let i=0;i<=game.current;i++){
+    const h = game.hand[i];
+    let multip = '';
+    if(h.contract===game.Contract.RAMSCH){
+      if(h.ramsch===game.RS.JUNGF) multip = 'JUNGF';
+      else if(h.ramsch===game.RS.DURCHMARSCH) multip = 'DURCH';
+      else multip = '';
+    } else {
+      multip = (h.multipliers&game.Other.HAND? 'H':'') + (h.multipliers&game.Other.OPEN? 'O':'') + (h.multipliers&game.Other.SCHNEIDER? 'S':'') + (h.multipliers&game.Other.SCHN_ANNC? 'A':'') + (h.multipliers&game.Other.SCHWARZ? 'Z':'') + (h.multipliers&game.Other.SCHW_ANNC? 'A':'');
+    }
+    let kr = '';
+    if(h.kontrare===game.KR.RE) kr='KR'; else if(h.kontrare===game.KR.KONTRA) kr='K';
+    html += '<tr>' +
+      '<td>'+(i+1)+'</td>' +
+      '<td>'+(h.bid||0)+'</td>' +
+      '<td>'+(h.matadors||'')+'</td>' +
+      '<td>'+escapeHtml(game.get_contract_name(h.contract))+'</td>' +
+      '<td>'+escapeHtml(multip)+'</td>' +
+      '<td>'+kr+'</td>';
+    for(let p=0;p<game.numPlayers;p++) html += '<td>'+ (h.score[p]||0) +'</td>';
+    html += '<td>'+(h.bock===game.Bock.BOCK? 'B':'')+'</td>' +
+            '<td>'+(h.edited? '***':'')+'</td>' +
+            '</tr>';
+  }
+  // totals
+  html += '<tr><td colspan="6" style="text-align:right;font-weight:600">Totals:</td>';
+  for(let p=0;p<game.numPlayers;p++) html += '<td style="font-weight:600">'+(game.total[p]||0)+'</td>';
+  html += '<td colspan="2"></td></tr>';
 
-        }
-        function calculate_score() {
-            winlose = 1  // Assume win at first, but calculate loss later
-            handscore = 0
-            addedmultipliers = 1    // Always have a minumum of one multiplier, the "game" multiplier
-            basepoints = 0
-            // Calculate Null contract score
-            // It is up to the players to declare an overbid on NULL, since it is obvious before the hand starts play
-            if (contract == "Null") {
-                if (multipliers.open == true) {
-                    if (multipliers.hand == true) {
-                        handscore = 59
-                    } else {
-                        handscore = 46
-                    }
-                } else { // Not open
-                    if (multipliers.hand == true) {
-                        handscore = 35
-                    } else {
-                        handscore = 23
-                    }
-                }
-                if (cardpoints != 0) {
-                    handscore *= -2
-                }
-                if (kontrare.kontra == true) {
-                    handscore *= 2
-                }
-                if (kontrare.re == true) {
-                    handscore *= 2
-                }
-            } else {  // End of Null bid calculation
-                if (contract == "Ramsch") {  // Calculate Ramsch score
-                    /// Determine loser and calculate loss, Durchmarsch, Jungf
-                    /// Need different input fields for Ramsch
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
 
-                    /* C++ version below 
-                    // Calculate Ramsch contract score
-                    for (int i = 0; i < number_of_players; i++) hand[h].score[i] = 0;
-                    if (hand[h].ramsch == DURCHMARSCH) {
-                        hand[h].score[hand[h].declarer] = hand[h].bock * 120;
-                    } else {
-                        for (int i = 0; i < hand[h].number_of_losers; i++) {
-                        hand[h].score[hand[h].loser[i]] = hand[h].bock * hand[h].cardpoints * hand[h].ramsch;
-                        }
-                    }
-                    */
+function exportCsv(){
+  if(!game) return alert('Initialize game first');
+  const rows = [];
+  // header
+  const header = ['#','Bid','M','Contract','HOSAZA','KR'].concat(game.names.slice(0,game.numPlayers)).concat(['Bock','Edited']);
+  rows.push(header.map(f=>'"'+String(f).replace(/"/g,'""')+'"').join(','));
+  for(let i=0;i<=game.current;i++){
+    const h = game.hand[i];
+    let multip = '';
+    if(h.contract===game.Contract.RAMSCH){
+      if(h.ramsch===game.RS.JUNGF) multip='JUNGF'; else if(h.ramsch===game.RS.DURCHMARSCH) multip='DURCH';
+    } else {
+      multip = (h.multipliers&game.Other.HAND? 'H':'') + (h.multipliers&game.Other.OPEN? 'O':'') + (h.multipliers&game.Other.SCHNEIDER? 'S':'') + (h.multipliers&game.Other.SCHN_ANNC? 'A':'') + (h.multipliers&game.Other.SCHWARZ? 'Z':'') + (h.multipliers&game.Other.SCHW_ANNC? 'A':'');
+    }
+    let kr = '';
+    if(h.kontrare===game.KR.RE) kr='KR'; else if(h.kontrare===game.KR.KONTRA) kr='K';
+    const r = [i+1,h.bid||0,h.matadors||'',game.get_contract_name(h.contract),multip,kr];
+    for(let p=0;p<game.numPlayers;p++) r.push(h.score[p]||0);
+    r.push(h.bock===game.Bock.BOCK? 'B':''); r.push(h.edited? '***':'');
+    rows.push(r.map(f=>'"'+String(f).replace(/"/g,'""')+'"').join(','));
+  }
+  // totals row
+  const totals = ['Totals','','','','',''].concat(game.total.slice(0,game.numPlayers)).concat(['','']);
+  rows.push(totals.map(f=>'"'+String(f).replace(/"/g,'""')+'"').join(','));
 
-                } else { // Calculate Suits/Grand score
-                    if (contract == "Grand") {
-                        basepoints = 24
-                    }
-                    if (contract == "Clubs") {
-                        basepoints = 12
-                    }
-                    if (contract == "Spades") {
-                        basepoints = 11
-                    }
-                    if (contract == "Hearts") {
-                        basepoints = 10
-                    }
-                    if (contract == "Diamonds") {
-                        basepoints == 9
-                    }
-                    // Calculate schneider/schwarz
-                    if (multipliers.open == true) {
-                        addedmultipliers += 6   // schneider, announce, schwarz, announce, open, hand
-                        multipliers.schneider = true
-                        if (multipliers.schwarz == false) {
-                            winlose = -2
-                        } else {
-                            cardpoints = 120
-                        }
-                    } else {
-                        if (multipliers.annc_schwarz == true) {
-                            addedmultipliers += 5   // schneider, announce, schwarz, announce, hand
-                            multipliers.schneider = true
-                            if (multipliers.schwarz == false) { // Announced schwartz, but failed
-                                winlose = -2
-                            } 
-                        } else {  // end annc_schwarz, begin annc_schneider
-                            if (multipliers.annc_schneider == true) {
-                                multipliers.schneider = true
-                                addedmultipliers += 3   // schneider, announce, hand
-                                if (cardpoints < 90) { // Announce schneider, but failed
-                                    winlose = -2
-                                }
-                            } else {  // end annc_schneider, begin other multipliers
-                                if (multipliers.schwarz == true) {
-                                    multiplers.schneider = true
-                                    addedmultipliers += 1  
-                                    cardpoints = 120
-                                }
-                                if (cardpoints >= 90) {
-                                    multipliers.schneider == true
-                                    addedmultipliers += 1
-                                }
-                                if (multipliers.hand == true) {
-                                    addedmultipliers += 1
-                                }
-                                // Don't need to check for open, since it is only allowed with Announce Schwarz
-                            }
-                            // Check if bid was made, and if declarer was Schneidered
-                            if (cardpoints < 61) {
-                                winlose = -2
-                                if (cardpoints <31) {
-                                    multipliers.schneider = true
-                                    addedmultipliers +=1
-                                }
-                            }
-                        }
-                        // Calculate preliminary hand score, and check for overbid
-                        handscore = basepoints * (Number(matadors) + Number(addedmultipliers))
-                        if (handscore < bid) {  // Check for overbid
-                            winlose = -2
-                            while (handscore < bid) {  // Adjust with/without until bid is reached
-                                matadors++
-                                handscore = basepoints * (matadors + addedmultipliers)
-                            }
-                        }
-                        // Adjust for Kontra/Re/Loss
-                        if (kontrare.kontra == true) {
-                            handscore *= 2
-                        }
-                        if (kontrare.re == true ) {
-                            handscore *= 2
-                        }
-                        handscore *= winlose
-                    }
-                }
-            }
-        }
-        function updateScoresheet() {
+  const csv = rows.join('\n');
+  const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'skat_scoresheet.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
 
-        }
-    </script>
+document.getElementById('exportCsv').addEventListener('click', exportCsv);
 
-</body>
-</html>
+document.getElementById('printBtn').addEventListener('click', ()=>{
+  if(!game) return alert('Initialize game first');
+  const w = window.open('','_blank');
+  w.document.write('<html><head><title>Print Skat Scoresheet</title><style>table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:6px;text-align:left}</style></head><body>');
+  w.document.write(document.getElementById('tableContainer').innerHTML);
+  w.document.write('</body></html>');
+  w.document.close();
+  w.focus();
+  setTimeout(()=>{ w.print(); w.close(); },200);
+});
+
+// Game control buttons handlers
+const endBtn = document.getElementById('endGameBtn');
+const newBtn = document.getElementById('newGameBtn');
+const addBockBtn = document.getElementById('addBockBtn');
+const gameStatusDiv = document.getElementById('gameStatus');
+
+if(endBtn){ endBtn.addEventListener('click', ()=>{
+  if(!game) return alert('Init first');
+  game.calculate_game_score();
+  render();
+  // hide the hand editor to prevent further edits
+  const handDiv = document.getElementById('hand'); if(handDiv) handDiv.style.display='none';
+  // determine winner
+  const totals = (game.total||[]).slice(0, game.numPlayers);
+  let msg = 'Game ended.';
+  if(totals.length>0){
+    const max = Math.max.apply(null, totals);
+    const winners = [];
+    for(let i=0;i<totals.length;i++) if(totals[i]===max) winners.push(i);
+    if(winners.length===1){
+      const name = game.names[winners[0]] || ('P'+(winners[0]+1));
+      msg = 'Game ended. Winner: '+name+' with score of '+max;
+    } else {
+      const names = winners.map(i=> game.names[i]||('P'+(i+1))).join(', ');
+      msg = 'Game ended. Tie between: '+names+' with score '+max;
+    }
+  }
+  if(gameStatusDiv) gameStatusDiv.textContent = msg;
+}); }
+
+if(newBtn){ newBtn.addEventListener('click', ()=>{
+  // Reload page to reset everything
+  if(confirm('Start a new game? This will discard current game.')) location.reload();
+}); }
+
+if(addBockBtn){ addBockBtn.addEventListener('click', ()=>{
+  if(!game) return alert('Init first');
+  game.bock_count = (game.bock_count || 0) + 1;
+  game.markNextBockRound(game.current);
+  game.calculate_game_score();
+  if(gameStatusDiv) gameStatusDiv.textContent = 'Bock round created: the next 3 hands will be played as Bock; the current hand is unaffected.';
+  render();
+}); }
+
+// Hide other house rule selections when Ramsch-only is checked
+const ramschChk = document.getElementById('ramsch');
+function updateHouseRulesVisibility(){
+  const hr = document.getElementById('houseRules');
+  if(!hr) return;
+  const inputs = hr.querySelectorAll('input[type=checkbox]');
+  inputs.forEach(inp=>{
+    if(inp.id === 'ramsch') return; // keep Ramsch visible
+    const lbl = inp.parentElement;
+    if(ramschChk && ramschChk.checked){
+      // allow hr_grand_during_ramsch to remain visible and selectable even when ramsch-only is checked
+      if(inp.id === 'hr_grand_during_ramsch'){
+        if(lbl) lbl.style.display = 'inline-block';
+        return; // keep its checked state
+      }
+      if(lbl) lbl.style.display = 'none';
+      try{ inp.checked = false; }catch(e){}
+    } else {
+      if(lbl) lbl.style.display = 'inline-block';
+    }
+  });
+}
+if(ramschChk){
+  ramschChk.addEventListener('change', updateHouseRulesVisibility);
+  // initial update on load
+  updateHouseRulesVisibility();
+}
+
+function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); } </script>
+<footer style="margin-top:24px;padding-top:12px;border-top:1px solid #ddd;text-align:center;color:#555;font-size:14px;">
+  <a href="https://github.com/Andy4495/skat-scoresheet" target="_blank" rel="noopener noreferrer">Skat Scoresheet</a>
+  by
+  <a href="https://github.com/Andy4495" target="_blank" rel="noopener noreferrer">Andreas Taylor</a>
+</footer>
+</body></html>

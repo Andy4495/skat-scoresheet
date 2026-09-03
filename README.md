@@ -103,9 +103,20 @@ This workflow builds the code and then runs several test input files (`test-*-in
 
 ## Web-based Version
 
-A web-based version is in progress (see [docs/index.html](docs/index.html)). This is a manual port of the C++ code over to JavaScript and uses HTML to provide a GUI. It is entirely run in the browser; there is no back-end processing involved.
+A web-based version is in progress (see [docs/index.html](docs/index.html)).
+
+The web-based version was written with AI assistance using [GitHub Copilot][10]. Copilot was used to convert my C++ command line program to a web page using HTML with embedded CSS and JavaScript.
+
+It is entirely run in the browser; there is no back-end processing involved.
 
 The web page is published using [GitHub Pages][9] and can be accessed [on github.io][8].
+
+### Issues with Web Version
+
+- Ramsch is not supported, regardless of whether it is a Ramsch round or a "nobody bids 18" Ramsch
+- Null is not supported
+- The web page could use some beautification and usability improvements
+- The web version does not have any automated testing
 
 ## References
 
@@ -120,6 +131,8 @@ The web page is published using [GitHub Pages][9] and can be accessed [on github
 
 The software and other files in this repository are released under what is commonly called the [MIT License][100]. See the file [`LICENSE.txt`][101] in this repository.
 
+The [index.html][12] file used for the web-based version was produced with the assistance of [GitHub Copilot][10]. Per GitHub's Terms of Service [Section J][11], "GitHub does not claim ownership of your Input or Output."
+
 [1]: https://en.wikipedia.org/wiki/Skat_(card_game)
 [2]: https://www.pagat.com/schafkopf/skat.html
 [4]: https://skatgame.net/intro/Reference2.pdf
@@ -128,6 +141,9 @@ The software and other files in this repository are released under what is commo
 [7]: ./.github/workflows/Test.yml
 [8]: https://andy4495.github.io/skat-scoresheet/
 [9]: https://pages.github.com
+[10]: https://github.com/features/copilot
+[11]: https://docs.github.com/en/site-policy/github-terms/github-terms-of-service#j-ai-features-training-and-your-data
+[12]: ./docs/index.html
 [100]: https://choosealicense.com/licenses/mit/
 [101]: ./LICENSE.txt
 [//]: # ([200]: https://github.com/Andy4495/skat-scoresheet)
