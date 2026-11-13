@@ -25,6 +25,7 @@ Skat_Game::Skat_Game()
    ramsch_count   = 0;
    bock_count     = 0;
    no_bock_count  = 0;
+   bock_reason    = NONE;
    rules.nobody_bids_18_play_ramsch                      = false;
    rules.kontrare_allowed                                = false;
    rules.ramschround_after_bockround                     = false;
@@ -37,7 +38,6 @@ Skat_Game::Skat_Game()
    rules.bockround_max_one_per_hand                      = false;
    rules.bockround_can_be_created_in_grand_during_ramsch = false;
    rules.bockround_if_two_rounds_without_bock            = false;
-
 }
 
 void Skat_Game::calculate_hand_score(int h) {
@@ -203,14 +203,18 @@ int Skat_Game::calculate_new_bocks(int h) {
 
       // Raw points > 120 (before loss/bock/Kontra/Re)
       if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) && rules.bockround_for_120_hand_score) {
-         if ((hand[h].matadors + 1) * hand[h].contract >= 120)
+         if ((hand[h].matadors + 1) * hand[h].contract >= 120) {
             new_bocks += number_of_players;
+            bock_reason = HAND_SCORE_120;
+         }
       }
 
       // 60/60 tie
       if ( (hand[h].contract != RAMSCH) && (hand[h].contract != NULLL) && rules.bockround_for_60_60_tie) {
-            if (hand[h].cardpoints == 60)
+            if (hand[h].cardpoints == 60) {
                new_bocks += number_of_players;
+               bock_reason = TIE_60_60;
+            }
       }
 
       // If bockround for Kontra/Re is enabled, then calculate bockround
@@ -218,10 +222,12 @@ int Skat_Game::calculate_new_bocks(int h) {
          // Any Rekontra --> Either opponents lose Kontra or declarer loses Re, so Re always creates a bock
          if (hand[h].kontrare == RE) {
                new_bocks += number_of_players;
+               bock_reason = KONTRA_RE;
          } else {
             // Successful Kontra (opponents win)
             if ( (hand[h].kontrare == KONTRA) && (hand[h].winlose == LOSE) ) {
                   new_bocks += number_of_players; 
+                  bock_reason = KONTRA_RE;
             }
          }
       }
@@ -231,10 +237,12 @@ int Skat_Game::calculate_new_bocks(int h) {
          if (rules.bockround_for_schneider_only_if_not_bockround) {
             if (bock_count == 0 && (hand[current_hand].multipliers & SCHNEIDER) ) {
                new_bocks += number_of_players;
+               bock_reason = SCHNEIDER_MAKES_BOCK;
             }
          } else {  // Bockround created for all Schneiders, even if there is already a Schneider
             if ( (hand[current_hand].multipliers & SCHNEIDER)) {
                   new_bocks += number_of_players;
+                  bock_reason = SCHNEIDER_MAKES_BOCK;
             }
          }
       }
@@ -242,7 +250,10 @@ int Skat_Game::calculate_new_bocks(int h) {
       // Two rounds without Bock, but only if no bocks were created with this hand
       if (rules.bockround_if_two_rounds_without_bock) {
          if (no_bock_count == number_of_players * 2) {
-            if (new_bocks == 0) new_bocks = number_of_players;
+            if (new_bocks == 0) {
+               new_bocks = number_of_players;
+               bock_reason = TWO_ROUNDS_NO_BOCK;
+            }
          }
       }
 

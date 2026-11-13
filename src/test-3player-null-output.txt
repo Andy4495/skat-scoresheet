@@ -1,4 +1,4 @@
-Welcome to the Skat Scoresheet v1.1.5!
+Welcome to the Skat Scoresheet v1.1.6!
 The scoresheet supports up to 99 hands in a game
 Will this be a Ramsch-only game? (y/n) 
 Enter number of players (3 or 4): 
@@ -237,7 +237,7 @@ Was there a Kontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:      268 |        0 |        0
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-This hand created new Bocks.
+This hand created new Bocks (two rounds without Bock).
 There are 3 Bocks remaining.
 ======================
 Starting hand number 7

@@ -460,7 +460,10 @@ int main(int argc, char** argv) {
                                         if ((game.current_hand % game.number_of_players == 0) && (game.no_bock_count == 0)) {
                                             game.no_bock_count = 1;
                                         }
-                                        else game.no_bock_count++;
+                                        else 
+                                        if (game.no_bock_count > 0) {
+                                            game.no_bock_count++;
+                                        }
                                     }
                                     h = game.calculate_new_bocks(game.current_hand);
                                     if (game.bock_count > 0) game.bock_count--;
@@ -472,7 +475,27 @@ int main(int argc, char** argv) {
                                             game.ramsch_count = game.number_of_players;
                                     }
                                     if (h > 0) {
-                                        cout << "This hand created new Bocks." << endl;
+                                        cout << "This hand created new Bocks (";
+                                        switch (game.bock_reason) {
+                                            case Skat_Game::TIE_60_60:
+                                                cout << "60/60 tie";
+                                                break;
+                                            case Skat_Game::HAND_SCORE_120:
+                                                cout << "120 raw hand score";
+                                                break;
+                                            case Skat_Game::KONTRA_RE:
+                                                cout << "lost Kontra/Rekontra";
+                                                break;
+                                            case Skat_Game::SCHNEIDER_MAKES_BOCK:
+                                                cout << "Schneider";
+                                                break;
+                                            case Skat_Game::TWO_ROUNDS_NO_BOCK:
+                                                cout << "two rounds without Bock";
+                                                break;
+                                            default:
+                                                cout << "unknown reason";
+                                        }
+                                        cout << ")." << endl;
                                         game.no_bock_count = 0;
                                         game.bock_count += h;
                                     }

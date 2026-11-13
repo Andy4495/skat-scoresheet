@@ -1,4 +1,4 @@
-Welcome to the Skat Scoresheet v1.1.5!
+Welcome to the Skat Scoresheet v1.1.6!
 The scoresheet supports up to 99 hands in a game
 Will this be a Ramsch-only game? (y/n) 
 Enter number of players (3 or 4): 
@@ -122,7 +122,7 @@ Did declarer Rekontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:       23 |      -54 |     -960
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-This hand created new Bocks.
+This hand created new Bocks (lost Kontra/Rekontra).
 There are 3 Bocks remaining.
 ======================
 Starting hand number 4
@@ -367,7 +367,7 @@ Did declarer Rekontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -237 |      -33 |     -873
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-This hand created new Bocks.
+This hand created new Bocks (Schneider).
 There are 3 Bocks remaining.
 =======================
 Starting hand number 11
@@ -409,7 +409,7 @@ Was there a Kontra? (y/n)
                                   Totals:       51 |      -33 |     -873
 This hand was Bock. 
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-This hand created new Bocks.
+This hand created new Bocks (120 raw hand score).
 There are 5 Bocks remaining.
 =======================
 Starting hand number 12

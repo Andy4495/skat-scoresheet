@@ -1,4 +1,4 @@
-Welcome to the Skat Scoresheet v1.1.5!
+Welcome to the Skat Scoresheet v1.1.6!
 The scoresheet supports up to 99 hands in a game
 Will this be a Ramsch-only game? (y/n) 
 Enter number of players (3 or 4): 
@@ -57,7 +57,7 @@ Was there a Kontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:        0 |      -48 |        0
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-This hand created new Bocks.
+This hand created new Bocks (60/60 tie).
 There are 3 Bocks remaining.
 ======================
 Starting hand number 2
@@ -477,12 +477,9 @@ Did declarer Rekontra? (y/n)
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
                                   Totals:     -157 |     -162 |    -1854
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-This hand created new Bocks.
-There are 3 Bocks remaining.
 =======================
 Starting hand number 14
 =======================
-This hand is Bock. Scores double.
 Player-2 is the dealer
 Player-3 listens and will lead
 Player1 speaks
@@ -517,16 +514,13 @@ Was there a Kontra? (y/n)
 | 11 |  18 | 1 | Spades   |        |    |        0 |       22 |        0 |      |
 | 12 |  18 | 1 | Grand    |        |    |        0 |        0 |       48 |      |
 | 13 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
-| 14 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
+| 14 |  33 | 4 | Grand    |   S    |    |      144 |        0 |        0 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-                                  Totals:      131 |     -162 |    -1854
-This hand was Bock. 
+                                  Totals:      -13 |     -162 |    -1854
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-There are 2 Bocks remaining.
 =======================
 Starting hand number 15
 =======================
-This hand is Bock. Scores double.
 Player-3 is the dealer
 Player1 listens and will lead
 Player-2 speaks
@@ -553,13 +547,13 @@ Highest card points collected?
 | 11 |  18 | 1 | Spades   |        |    |        0 |       22 |        0 |      |
 | 12 |  18 | 1 | Grand    |        |    |        0 |        0 |       48 |      |
 | 13 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
-| 14 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
-| 15 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
+| 14 |  33 | 4 | Grand    |   S    |    |      144 |        0 |        0 |      |
+| 15 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-                                  Totals:       51 |     -242 |    -1934
-This hand was Bock. 
+                                  Totals:      -53 |     -202 |    -1894
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
-There is 1 Bock remaining.
+This hand created new Bocks (two rounds without Bock).
+There are 3 Bocks remaining.
 =======================
 Starting hand number 16
 =======================
@@ -598,11 +592,11 @@ Was there a Kontra? (y/n)
 | 11 |  18 | 1 | Spades   |        |    |        0 |       22 |        0 |      |
 | 12 |  18 | 1 | Grand    |        |    |        0 |        0 |       48 |      |
 | 13 |  35 | 2 | Clubs    |   S    | K  |     -192 |        0 |        0 |      |
-| 14 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
-| 15 |   0 |   | Ramsch   |        |    |      -80 |      -80 |      -80 |  B   |
+| 14 |  33 | 4 | Grand    |   S    |    |      144 |        0 |        0 |      |
+| 15 |   0 |   | Ramsch   |        |    |      -40 |      -40 |      -40 |      |
 | 16 |  33 | 4 | Grand    |   S    |    |      288 |        0 |        0 |  B   |
 | -- | --- | - | -------- | ------ | -- | -------- | -------- | -------- | ---- |
-                                  Totals:      339 |     -242 |    -1934
+                                  Totals:      235 |     -202 |    -1894
 This hand was Bock. 
 Enter 'c' to continue game, 'r' to re-score the hand, 'm' to manually enter hand info, 'b' to add a Bock round and continue, or 'e' to end game (c/r/m/b/e): 
 ***************************
@@ -610,7 +604,7 @@ All hands have been played.
 Are there any hand scores that need to be corrected? (y/n) 
 Congratulations -- game has completed.
 Final Scoring...
-Player1: 339
-Player-2: -242
-Player-3: -1934
+Player1: 235
+Player-2: -202
+Player-3: -1894
 Player Player1 won.

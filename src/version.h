@@ -7,7 +7,7 @@
 
 #ifndef VERSION_H
 
-const char* VERSION = "v1.1.5";
+const char* VERSION = "v1.1.6";
 
 #define VERSION_H
 #endif

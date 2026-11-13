@@ -27,6 +27,7 @@ public:
     int     ramsch_count;
     int     bock_count;
     int     no_bock_count;  // Used for the "new bock if no bocks for 2 rounds case"
+    int     bock_reason;  // Used to indicate why a bock was created, for display purposes
     static const char* const contract_name[8];
     enum    Contract_Type {CLUBS = 12, SPADES = 11, HEARTS = 10, DIAMONDS = 9, NULLL = 23, GRAND= 24, RAMSCH = 1, THROWN = 0};
     enum    Other_Multipliers {NO_MULTIPLIERS = 0, HAND = 1, OPEN = 2, SCHNEIDER = 4, 
@@ -35,6 +36,7 @@ public:
     enum    Ramsch_Special {PLAIN = -1, JUNGF = -2, DURCHMARSCH = 99};
     enum    Win_Lose {LOSE = -2, WIN = 1};
     enum    Bock_Type {NOBOCK = 1, BOCK = 2};
+    enum    Bock_Round_Reason {NONE = 0, SCHNEIDER_MAKES_BOCK = 1, KONTRA_RE = 2, HAND_SCORE_120 = 3, TIE_60_60 = 4, TWO_ROUNDS_NO_BOCK = 5};
     int     SCORE_NULL_PLAIN     = 23;
     int     SCORE_NULL_HAND      = 35;
     int     SCORE_NULL_OPEN      = 46;
